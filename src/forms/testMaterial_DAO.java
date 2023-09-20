@@ -54,6 +54,7 @@ public class testMaterial_DAO {
         MaterialDAO materialDAO = new MaterialDAO();
         //Listar materiales
         List<Material> materiales = materialDAO.ListarMateriales();
+        
         System.out.println("Lista de materiales:");
         for (Material material : materiales) {
             System.out.println("Material ID: " + material.getMaterial_id());

@@ -23,7 +23,7 @@ public class MaterialDAO {
     public List<Material> ListarMateriales() {
         List<Material> materiales_lista = new ArrayList<>();
         try {
-            String sql = "SELECT material_id, nombre, pulgada, cms, precio, pintura_empaque, estado FROM material";
+            String sql = "SELECT * FROM material";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
 
