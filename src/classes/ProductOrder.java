@@ -17,9 +17,10 @@ public class ProductOrder {
     private String coment;
     private String state;
 
-    // Constructor
-    public ProductOrder(int production_order_id, int user_id, String nombre, Date order_date, String coment, String state) {
-        this.production_order_id = production_order_id;
+    public ProductOrder(){}
+    
+// Constructor
+    public ProductOrder(int user_id, String nombre, Date order_date, String coment, String state) {
         this.user_id = user_id;
         this.nombre = nombre;
         this.order_date = order_date;

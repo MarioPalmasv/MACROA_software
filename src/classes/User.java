@@ -18,10 +18,11 @@ public class User {
     private String address;
     private String phone;
     private String state;
+    
+    public User(){}
 
     // Constructor
-    public User(int user_id, String first_name, String last_name, String user_name, String email, double salary_employee, String address, String phone, String state) {
-        this.user_id = user_id;
+    public User(String first_name, String last_name, String user_name, String email, double salary_employee, String address, String phone, String state) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.user_name = user_name;

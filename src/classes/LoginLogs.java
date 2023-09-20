@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package classes;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -12,13 +13,13 @@ import java.util.Date;
 public class LoginLogs {
     private int login_id;
     private String ip_address;
-    private Date login_time;
+    private Timestamp login_time;
     private int user_id;
+    
+    public LoginLogs(){}
 
-    public LoginLogs(int login_id, String ip_address, Date login_time, int user_id) {
-        this.login_id = login_id;
+    public LoginLogs(String ip_address,int user_id){
         this.ip_address = ip_address;
-        this.login_time = login_time;
         this.user_id = user_id;
     }
 
@@ -38,11 +39,11 @@ public class LoginLogs {
         this.ip_address = ip_address;
     }
 
-    public Date getLogin_time() {
+    public Timestamp getLogin_time() {
         return login_time;
     }
 
-    public void setLogin_time(Date login_time) {
+    public void setLogin_time(Timestamp login_time) {
         this.login_time = login_time;
     }
 

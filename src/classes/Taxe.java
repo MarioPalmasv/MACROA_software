@@ -13,10 +13,11 @@ public class Taxe {
     private String NAME;
     private String percentage;
     private double VALUE;
+    
+    public Taxe(){}
 
     // Constructor
-    public Taxe(int taxe_id, String NAME, String percentage, double VALUE) {
-        this.taxe_id = taxe_id;
+    public Taxe(String NAME, String percentage, double VALUE) {
         this.NAME = NAME;
         this.percentage = percentage;
         this.VALUE = VALUE;

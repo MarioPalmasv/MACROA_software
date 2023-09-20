@@ -11,13 +11,14 @@ package classes;
 public class TaxeUse {
     private int taxe_id;
     private int order_cost_id;
-    private int taxe_use;
+    private int taxe_use_id;
+    
+    public TaxeUse(){}
 
     // Constructor
-    public TaxeUse(int taxe_id, int order_cost_id, int taxe_use) {
-        this.taxe_id = taxe_id;
+    public TaxeUse(int order_cost_id, int taxe_use) {
         this.order_cost_id = order_cost_id;
-        this.taxe_use = taxe_use;
+        this.taxe_use_id = taxe_use;
     }
 
     public int getTaxe_id() {
@@ -37,10 +38,10 @@ public class TaxeUse {
     }
 
     public int getTaxe_use() {
-        return taxe_use;
+        return taxe_use_id;
     }
 
     public void setTaxe_use(int taxe_use) {
-        this.taxe_use = taxe_use;
+        this.taxe_use_id = taxe_use;
     }
 }
