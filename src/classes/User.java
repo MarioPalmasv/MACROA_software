@@ -13,6 +13,7 @@ public class User {
     private String first_name;
     private String last_name;
     private String user_name;
+    private String password_user;
     private String email;
     private double salary_employee;
     private String address;
@@ -22,10 +23,11 @@ public class User {
     public User(){}
 
     // Constructor
-    public User(String first_name, String last_name, String user_name, String email, double salary_employee, String address, String phone, String state) {
+    public User(String first_name, String last_name, String user_name, String password_user,String email, double salary_employee, String address, String phone, String state) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.user_name = user_name;
+        this.password_user= password_user;
         this.email = email;
         this.salary_employee = salary_employee;
         this.address = address;
@@ -33,6 +35,13 @@ public class User {
         this.state = state;
     }
 
+    public String getPassword_user() {
+        return password_user;
+    }
+
+    public void setPassword_user(String password_user) {
+        this.password_user = password_user;
+    }
     // Getters y setters (opcional)
     public int getUser_id() {
         return user_id;

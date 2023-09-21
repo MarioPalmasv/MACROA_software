@@ -39,6 +39,7 @@ public class UserDAO {
                 user.setFirst_name(resultSet.getString("first_name"));
                 user.setLast_name(resultSet.getString("last_name"));
                 user.setUser_name(resultSet.getString("user_name"));
+                user.setPassword_user(resultSet.getString("password_user"));
                 user.setEmail(resultSet.getString("email"));
                 user.setSalary_employee(resultSet.getDouble("salary_employee"));
                 user.setAddress(resultSet.getString("address"));
@@ -58,13 +59,14 @@ public class UserDAO {
     
     public void InsertarUsuario(User user) {
         try {
-            String sql = "{CALL InsertUser(?, ?, ?, ?, ?, ?, ?)}";
+            String sql = "{CALL InsertUser(?, ?, ?, ?, ?, ?, ?,?)}";
 
           
             try (CallableStatement valores = con.prepareCall(sql)) {
                 valores.setString(1, user.getFirst_name());
                 valores.setString(2, user.getLast_name());
                 valores.setString(3, user.getUser_name());
+                valores.setString(3, user.getPassword_user());
                 valores.setString(4, user.getEmail());
                 valores.setDouble(5, user.getSalary_employee());
                 valores.setString(6, user.getAddress());
@@ -79,13 +81,14 @@ public class UserDAO {
     
     public void ActualizarUsuario(User user, int id) {
         try {
-            String sql = "{CALL UpdateUser(?, ?, ?, ?, ?, ?, ?, ?)}";
+            String sql = "{CALL UpdateUser(?, ?, ?, ?, ?, ?, ?, ?,?)}";
             
             try (CallableStatement valores = con.prepareCall(sql)) {
                 valores.setInt(1, id);
                 valores.setString(2, user.getFirst_name());
                 valores.setString(3, user.getLast_name());
                 valores.setString(4, user.getUser_name());
+                valores.setString(4, user.getPassword_user());
                 valores.setString(5, user.getEmail());
                 valores.setDouble(6, user.getSalary_employee());
                 valores.setString(7, user.getAddress());

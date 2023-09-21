@@ -29,6 +29,7 @@ public class PruebaUserDAO {
             System.out.println("ID: " + usuario.getUser_id());
             System.out.println("Nombre: " + usuario.getFirst_name() + " " + usuario.getLast_name());
             System.out.println("Usuario: " + usuario.getUser_name());
+            System.out.println("Usuario: " + usuario.getPassword_user());
             System.out.println("Correo: " + usuario.getEmail());
             System.out.println("Salario: " + usuario.getSalary_employee());
             System.out.println("Dirección: " + usuario.getAddress());
@@ -37,15 +38,15 @@ public class PruebaUserDAO {
             System.out.println("-------------------");
         }
 
-//         Actualizar un usuario existente
-//        if (!usuarios.isEmpty()) {
-//            User usuarioActualizar = usuarios.get(0); // Obtener el primer usuario de la lista (puedes cambiar el índice según tus necesidades)
-//            usuarioActualizar.setFirst_name("NuevoNombre");
-//            usuarioActualizar.setLast_name("NuevoApellido");
-//            usuarioActualizar.setEmail("nuevo2@example.com");
-//            userDAO.ActualizarUsuario(usuarioActualizar, usuarioActualizar.getUser_id());
-//            System.out.println("Usuario actualizado con éxito.");
-//        }
+         //Actualizar un usuario existente
+        if (!usuarios.isEmpty()) {
+            User usuarioActualizar = usuarios.get(0); // Obtener el primer usuario de la lista (puedes cambiar el índice según tus necesidades)
+            usuarioActualizar.setFirst_name("NuevoNombre");
+            usuarioActualizar.setLast_name("NuevoApellido");
+            usuarioActualizar.setEmail("nuevo2@example.com");
+            userDAO.ActualizarUsuario(usuarioActualizar, usuarioActualizar.getUser_id());
+            System.out.println("Usuario actualizado con éxito.");
+        }
 //
 //         Activar o eliminar un usuario existente
 //        if (!usuarios.isEmpty()) {
