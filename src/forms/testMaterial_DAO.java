@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package forms;
 
 import classesDAO.MaterialDAO;
@@ -24,15 +20,13 @@ public class testMaterial_DAO {
         System.out.println("===================================================");
 
         //Agregar un nuevo material 
-        ////// EL ESTADO SIEMPRE LO ENVIA COMO A
-        
-        Material nuevoMaterial = new Material(0, "Daniel Material", 11.0, 21.0, 51.0, 51.0, "");
+        Material nuevoMaterial = new Material(0, "Nuevo Material", 11.0, 21.0, 51.0, 51.0, "");
         materialDAO.AgregarMateriales(nuevoMaterial);
         System.out.println(" material agregado: " + nuevoMaterial.getNombre());        
         listar();
         System.out.println("===================================================");
 
-        //Eliminar un material (cambia el estado a 'd')
+//        //Eliminar un material (cambia el estado a 'd')
         
         int EliminarMaterial_id = 1; // Reemplazar con el ID del material a eliminar
         materialDAO.EliminarMaterial(EliminarMaterial_id);
