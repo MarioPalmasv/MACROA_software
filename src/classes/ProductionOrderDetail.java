@@ -9,7 +9,7 @@ package classes;
  * @author melan
  */
 public class ProductionOrderDetail {
-    private int prouction_order_detail_id;
+    private int production_order_detail_id;
     private int product_id;
     private int production_order_id;
     private int quantity;
@@ -18,8 +18,8 @@ public class ProductionOrderDetail {
     private String state;
 
     // Constructor
-    public ProductionOrderDetail(int prouction_order_detail_id, int product_id, int production_order_id, int quantity, double sub_total, double costo_cola_cromada, String state) {
-        this.prouction_order_detail_id = prouction_order_detail_id;
+    public ProductionOrderDetail(int production_order_detail_id, int product_id, int production_order_id, int quantity, double sub_total, double costo_cola_cromada, String state) {
+        this.production_order_detail_id = production_order_detail_id;
         this.product_id = product_id;
         this.production_order_id = production_order_id;
         this.quantity = quantity;
@@ -29,11 +29,11 @@ public class ProductionOrderDetail {
     }
 
     public int getProuction_order_detail_id() {
-        return prouction_order_detail_id;
+        return production_order_detail_id;
     }
 
-    public void setProuction_order_detail_id(int prouction_order_detail_id) {
-        this.prouction_order_detail_id = prouction_order_detail_id;
+    public void setProuction_order_detail_id(int production_order_detail_id) {
+        this.production_order_detail_id = production_order_detail_id;
     }
 
     public int getProduct_id() {
