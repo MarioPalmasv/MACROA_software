@@ -20,7 +20,7 @@ public class PruebaTaxeDAO {
 
         // Insertar un nuevo impuesto
         Taxe nuevoImpuesto = new Taxe("Impuesto 1", "10%", 100.0); // Asegúrate de proporcionar valores válidos
-        taxeDAO.InsertarImpuesto(nuevoImpuesto);
+        taxeDAO.insert(nuevoImpuesto);
         System.out.println("Impuesto insertado con éxito.");
 
         // Listar todos los impuestos
@@ -35,9 +35,8 @@ public class PruebaTaxeDAO {
         }
 
         // Actualizar un impuesto existente (debes proporcionar un ID de impuesto válido)
-        int idImpuestoAActualizar = 1; // Reemplaza con un ID válido de impuesto
-        Taxe impuestoActualizado = new Taxe("Impuesto Actualizado", "15%", 150.0);
-        taxeDAO.ActualizarImpuesto(impuestoActualizado, idImpuestoAActualizar);
+        Taxe impuestoActualizado = new Taxe(1,"Impuesto Actualizado", "15%", 150.0);
+        taxeDAO.update(impuestoActualizado);
         System.out.println("Impuesto actualizado con éxito.");
     }
 }

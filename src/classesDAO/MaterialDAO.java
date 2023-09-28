@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author gergo
  */
-public class MaterialDAO {
+public class MaterialDAO  implements DML<Material>{
 
     private final Connection con;
 
@@ -52,57 +52,67 @@ public class MaterialDAO {
         return materiales_lista;
     }
 
-    // Método para agregar un nuevo material
-    public void AgregarMateriales(Material material) {
-        //Se envia el valor insertado a la clase Encode para encriptar antes de insertar en DB
-        String Cadena_Encriptar = encrip.Encriptar(material.getNombre());
+    @Override
+    public boolean insert(Material objeto) {
         try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL InsertMaterial(?, ?, ?, ?, ?)}";
             // Establecer los parámetros del procedimiento almacenado
             try (CallableStatement valores = con.prepareCall(sql)) {
                 // Establecer los parámetros del procedimiento almacenado
-                valores.setString(1, Cadena_Encriptar);
-                valores.setDouble(2, material.getPulgada());
-                valores.setDouble(3, material.getCms());
-                valores.setDouble(4, material.getPrecio());
-                valores.setDouble(5, material.getPintura_empaque());
+                valores.setString(1, objeto.getNombre());
+                valores.setDouble(2, objeto.getPulgada());
+                valores.setDouble(3, objeto.getCms());
+                valores.setDouble(4, objeto.getPrecio());
+                valores.setDouble(5, objeto.getPintura_empaque());
 
                 valores.execute();
             }
         } catch (SQLException e) {
+            return false;
         }
+        return true;
     }
 
-    // Método para eliminar un material
-    public void EliminarMaterial(int materialId) {
+    @Override
+    public boolean delete(int id) {
         try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL DeleteMaterial(?)}";
             // Establecer el parámetro del procedimiento almacenado
             try (CallableStatement valores = con.prepareCall(sql)) {
                 // Establecer el parámetro del procedimiento almacenado
-                valores.setInt(1, materialId);
+                valores.setInt(1, id);
 
                 valores.execute();
             }
         } catch (SQLException e) {
+            return false;
         }
+        return true;
     }
 
-    // Método para reactivar un material utilizando un ID
-    public void EstadoMaterial(int materialId) {
+    @Override
+    public boolean update(Material objeto) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    //activar el material
+    @Override
+    public boolean activate(int id) {
         try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL ActivateUseMaterial(?)}";
             // Establecer el parámetro del procedimiento almacenado
             try (CallableStatement callableStatement = con.prepareCall(sql)) {
                 // Establecer el parámetro del procedimiento almacenado
-                callableStatement.setInt(1, materialId);
+                callableStatement.setInt(1, id);
 
                 callableStatement.execute();
             }
         } catch (SQLException e) {
+            return false;
         }
+        return true;
     }
 }

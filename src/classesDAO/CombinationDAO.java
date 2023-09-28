@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author gergo
  */
-public class CombinationDAO {
+public class CombinationDAO implements DML<Combination>{
 
     private Connection con;
 
@@ -45,43 +45,55 @@ public class CombinationDAO {
         
         return Combination_lista;
     }
-    
-    // Método para agregar una combinacion
-    public void AddCombination(Combination Combi) {
-        try {
+    //metodo de insert
+    @Override
+    public boolean insert(Combination objeto) {
+    try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL InsertCombination( ?, ?)}";
             // Establecer los parámetros del procedimiento almacenado
             try (CallableStatement valores = con.prepareCall(sql)) {
                 // Establecer los parámetros del procedimiento almacenado                
-                valores.setInt(1, Combi.getProduct_id());
-                valores.setInt(2, Combi.getMaterial_id());
+                valores.setInt(1, objeto.getProduct_id());
+                valores.setInt(2, objeto.getMaterial_id());
                 
                 valores.execute();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
-    
-    //Metodo para editar una combinación
-    public void EditCombination(Combination Combi) {
-        
-         try {
+
+    @Override
+    public boolean delete(int id) {
+        return false;
+    }
+
+    //metodo de update
+    @Override
+    public boolean update(Combination objeto) {
+             try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL UpdateCombination( ?,?,?)}";
             // Establecer los parámetros del procedimiento almacenado
             try (CallableStatement valores = con.prepareCall(sql)) {
                 // Establecer los parámetros del procedimiento almacenado                
-                valores.setInt(1, Combi.getUse_id());
-                valores.setInt(2, Combi.getProduct_id());
-                valores.setInt(3, Combi.getMaterial_id());
+                valores.setInt(1, objeto.getUse_id());
+                valores.setInt(2, objeto.getProduct_id());
+                valores.setInt(3, objeto.getMaterial_id());
                 
                 valores.execute();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
+    }
+
+    @Override
+    public boolean activate(int id) {
+        return false;
     }
     
 }

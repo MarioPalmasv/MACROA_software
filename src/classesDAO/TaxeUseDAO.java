@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author melan
  */
-public class TaxeUseDAO {
+public class TaxeUseDAO implements DML<TaxeUse>{
     private Connection con;
 
     public TaxeUseDAO() {
@@ -49,36 +49,50 @@ public class TaxeUseDAO {
 
         return lista_taxUse;
     }
-    
-    public void InsertarTaxeUse(TaxeUse taxe) {
+   
+    @Override
+    public boolean insert(TaxeUse objeto) {
         try {
             String sql = "{CALL InsertTaxeUse(?, ?)}";
 
             try (CallableStatement valores = con.prepareCall(sql)) {
-                valores.setInt(1, taxe.getOrder_cost_id());
-                valores.setInt(2, taxe.getTaxe_use());
+                valores.setInt(1, objeto.getOrder_cost_id());
+                valores.setInt(2, objeto.getTaxe_use());
 
                 valores.execute();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
-    public void ActualizarTaxeUse(TaxeUse taxe, int id) {
+    @Override
+    public boolean delete(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean update(TaxeUse objeto) {
         try {
             String sql = "{CALL UpdateTaxeUse(?, ?, ?)}";
 
             try (CallableStatement valores = con.prepareCall(sql)) {
-                valores.setInt(1, id);
-                valores.setInt(2, taxe.getOrder_cost_id());
-                valores.setInt(3, taxe.getTaxe_use());
+                valores.setInt(1, objeto.getTaxe_id());
+                valores.setInt(2, objeto.getOrder_cost_id());
+                valores.setInt(3, objeto.getTaxe_use());
 
                 valores.execute();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
+    }
+
+    @Override
+    public boolean activate(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     

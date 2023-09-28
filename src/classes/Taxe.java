@@ -16,6 +16,15 @@ public class Taxe {
     
     public Taxe(){}
 
+    public Taxe(int taxe_id, String NAME, String percentage, double VALUE) {
+        this.taxe_id = taxe_id;
+        this.NAME = NAME;
+        this.percentage = percentage;
+        this.VALUE = VALUE;
+    }
+
+    
+    
     // Constructor
     public Taxe(String NAME, String percentage, double VALUE) {
         this.NAME = NAME;

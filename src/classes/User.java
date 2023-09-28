@@ -35,6 +35,20 @@ public class User {
         this.state = state;
     }
 
+    public User(int user_id, String first_name, String last_name, String user_name, String password_user, String email, double salary_employee, String address, String phone, String state) {
+        this.user_id = user_id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.user_name = user_name;
+        this.password_user = password_user;
+        this.email = email;
+        this.salary_employee = salary_employee;
+        this.address = address;
+        this.phone = phone;
+        this.state = state;
+    }
+
+    
     public String getPassword_user() {
         return password_user;
     }

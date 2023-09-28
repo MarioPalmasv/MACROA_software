@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author gergo
  */
-public class ProductDAO {
+public class ProductDAO implements DML<Product>{
     private Connection con;
     
     public ProductDAO(){
@@ -49,79 +49,83 @@ public class ProductDAO {
         return products_lista;
     }
     
-     // Método para agregar un nuevo material
-    public void AgregarProductos (Product productos) {
+
+    @Override
+    public boolean insert(Product objeto) {
         try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL InsertProduct(?, ?, ?, ?)}";
             // Establecer los parámetros del procedimiento almacenado
             try (CallableStatement valores = con.prepareCall(sql)) {
                 // Establecer los parámetros del procedimiento almacenado
-                valores.setString(1, productos.getNombre() );
-                valores.setString(2, productos.getModelo() );
-                valores.setDouble(3, productos.getTime_in() );
-                valores.setDouble(4, productos.getConstante_mod() );
+                valores.setString(1, objeto.getNombre() );
+                valores.setString(2, objeto.getModelo() );
+                valores.setDouble(3, objeto.getTime_in() );
+                valores.setDouble(4, objeto.getConstante_mod() );
                 valores.execute();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
-    
-      //Metodo para editar un producto
-    public void EditProductos(Product productos) {
-        
-         try {
-            // Llamar al procedimiento almacenado
-            String sql = "{CALL UpdateProduct( ?,?,?,?,?)}";
-            // Establecer los parámetros del procedimiento almacenado
-            try (CallableStatement valores = con.prepareCall(sql)) {
-                // Establecer los parámetros del procedimiento almacenado                
-                valores.setInt(1, productos.getProduct_id() );
-               valores.setString(2, productos.getNombre() );
-               valores.setString(3,productos.getModelo());
-                valores.setDouble(4, productos.getTime_in() );
-                valores.setDouble(5, productos.getConstante_mod() );
-                
-                valores.execute();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    
-     // Método para Eliminar (desactivar) un Prodcuto
-    public void EliminarProducto(int product_id) {
+
+    @Override
+    public boolean delete(int id) {
         try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL DeleteProduct(?)}";
             CallableStatement callableStatement = con.prepareCall(sql);
 
             // Establecer el parámetro del procedimiento almacenado
-            callableStatement.setInt(1, product_id);
+            callableStatement.setInt(1,id);
 
             callableStatement.execute();
             callableStatement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
-    
-     // Método para Activar  un Prodcuto
-    public void ActivarProducto(int product_id) {
+
+    @Override
+    public boolean update(Product objeto) {
+        try {
+            // Llamar al procedimiento almacenado
+            String sql = "{CALL UpdateProduct( ?,?,?,?,?)}";
+            // Establecer los parámetros del procedimiento almacenado
+            try (CallableStatement valores = con.prepareCall(sql)) {
+                // Establecer los parámetros del procedimiento almacenado                
+                valores.setInt(1, objeto.getProduct_id() );
+               valores.setString(2, objeto.getNombre() );
+               valores.setString(3,objeto.getModelo());
+                valores.setDouble(4, objeto.getTime_in() );
+                valores.setDouble(5, objeto.getConstante_mod() );
+                
+                valores.execute();
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean activate(int id) {
         try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL ActivateProduct(?)}";
             CallableStatement callableStatement = con.prepareCall(sql);
 
             // Establecer el parámetro del procedimiento almacenado
-            callableStatement.setInt(1, product_id);
+            callableStatement.setInt(1, id);
 
             callableStatement.execute();
             callableStatement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
     
 }

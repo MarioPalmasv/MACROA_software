@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author gergo
  */
-public class OrderCostDAO {
+public class OrderCostDAO implements DML<OrderCost>{
 
     private Connection con;
 
@@ -50,23 +50,39 @@ public class OrderCostDAO {
         return OrderC_lista;
     }
 
-    // Método para agregar una combinacion
-    public void AddOrderCost(OrderCost OrderC) {
+    @Override
+    public boolean insert(OrderCost objeto) {
         try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL InsertOrderCost( ?,?,?,?)}";
             // Establecer los parámetros del procedimiento almacenado
             try (CallableStatement valores = con.prepareCall(sql)) {
                 // Establecer los parámetros del procedimiento almacenado                
-                valores.setInt(1, OrderC.getProduction_order_detail_id());                
-                valores.setDouble(2, OrderC.getCosto_total_modelo());
-                valores.setDouble(3, OrderC.getCosto_primo());
-                valores.setDouble(4, OrderC.getPrecio_venta());
+                valores.setInt(1, objeto.getProduction_order_detail_id());                
+                valores.setDouble(2, objeto.getCosto_total_modelo());
+                valores.setDouble(3, objeto.getCosto_primo());
+                valores.setDouble(4, objeto.getPrecio_venta());
                 valores.execute();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return false;
+    }
+
+    @Override
+    public boolean update(OrderCost objeto) {
+        return false;
+    }
+
+    @Override
+    public boolean activate(int id) {
+        return false;
     }
 
 }

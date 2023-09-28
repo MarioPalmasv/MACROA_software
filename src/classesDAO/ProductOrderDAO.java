@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author melan
  */
-public class ProductOrderDAO {
+public class ProductOrderDAO implements DML<ProductOrder>{
     private Connection con;
     
     public ProductOrderDAO(){
@@ -53,77 +53,84 @@ public class ProductOrderDAO {
 
         return lista_ordenProd;
     }
-    
-    public void AgregarProductOrder(int userId, String nombre, String comentario) {
-        try {
+
+
+    @Override
+    public boolean insert(ProductOrder objeto) {
+                try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL InsertProductOrder(?, ?, ?)}";
 
             // Establecer los parámetros del procedimiento almacenado
             try (CallableStatement valores = con.prepareCall(sql)) {
-                valores.setInt(1, userId);
-                valores.setString(2, nombre);
-                valores.setString(3, comentario);
+                valores.setInt(1, objeto.getUser_id());
+                valores.setString(2, objeto.getNombre());
+                valores.setString(3, objeto.getComent());
 
                 valores.execute();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
-
-
-    }
-    
-    public void ActualizarProductOrder(ProductOrder order, int id) {
-        try {
-            // Llamar al procedimiento almacenado
-            String sql = "{CALL UpdateProductOrder(?, ?, ?, ?, ?)}";
-
-            // Establecer los parámetros del procedimiento almacenado
-            try (CallableStatement valores = con.prepareCall(sql)) {
-                valores.setInt(1, id);
-                valores.setInt(2, order.getUser_id());
-                valores.setString(3, order.getNombre());
-                valores.setString(4, order.getComent());
-                valores.setString(5, order.getState());
-
-                valores.execute();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        return true;
     }
 
-    public void ActualizarOrderCancelada(int productionOrderId) {
+    @Override
+    public boolean delete(int id) {
         try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL UpdateOrderCancelada(?)}";
 
             // Establecer los parámetros del procedimiento almacenado
             try (CallableStatement valores = con.prepareCall(sql)) {
-                valores.setInt(1, productionOrderId);
+                valores.setInt(1, id);
 
                 valores.execute();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
-public void ActivarOrder(int productionOrderId) {
+    @Override
+    public boolean update(ProductOrder objeto) {
+        try {
+            // Llamar al procedimiento almacenado
+            String sql = "{CALL UpdateProductOrder(?, ?, ?, ?, ?)}";
+
+            // Establecer los parámetros del procedimiento almacenado
+            try (CallableStatement valores = con.prepareCall(sql)) {
+                valores.setInt(1, objeto.getId());
+                valores.setInt(2, objeto.getUser_id());
+                valores.setString(3, objeto.getNombre());
+                valores.setString(4, objeto.getComent());
+                valores.setString(5, objeto.getState());
+
+                valores.execute();
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean activate(int id) {
         try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL ActivateOrder(?)}";
 
             // Establecer los parámetros del procedimiento almacenado
             try (CallableStatement valores = con.prepareCall(sql)) {
-                valores.setInt(1, productionOrderId);
+                valores.setInt(1, id);
 
                 valores.execute();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
 

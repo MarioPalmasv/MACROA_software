@@ -52,20 +52,17 @@ public class LoginLogsDAO {
     }
     
     public void InsertarLoginLog(String ipAddress, int userId) {
-    try {
-        String sql = "{CALL InsertLoginLog(?, ?)}";
+        try {
+            String sql = "{CALL InsertLoginLog(?, ?)}";
 
-        try (CallableStatement valores = con.prepareCall(sql)) {
-            valores.setString(1, ipAddress);
-            valores.setInt(2, userId);
+            try (CallableStatement valores = con.prepareCall(sql)) {
+                valores.setString(1, ipAddress);
+                valores.setInt(2, userId);
 
-            valores.execute();
+                valores.execute();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
     }
-}
-
-    
-    
 }

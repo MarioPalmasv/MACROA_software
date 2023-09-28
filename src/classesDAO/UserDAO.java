@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author melan
  */
-public class UserDAO {
+public class UserDAO implements DML<User>{
     private Connection con;
     
     public UserDAO(){
@@ -56,77 +56,85 @@ public class UserDAO {
 
         return listaUser;
     }
-    
-    public void InsertarUsuario(User user) {
+
+    @Override
+    public boolean insert(User objeto) {
         try {
             String sql = "{CALL InsertUser(?, ?, ?, ?, ?, ?, ?,?)}";
 
           
             try (CallableStatement valores = con.prepareCall(sql)) {
-                valores.setString(1, user.getFirst_name());
-                valores.setString(2, user.getLast_name());
-                valores.setString(3, user.getUser_name());
-                valores.setString(3, user.getPassword_user());
-                valores.setString(4, user.getEmail());
-                valores.setDouble(5, user.getSalary_employee());
-                valores.setString(6, user.getAddress());
-                valores.setString(7, user.getPhone());
+                valores.setString(1, objeto.getFirst_name());
+                valores.setString(2,objeto.getLast_name());
+                valores.setString(3, objeto.getUser_name());
+                valores.setString(3, objeto.getPassword_user());
+                valores.setString(4, objeto.getEmail());
+                valores.setDouble(5, objeto.getSalary_employee());
+                valores.setString(6, objeto.getAddress());
+                valores.setString(7, objeto.getPhone());
 
                 valores.execute();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
-    }
-    
-    public void ActualizarUsuario(User user, int id) {
-        try {
-            String sql = "{CALL UpdateUser(?, ?, ?, ?, ?, ?, ?, ?,?)}";
-            
-            try (CallableStatement valores = con.prepareCall(sql)) {
-                valores.setInt(1, id);
-                valores.setString(2, user.getFirst_name());
-                valores.setString(3, user.getLast_name());
-                valores.setString(4, user.getUser_name());
-                valores.setString(4, user.getPassword_user());
-                valores.setString(5, user.getEmail());
-                valores.setDouble(6, user.getSalary_employee());
-                valores.setString(7, user.getAddress());
-                valores.setString(8, user.getPhone());
-
-                valores.execute();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        return true;
     }
 
-    public void EliminarUsuario(int userId) {
+    @Override
+    public boolean delete(int id) {
         try {
             String sql = "{CALL DeleteUser(?)}";
 
             try (CallableStatement valores = con.prepareCall(sql)) {
-                valores.setInt(1, userId);
+                valores.setInt(1, id);
 
                 valores.execute();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
-    
-    public void ActivarUsuario(int userId) {
+
+    @Override
+    public boolean update(User objeto) {
+        try {
+            String sql = "{CALL UpdateUser(?, ?, ?, ?, ?, ?, ?, ?,?)}";
+            
+            try (CallableStatement valores = con.prepareCall(sql)) {
+                valores.setInt(1, objeto.getUser_id());
+                valores.setString(2, objeto.getFirst_name());
+                valores.setString(3, objeto.getLast_name());
+                valores.setString(4, objeto.getUser_name());
+                valores.setString(4, objeto.getPassword_user());
+                valores.setString(5, objeto.getEmail());
+                valores.setDouble(6, objeto.getSalary_employee());
+                valores.setString(7, objeto.getAddress());
+                valores.setString(8, objeto.getPhone());
+
+                valores.execute();
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean activate(int id) {
         try {
             String sql = "{CALL ActivateUser(?)}";
 
             try (CallableStatement valores = con.prepareCall(sql)) {
-                valores.setInt(1, userId);
+                valores.setInt(1, id);
 
                 valores.execute();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
 

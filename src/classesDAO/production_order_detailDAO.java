@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author gergo
  */
-public class production_order_detailDAO {
+public class production_order_detailDAO implements DML<ProductionOrderDetail>{
      private Connection con;
 
     public production_order_detailDAO() {
@@ -49,62 +49,69 @@ public class production_order_detailDAO {
         
         return OrderD_lista;
     }
-    
-    
-    // Método para agregar una orderD
-    public void AddOrderC(ProductionOrderDetail POD) {
-        try {
+  
+    @Override
+    public boolean insert(ProductionOrderDetail objeto) {
+              try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL InsertProductionOrderDetail(?,?,?,?,?,?)}";
             // Establecer los parámetros del procedimiento almacenado
             try (CallableStatement valores = con.prepareCall(sql)) {
                 // Establecer los parámetros del procedimiento almacenado                
-                valores.setInt(1, POD.getProduct_id());
-                valores.setInt(2, POD.getProduction_order_id());
-                valores.setInt(3, POD.getQuantity());
-                valores.setDouble(4, POD.getSub_total());
-                valores.setDouble(5, POD.getCosto_cola_cromada());
-                valores.setString(6, POD.getState());
+                valores.setInt(1, objeto.getProduct_id());
+                valores.setInt(2, objeto.getProduction_order_id());
+                valores.setInt(3, objeto.getQuantity());
+                valores.setDouble(4, objeto.getSub_total());
+                valores.setDouble(5, objeto.getCosto_cola_cromada());
+                valores.setString(6, objeto.getState());
                 
                 valores.execute();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
-    
-     // Método para Eliminar (desactivar) un OrderC
-    public void CancelarOrderC(int pod_id) {
-        try {
+
+    @Override
+    public boolean delete(int id) {
+         try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL UpdateProductionOrderDetailCancelado(?)}";
             CallableStatement callableStatement = con.prepareCall(sql);
 
             // Establecer el parámetro del procedimiento almacenado
-            callableStatement.setInt(1, pod_id);
+            callableStatement.setInt(1, id);
 
             callableStatement.execute();
             callableStatement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
-    
-       // Método para Activar  un OrderC
-    public void ActivarOrderC(int pod_id) {
+
+    @Override
+    public boolean update(ProductionOrderDetail objeto) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean activate(int id) {
         try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL ActivateProductionOrderDetail(?)}";
             CallableStatement callableStatement = con.prepareCall(sql);
 
             // Establecer el parámetro del procedimiento almacenado
-            callableStatement.setInt(1, pod_id);
+            callableStatement.setInt(1, id);
 
             callableStatement.execute();
             callableStatement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
 }
