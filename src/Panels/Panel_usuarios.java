@@ -50,6 +50,17 @@ public class Panel_usuarios extends javax.swing.JPanel {
             this.jTableUser.setFillsViewportHeight(true);
         }
     }
+    
+    void limpiar(){
+        this.jTextNombreIN.setText("Ingrese el nombre del empleado");
+        this.jTextApellidoIN.setText("Ingrese el apellido del empleado");
+        this.jTextNombreUsuarioIN.setText("Ingrese el nombre de usuario");
+        this.jTextCorreoIN.setText("Ingrese el correo");
+        this.jTextSalarioIN.setText("Ingrese el salario");
+        this.jTextAreaDireccion.setText("Ingrese la dirección");
+        this.jTextTelefono.setText("Ingrese el teléfono");
+        this.jPassClave.setText("12345678");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -191,6 +202,11 @@ public class Panel_usuarios extends javax.swing.JPanel {
 
         jButtonEliminar.setFont(new java.awt.Font("Franklin Gothic Book", 0, 24)); // NOI18N
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jTextSalarioIN.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jTextSalarioIN.setText("Ingrese el salario");
@@ -265,11 +281,9 @@ public class Panel_usuarios extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(104, 104, 104)
-                        .addComponent(jButton1)
-                        .addGap(15, 15, 15))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -401,6 +415,8 @@ public class Panel_usuarios extends javax.swing.JPanel {
             
             if (usuarioDAO.insert(usuario)) {
                 JOptionPane.showMessageDialog(null, "Se ingresó el usuario");
+                this.cargar_table();
+                this.limpiar();
             }
             else{
                 JOptionPane.showMessageDialog(null, "Error al ingresar el usuario");
@@ -462,7 +478,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextTelefonoActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
-double salario = 0;
+        double salario = 0;
         
         
         String nombre = this.jTextNombreIN.getText();
@@ -498,10 +514,12 @@ double salario = 0;
             !clave.equals("12345678") && clave.trim().length()> 0) {
             
             String claveEncriptada = encrip.Encriptar(clave);
-            usuario = new User(id,nombre, apellido, nombreUs, claveEncriptada, correo, salario, direccion, telefono);
+            usuario = new User(id, nombre, apellido, nombreUs, claveEncriptada, correo,salario, direccion, telefono);
             
             if (usuarioDAO.update(usuario)) {
                 JOptionPane.showMessageDialog(null, "Se actualizó el usuario");
+                this.cargar_table();
+                this.limpiar();
             }
             else{
                 JOptionPane.showMessageDialog(null, "Error al actulizar el usuario");
@@ -512,6 +530,18 @@ double salario = 0;
             JOptionPane.showMessageDialog(null, "No puede dejar los campos vacios");
         }        
     }//GEN-LAST:event_jButtonModificarActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        if (usuarioDAO.delete(id)) {
+            JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
+            this.cargar_table();
+            this.limpiar();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Error al eliminar el usuario");
+        }
+        
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

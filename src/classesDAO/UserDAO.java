@@ -30,8 +30,9 @@ public class UserDAO implements DML<User>{
     public List<User> ListarUsuarios() {
         List<User> listaUser = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM user";
+            String sql = "SELECT * FROM USER WHERE state = ?";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, "a");
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -102,18 +103,18 @@ public class UserDAO implements DML<User>{
     @Override
     public boolean update(User objeto) {
         try {
-            String sql = "{CALL UpdateUser(?, ?, ?, ?, ?, ?, ?, ?)}";
+            String sql = "{CALL UpdateUser(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
             
             try (CallableStatement valores = con.prepareCall(sql)) {
                 valores.setInt(1, objeto.getUser_id());
                 valores.setString(2, objeto.getFirst_name());
                 valores.setString(3, objeto.getLast_name());
                 valores.setString(4, objeto.getUser_name());
-                valores.setString(4, objeto.getPassword_user());
-                valores.setString(5, objeto.getEmail());
+                valores.setString(4, objeto.getEmail());
                 valores.setDouble(6, objeto.getSalary_employee());
                 valores.setString(7, objeto.getAddress());
                 valores.setString(8, objeto.getPhone());
+                valores.setString(9, objeto.getPassword_user());
 
                 valores.execute();
             }
