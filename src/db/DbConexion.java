@@ -18,7 +18,7 @@ public class DbConexion {
             con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/macroa", "root", "");
         }catch(ClassNotFoundException | SQLException e){
-            System.err.println("Error " + e);
+            System.out.println("Error"+e.toString());
         }
     }
 

@@ -27,6 +27,8 @@ public class Panel_reportes extends javax.swing.JPanel {
     private void initComponents() {
 
         setBackground(new java.awt.Color(102, 255, 255));
+        setPreferredSize(new java.awt.Dimension(1000, 710));
+        setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

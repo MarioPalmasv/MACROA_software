@@ -23,7 +23,7 @@ public class User {
     public User(){}
 
     // Constructor
-    public User(String first_name, String last_name, String user_name, String password_user,String email, double salary_employee, String address, String phone, String state) {
+    public User(String first_name, String last_name, String user_name, String password_user,String email, double salary_employee, String address, String phone) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.user_name = user_name;
@@ -32,10 +32,9 @@ public class User {
         this.salary_employee = salary_employee;
         this.address = address;
         this.phone = phone;
-        this.state = state;
     }
 
-    public User(int user_id, String first_name, String last_name, String user_name, String password_user, String email, double salary_employee, String address, String phone, String state) {
+    public User(int user_id, String first_name, String last_name, String user_name, String password_user, String email, double salary_employee, String address, String phone) {
         this.user_id = user_id;
         this.first_name = first_name;
         this.last_name = last_name;
