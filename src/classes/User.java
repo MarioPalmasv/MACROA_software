@@ -19,22 +19,25 @@ public class User {
     private String address;
     private String phone;
     private String state;
+    private String type_user;
     
     public User(){}
 
     // Constructor
-    public User(String first_name, String last_name, String user_name, String password_user,String email, double salary_employee, String address, String phone) {
+
+    public User(String first_name, String last_name, String user_name, String password_user, String email, double salary_employee, String address, String phone, String type_user) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.user_name = user_name;
-        this.password_user= password_user;
+        this.password_user = password_user;
         this.email = email;
         this.salary_employee = salary_employee;
         this.address = address;
         this.phone = phone;
+        this.type_user = type_user;
     }
 
-    public User(int user_id, String first_name, String last_name, String user_name, String password_user, String email, double salary_employee, String address, String phone) {
+    public User(int user_id, String first_name, String last_name, String user_name, String password_user, String email, double salary_employee, String address, String phone, String type_user) {
         this.user_id = user_id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -44,8 +47,9 @@ public class User {
         this.salary_employee = salary_employee;
         this.address = address;
         this.phone = phone;
-        this.state = state;
+        this.type_user = type_user;
     }
+    
 
     
     public String getPassword_user() {
@@ -127,4 +131,13 @@ public class User {
     public void setState(String state) {
         this.state = state;
     }
+
+    public String getType_user() {
+        return type_user;
+    }
+
+    public void setType_user(String type_user) {
+        this.type_user = type_user;
+    }
+    
 }

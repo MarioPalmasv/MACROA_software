@@ -19,6 +19,13 @@ public class Combination {
         this.material_id = material_id;
     }
 
+    public Combination(int product_id, int material_id) {
+        this.product_id = product_id;
+        this.material_id = material_id;
+    }
+
+    
+    
     public int getUse_id() {
         return use_id;
     }

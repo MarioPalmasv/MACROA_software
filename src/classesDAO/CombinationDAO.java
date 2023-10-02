@@ -23,11 +23,12 @@ public class CombinationDAO implements DML<Combination>{
     }
 
     // Método para obtener todos las combinaciones
-    public List<Combination> ListarCombinacion() {
+    public List<Combination> ListarCombinacion(int id) {
         List<Combination> Combination_lista = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM combination";
+            String sql = "SELECT * FROM combination WHERE product_id = ?";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -67,13 +68,21 @@ public class CombinationDAO implements DML<Combination>{
 
     @Override
     public boolean delete(int id) {
-        return false;
+        try {
+            String sql = "{CALL DeleteCombinationByID( ?)}";
+            CallableStatement valores = con.prepareCall(sql);
+            valores.setInt(1, id);
+            valores.execute();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     //metodo de update
     @Override
     public boolean update(Combination objeto) {
-             try {
+        try {
             // Llamar al procedimiento almacenado
             String sql = "{CALL UpdateCombination( ?,?,?)}";
             // Establecer los parámetros del procedimiento almacenado

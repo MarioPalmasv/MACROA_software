@@ -30,9 +30,8 @@ public class UserDAO implements DML<User>{
     public List<User> ListarUsuarios() {
         List<User> listaUser = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM USER WHERE state = ?";
+            String sql = "SELECT * FROM USER";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setString(1, "a");
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -47,6 +46,40 @@ public class UserDAO implements DML<User>{
                 user.setAddress(resultSet.getString("address"));
                 user.setPhone(resultSet.getString("phone"));
                 user.setState(resultSet.getString("state"));
+                user.setType_user(resultSet.getString("user_type"));
+                listaUser.add(user);
+            }
+            
+            resultSet.close();
+            preparedStatement.close();
+            
+        } catch (SQLException e) {
+        }
+
+        return listaUser;
+    }
+    
+      public List<User> ListarUsuariosNombre(String pNombre) {
+        List<User> listaUser = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM USER WHERE CONCAT(first_name, ' ', last_name) LIKE ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, "%"+pNombre+"%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                User user = new User();
+                user.setUser_id(resultSet.getInt("user_id"));
+                user.setFirst_name(resultSet.getString("first_name"));
+                user.setLast_name(resultSet.getString("last_name"));
+                user.setUser_name(resultSet.getString("user_name"));
+                user.setPassword_user(resultSet.getString("password_user"));
+                user.setEmail(resultSet.getString("email"));
+                user.setSalary_employee(resultSet.getDouble("salary_employee"));
+                user.setAddress(resultSet.getString("address"));
+                user.setPhone(resultSet.getString("phone"));
+                user.setState(resultSet.getString("state"));
+                user.setType_user(resultSet.getString("user_type"));
                 listaUser.add(user);
             }
             
@@ -62,7 +95,7 @@ public class UserDAO implements DML<User>{
     @Override
     public boolean insert(User objeto) {
         try {
-            String sql = "{CALL InsertUser(?, ?, ?, ?, ?, ?, ?, ?)}";
+            String sql = "{CALL InsertUser(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
           
             try (CallableStatement valores = con.prepareCall(sql)) {
@@ -74,6 +107,7 @@ public class UserDAO implements DML<User>{
                 valores.setDouble(6, objeto.getSalary_employee());
                 valores.setString(7, objeto.getAddress());
                 valores.setString(8, objeto.getPhone());
+                valores.setString(9, objeto.getType_user());
 
                 valores.execute();
             }
@@ -103,18 +137,19 @@ public class UserDAO implements DML<User>{
     @Override
     public boolean update(User objeto) {
         try {
-            String sql = "{CALL UpdateUser(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            String sql = "{CALL UpdateUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
             
             try (CallableStatement valores = con.prepareCall(sql)) {
                 valores.setInt(1, objeto.getUser_id());
                 valores.setString(2, objeto.getFirst_name());
                 valores.setString(3, objeto.getLast_name());
                 valores.setString(4, objeto.getUser_name());
-                valores.setString(4, objeto.getEmail());
+                valores.setString(5, objeto.getEmail());
                 valores.setDouble(6, objeto.getSalary_employee());
                 valores.setString(7, objeto.getAddress());
                 valores.setString(8, objeto.getPhone());
                 valores.setString(9, objeto.getPassword_user());
+                valores.setString(10, objeto.getType_user());
 
                 valores.execute();
             }

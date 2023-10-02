@@ -16,6 +16,15 @@ public class Material {
     private double precio;
     private double pintura_empaque;
     private String estado;
+    private int useId;
+
+    public Material(String nombre, double pulgada, double cms, double precio, double pintura_empaque) {
+        this.nombre = nombre;
+        this.pulgada = pulgada;
+        this.cms = cms;
+        this.precio = precio;
+        this.pintura_empaque = pintura_empaque;
+    }
 
     public Material(int material_id, String nombre, double pulgada, double cms, double precio, double pintura_empaque, String estado) {
         this.material_id = material_id;
@@ -27,6 +36,39 @@ public class Material {
         this.estado = estado;
     }
 
+    public Material(int material_id, String nombre, double pulgada, double cms, double precio, double pintura_empaque) {
+        this.material_id = material_id;
+        this.nombre = nombre;
+        this.pulgada = pulgada;
+        this.cms = cms;
+        this.precio = precio;
+        this.pintura_empaque = pintura_empaque;
+    }
+
+    public Material(int material_id, String nombre, double pulgada, double cms, double precio, double pintura_empaque, String estado, int useId) {
+        this.material_id = material_id;
+        this.nombre = nombre;
+        this.pulgada = pulgada;
+        this.cms = cms;
+        this.precio = precio;
+        this.pintura_empaque = pintura_empaque;
+        this.estado = estado;
+        this.useId = useId;
+    }
+
+
+    
+    public Material() {
+    }
+
+    public int getUseId() {
+        return useId;
+    }
+
+    public void setUseId(int useId) {
+        this.useId = useId;
+    }   
+    
     public int getMaterial_id() {
         return material_id;
     }

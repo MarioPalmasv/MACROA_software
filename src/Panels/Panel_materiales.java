@@ -4,19 +4,102 @@
  */
 package Panels;
 
+import classes.Material;
+import classesDAO.MaterialDAO;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author mario
  */
 public class Panel_materiales extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Panel_materiales
-     */
+    Material material;
+    MaterialDAO materialDAO;
+    DefaultTableModel model;
+    List<Material> lMateriales;
+    int id;
+    
     public Panel_materiales() {
         initComponents();
+        materialDAO = new MaterialDAO();
+        model = new DefaultTableModel();
+        id = 0;
+        this.jBModificar.setEnabled(false);
+        this.jBEliminar.setEnabled(false);
+        this.jBActivar.setEnabled(false);
+        this.cargar_table();
     }
 
+    
+     void cargar_table(){
+        model.setRowCount(0);
+        String[] nombreColum = {"Nombre", "Pulgada", "cms", "precio", "Pintura empaque", "Estado"};
+        model.setColumnIdentifiers(nombreColum);
+        
+        lMateriales = materialDAO.ListarMateriales();
+        
+       
+    
+        if (lMateriales.size()>-1) {
+            for (int i = 0; i < lMateriales.size(); i++) {
+                if (lMateriales.get(i).getEstado().equals("a")) {
+                    model.addRow(new Object[]{lMateriales.get(i).getNombre(), lMateriales.get(i).getPulgada(), lMateriales.get(i).getCms(),
+                                               lMateriales.get(i).getPrecio(), lMateriales.get(i).getPintura_empaque(), "En uso"});
+                }
+                else{
+                    model.addRow(new Object[]{lMateriales.get(i).getNombre(), lMateriales.get(i).getPulgada(), lMateriales.get(i).getCms(),
+                                               lMateriales.get(i).getPrecio(), lMateriales.get(i).getPintura_empaque(), "Descontinuado"});
+                }
+            }
+            this.jTableMaterial.setModel(model);
+            this.jTableMaterial.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+            this.jTableMaterial.setFillsViewportHeight(true);
+        }
+    }
+     
+      void cargar_tableNombre(String pNombre){
+        model.setRowCount(0);
+        String[] nombreColum = {"Nombre", "Pulgada", "cms", "precio", "Pintura empaque", "Estado"};
+        model.setColumnIdentifiers(nombreColum);
+        
+        lMateriales = materialDAO.ListarMaterialesNombre(pNombre);
+        
+       
+    
+        if (lMateriales.size()>-1) {
+            for (int i = 0; i < lMateriales.size(); i++) {
+                if (lMateriales.get(i).getEstado().equals("a")) {
+                    model.addRow(new Object[]{lMateriales.get(i).getNombre(), lMateriales.get(i).getPulgada(), lMateriales.get(i).getCms(),
+                                               lMateriales.get(i).getPrecio(), lMateriales.get(i).getPintura_empaque(), "En uso"});
+                }
+                else{
+                    model.addRow(new Object[]{lMateriales.get(i).getNombre(), lMateriales.get(i).getPulgada(), lMateriales.get(i).getCms(),
+                                               lMateriales.get(i).getPrecio(), lMateriales.get(i).getPintura_empaque(), "Descontinuado"});
+                }
+            }
+            this.jTableMaterial.setModel(model);
+            this.jTableMaterial.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+            this.jTableMaterial.setFillsViewportHeight(true);
+        }
+    }
+     
+     void limpiar(){
+        id = 0;
+        this.jBIngresar.setEnabled(true);
+        this.jBModificar.setEnabled(false);
+        this.jBEliminar.setEnabled(false);
+        this.jBActivar.setEnabled(false);
+        
+        this.jTNombreIN.setText("Ingrese el nombre del material");
+        this.jTPulgadaIN.setText("Ingrese el valor en pulgada");
+        this.jTCmsIN.setText("Ingrese el valor en cms");
+        this.jTPrecioIN.setText("Ingrese el precio");
+        this.jTPinEmpaqueIN.setText("Pintura empaque");
+     }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +109,486 @@ public class Panel_materiales extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTNombreIN = new javax.swing.JTextField();
+        jTPulgadaIN = new javax.swing.JTextField();
+        jTCmsIN = new javax.swing.JTextField();
+        jTPrecioIN = new javax.swing.JTextField();
+        jTPinEmpaqueIN = new javax.swing.JTextField();
+        jTBuscarNombre = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableMaterial = new javax.swing.JTable();
+        jBBuscar = new javax.swing.JButton();
+        jBIngresar = new javax.swing.JButton();
+        jBModificar = new javax.swing.JButton();
+        jBEliminar = new javax.swing.JButton();
+        jBActivar = new javax.swing.JButton();
+
         setBackground(new java.awt.Color(255, 51, 51));
+        setPreferredSize(new java.awt.Dimension(1000, 710));
+
+        jTNombreIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTNombreIN.setText("Ingrese el nombre del material");
+        jTNombreIN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTNombreINMouseClicked(evt);
+            }
+        });
+        jTNombreIN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTNombreINActionPerformed(evt);
+            }
+        });
+
+        jTPulgadaIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTPulgadaIN.setText("Ingrese el valor en pulgada");
+        jTPulgadaIN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTPulgadaINMouseClicked(evt);
+            }
+        });
+
+        jTCmsIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTCmsIN.setText("Ingrese el valor en cms");
+        jTCmsIN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTCmsINMouseClicked(evt);
+            }
+        });
+
+        jTPrecioIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTPrecioIN.setText("Ingrese el precio");
+        jTPrecioIN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTPrecioINMouseClicked(evt);
+            }
+        });
+
+        jTPinEmpaqueIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTPinEmpaqueIN.setText("Pintura empaque");
+        jTPinEmpaqueIN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTPinEmpaqueINMouseClicked(evt);
+            }
+        });
+
+        jTBuscarNombre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTBuscarNombre.setText("Ingrese el nombre del material a buscar");
+        jTBuscarNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTBuscarNombreMouseClicked(evt);
+            }
+        });
+
+        jTableMaterial.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTableMaterial.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTableMaterial.setRowHeight(35);
+        jTableMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableMaterialMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableMaterial);
+
+        jBBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBBuscar.setText("Buscar");
+        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarActionPerformed(evt);
+            }
+        });
+
+        jBIngresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBIngresar.setText("Ingresar");
+        jBIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBIngresarActionPerformed(evt);
+            }
+        });
+
+        jBModificar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBModificar.setText("Modificar");
+        jBModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBModificarActionPerformed(evt);
+            }
+        });
+
+        jBEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBEliminar.setText("Eliminar");
+        jBEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEliminarActionPerformed(evt);
+            }
+        });
+
+        jBActivar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBActivar.setText("Activar");
+        jBActivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBActivarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTNombreIN)
+                    .addComponent(jTPulgadaIN)
+                    .addComponent(jTCmsIN)
+                    .addComponent(jTPrecioIN)
+                    .addComponent(jTPinEmpaqueIN)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBIngresar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBActivar)
+                            .addComponent(jBModificar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBEliminar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTBuscarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(73, 73, 73)
+                        .addComponent(jBBuscar)))
+                .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTNombreIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTBuscarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBBuscar))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTPulgadaIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTCmsIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTPrecioIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTPinEmpaqueIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBIngresar)
+                            .addComponent(jBModificar)
+                            .addComponent(jBEliminar))
+                        .addGap(27, 27, 27)
+                        .addComponent(jBActivar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(286, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIngresarActionPerformed
+        boolean bandPulgadas = false, bandCms = false, bandPintura = false, bandPrecio = false, bandNombre = false;
+        
+        String nombre = this.jTNombreIN.getText();
+        double pulgada = 0, cms = 0, precio = 0, pinturaEmpaque = 0;
+        
+        //evitar errores en los campos que son double en caso q se ingresen letras o valores negativos 
+        try {
+            pulgada = Double.parseDouble(this.jTPulgadaIN.getText());
+            if (pulgada > -1) {
+                bandPulgadas = true;
+            }
+            else{
+                bandPulgadas = false;
+                JOptionPane.showMessageDialog(null, "Las pulgadas no pueden ser valores negativos o letras");
+            }
+        } catch (Exception e) {
+        }
+        
+        try {
+            cms = Double.parseDouble(this.jTCmsIN.getText());
+            if (cms > -1) {
+                bandCms = true;
+            }
+            else{
+                bandCms = false;
+                JOptionPane.showMessageDialog(null, "Los CMS no pueden ser valores negativos o letras");
+            }
+        } catch (Exception e) {
+        }
+        try {
+            pinturaEmpaque = Double.parseDouble(this.jTPinEmpaqueIN.getText());
+            if (pinturaEmpaque > -1) {
+                bandPintura = true;
+            }
+            else{
+                bandPintura = false;
+                JOptionPane.showMessageDialog(null, "La pintura empaque no puede tener valores negativos o letras");
+            }
+        } catch (Exception e) {
+        }
+        try {
+            precio = Double.parseDouble(this.jTPrecioIN.getText());
+            if (precio > -1) {
+                bandPrecio = true;
+            }
+            else{
+                bandPrecio = false;
+                JOptionPane.showMessageDialog(null, "El precio no puede tener valores negativos o letras");
+            }
+        } catch (Exception e) {
+        }
+        
+        //se evalua si todo esta bien 
+        if (bandPintura && bandCms && bandPulgadas && bandPrecio) {
+            //se evalua sino viene vacio el campo de nombre
+            
+            //se evalua si ya existe el material
+            for (int i = 0; i < lMateriales.size(); i++) {      
+                if (nombre.toLowerCase().equals(lMateriales.get(i).getNombre().toLowerCase()) && pulgada == lMateriales.get(i).getPulgada() &&
+                    cms == lMateriales.get(i).getCms()) {
+                    bandNombre = true;
+                    break;
+                }
+                else{
+                    bandNombre = false;
+                }
+            }
+            //evalua si el material esta repetido
+            if (!bandNombre) {
+                if (!nombre.equals("Ingrese el nombre del material") && nombre.trim().length() > 0) {
+                    //cargar el objeto material para ser mandado al DAO
+
+                    material = new Material(nombre, pulgada, cms, precio, pinturaEmpaque);
+                    //El mertodo devuelve un boolean que sirve para saber si fue un exito o fracaso
+                    if (materialDAO.insert(material)) {
+                        JOptionPane.showMessageDialog(null, "Se ingresó el material exitosamente");
+                        this.cargar_table();
+                        this.limpiar();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Error en el ingreso del material");
+                    }
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Error al ingresar el material.\n El material existe.");
+            }
+           
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Las unidades de medidas deben ser mayores a 0");
+        }           
+    }//GEN-LAST:event_jBIngresarActionPerformed
+
+    private void jTNombreINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNombreINActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTNombreINActionPerformed
+
+    private void jTNombreINMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTNombreINMouseClicked
+        if (this.jTNombreIN.getText().equals("Ingrese el nombre del material")) {
+            this.jTNombreIN.setText("");
+        }
+    }//GEN-LAST:event_jTNombreINMouseClicked
+
+    private void jTPulgadaINMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTPulgadaINMouseClicked
+        if (this.jTPulgadaIN.getText().equals("Ingrese el valor en pulgada")) {
+            this.jTPulgadaIN.setText("");
+        }
+    }//GEN-LAST:event_jTPulgadaINMouseClicked
+
+    private void jTCmsINMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCmsINMouseClicked
+        if (this.jTCmsIN.getText().equals("Ingrese el valor en cms")) {
+            this.jTCmsIN.setText("");
+        }
+    }//GEN-LAST:event_jTCmsINMouseClicked
+
+    private void jTPrecioINMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTPrecioINMouseClicked
+        if (this.jTPrecioIN.getText().equals("Ingrese el precio")) {
+            this.jTPrecioIN.setText("");
+        }
+    }//GEN-LAST:event_jTPrecioINMouseClicked
+
+    private void jTPinEmpaqueINMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTPinEmpaqueINMouseClicked
+        if (this.jTPinEmpaqueIN.getText().equals("Pintura empaque")) {
+            this.jTPinEmpaqueIN.setText("");
+        }
+    }//GEN-LAST:event_jTPinEmpaqueINMouseClicked
+
+    private void jTBuscarNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTBuscarNombreMouseClicked
+        if (this.jTBuscarNombre.getText().equals("Ingrese el nombre del material a buscar")) {
+            this.jTBuscarNombre.setText("");
+        }
+    }//GEN-LAST:event_jTBuscarNombreMouseClicked
+
+    private void jTableMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMaterialMouseClicked
+        try {
+            if(this.jTableMaterial.getSelectedRow() > -1){
+                //activar los botones de actualizar y eliminar
+                this.jBIngresar.setEnabled(false);
+                this.jBModificar.setEnabled(true);
+                this.jBEliminar.setEnabled(true);
+                this.jBActivar.setEnabled(true);
+                
+                int index = this.jTableMaterial.getSelectedRow();
+                
+                id = this.lMateriales.get(index).getMaterial_id();
+                this.jTNombreIN.setText(((DefaultTableModel)this.jTableMaterial.getModel()).getValueAt(index, 0).toString());
+                this.jTPulgadaIN.setText(((DefaultTableModel)this.jTableMaterial.getModel()).getValueAt(index, 1).toString());
+                this.jTCmsIN.setText(((DefaultTableModel)this.jTableMaterial.getModel()).getValueAt(index, 2).toString());
+                this.jTPrecioIN.setText(((DefaultTableModel)this.jTableMaterial.getModel()).getValueAt(index, 3).toString());
+                this.jTPinEmpaqueIN.setText(((DefaultTableModel)this.jTableMaterial.getModel()).getValueAt(index, 4).toString());                
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No ha seleccionado ningún elemento de la tabla");
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jTableMaterialMouseClicked
+
+    private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
+         boolean bandPulgadas = false, bandCms = false, bandPintura = false, bandPrecio = false;
+        
+        String nombre = this.jTNombreIN.getText();
+        double pulgada = 0, cms = 0, precio = 0, pinturaEmpaque = 0;
+        
+        //evitar errores en los campos que son double en caso q se ingresen letras o valores negativos 
+        try {
+            pulgada = Double.parseDouble(this.jTPulgadaIN.getText());
+            if (pulgada > -1) {
+                bandPulgadas = true;
+            }
+            else{
+                bandPulgadas = false;
+                JOptionPane.showMessageDialog(null, "Las pulgadas no pueden ser valores negativos o letras");
+            }
+        } catch (Exception e) {
+        }
+        
+        try {
+            cms = Double.parseDouble(this.jTCmsIN.getText());
+            if (cms > -1) {
+                bandCms = true;
+            }
+            else{
+                bandCms = false;
+                JOptionPane.showMessageDialog(null, "Los CMS no pueden ser valores negativos o letras");
+            }
+        } catch (Exception e) {
+        }
+        try {
+            pinturaEmpaque = Double.parseDouble(this.jTPinEmpaqueIN.getText());
+            if (pinturaEmpaque > -1) {
+                bandPintura = true;
+            }
+            else{
+                bandPintura = false;
+                JOptionPane.showMessageDialog(null, "La pintura empaque no puede tener valores negativos o letras");
+            }
+        } catch (Exception e) {
+        }
+        try {
+            precio = Double.parseDouble(this.jTPrecioIN.getText());
+            if (precio > -1) {
+                bandPrecio = true;
+            }
+            else{
+                bandPrecio = false;
+                JOptionPane.showMessageDialog(null, "El precio no puede tener valores negativos o letras");
+            }
+        } catch (Exception e) {
+        }
+        
+
+        
+        //se evalua si todo esta bien 
+        if (bandPintura && bandCms && bandPulgadas && bandPrecio) {
+            
+            
+            //se evalua sino viene vacio el campo de nombre
+            if (!nombre.equals("Ingrese el nombre del material") && nombre.trim().length() > 0) {   
+                //cargar el objeto material para ser mandado al DAO
+                material = new Material(id, nombre, pulgada, cms, precio, pinturaEmpaque);
+                //El mertodo devuelve un boolean que sirve para saber si fue un exito o fracaso
+                if (materialDAO.update(material)) {
+                    JOptionPane.showMessageDialog(null, "Se actualizó el material exitosamente");
+                    this.cargar_table();
+                    this.limpiar();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Error en al actualizar el material");
+                }
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Las unidades de medidas deben ser mayores a 0");
+        }   
+    }//GEN-LAST:event_jBModificarActionPerformed
+
+    private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
+        if (materialDAO.delete(id)) {
+            JOptionPane.showMessageDialog(null, "Se eliminó correctamente");
+            this.cargar_table();
+            this.limpiar();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Error al eliminar");
+            this.limpiar();
+        }
+        
+    }//GEN-LAST:event_jBEliminarActionPerformed
+
+    private void jBActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActivarActionPerformed
+        if (materialDAO.activate(id)) {
+            JOptionPane.showMessageDialog(null, "Se reactivó correctamente");
+            this.cargar_table();
+            this.limpiar();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Error al activar el material");
+            this.limpiar();
+        }
+    }//GEN-LAST:event_jBActivarActionPerformed
+
+    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
+        this.jBIngresar.setEnabled(false);
+        String nombreBuscar = this.jTBuscarNombre.getText();
+        
+        if (!nombreBuscar.equals("Ingrese el nombre del material a buscar") &&
+            nombreBuscar.trim().length()> 0) {
+            
+            this.cargar_tableNombre(nombreBuscar);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No ha ingresado el nombre a buscar");
+        }
+    }//GEN-LAST:event_jBBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBActivar;
+    private javax.swing.JButton jBBuscar;
+    private javax.swing.JButton jBEliminar;
+    private javax.swing.JButton jBIngresar;
+    private javax.swing.JButton jBModificar;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTBuscarNombre;
+    private javax.swing.JTextField jTCmsIN;
+    private javax.swing.JTextField jTNombreIN;
+    private javax.swing.JTextField jTPinEmpaqueIN;
+    private javax.swing.JTextField jTPrecioIN;
+    private javax.swing.JTextField jTPulgadaIN;
+    private javax.swing.JTable jTableMaterial;
     // End of variables declaration//GEN-END:variables
 }

@@ -25,6 +25,21 @@ public class Product {
         this.constante_mod = constante_mod;
     }
 
+    public Product(int product_id, String nombre, String modelo, double time_in, double constante_mod) {
+        this.product_id = product_id;
+        this.nombre = nombre;
+        this.modelo = modelo;
+        this.time_in = time_in;
+        this.constante_mod = constante_mod;
+    }
+
+    public Product(String nombre, String modelo, double time_in, double constante_mod) {
+        this.nombre = nombre;
+        this.modelo = modelo;
+        this.time_in = time_in;
+        this.constante_mod = constante_mod;
+    }
+   
     public int getProduct_id() {
         return product_id;
     }

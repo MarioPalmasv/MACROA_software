@@ -48,6 +48,33 @@ public class ProductDAO implements DML<Product>{
 
         return products_lista;
     }
+    public List<Product> ListarProdcutNombre(String pNombre) {
+        List<Product> products_lista = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM product WHERE nombre like ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, "%"+pNombre+"%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int product_id = resultSet.getInt("product_id");
+                String nombre = resultSet.getString("nombre");
+                String modelo = resultSet.getString("modelo");
+                String state = resultSet.getString("state");
+                double time_in = resultSet.getDouble("time_in");
+                double constante_mod = resultSet.getDouble("constante_mod");
+                
+
+                Product productos = new Product(product_id, nombre, modelo, state, time_in, constante_mod);
+                products_lista.add(productos);
+            }
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+        }
+
+        return products_lista;
+    }
     
 
     @Override

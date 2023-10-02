@@ -28,11 +28,16 @@ public class Panel_usuarios extends javax.swing.JPanel {
         model = new DefaultTableModel();
         this.cargar_table();
         id = 0;
+        
+        //desactivar botones
+        this.jBActivar.setEnabled(false);
+        this.jButtonEliminar.setEnabled(false);
+        this.jButtonModificar.setEnabled(false);
     }
 
     void cargar_table(){
         model.setRowCount(0);
-        String[] nombreColum = {"Nombres", "Apellidos", "UserName", "Clave", "Salario", "Dirección", "Teléfono"};
+        String[] nombreColum = {"Nombres", "Apellidos", "UserName", "Clave", "Salario", "Dirección", "Teléfono", "tipo usuario", "Estado"};
         model.setColumnIdentifiers(nombreColum);
         
         lUsuarios = usuarioDAO.ListarUsuarios();
@@ -41,9 +46,17 @@ public class Panel_usuarios extends javax.swing.JPanel {
     
         if (lUsuarios.size()>-1) {
             for (int i = 0; i < lUsuarios.size(); i++) {
-                model.addRow(new Object[]{lUsuarios.get(i).getFirst_name(), lUsuarios.get(i).getLast_name(), lUsuarios.get(i).getUser_name(),
+                if (lUsuarios.get(i).getState().equals("a")) {
+                    model.addRow(new Object[]{lUsuarios.get(i).getFirst_name(), lUsuarios.get(i).getLast_name(), lUsuarios.get(i).getUser_name(),
                                            lUsuarios.get(i).getPassword_user(), lUsuarios.get(i).getSalary_employee(), lUsuarios.get(i).getAddress(),
-                                            lUsuarios.get(i).getPhone()});
+                                            lUsuarios.get(i).getPhone(), lUsuarios.get(i).getType_user(), "Trabajando"});
+                }
+                else{
+                    model.addRow(new Object[]{lUsuarios.get(i).getFirst_name(), lUsuarios.get(i).getLast_name(), lUsuarios.get(i).getUser_name(),
+                                           lUsuarios.get(i).getPassword_user(), lUsuarios.get(i).getSalary_employee(), lUsuarios.get(i).getAddress(),
+                                            lUsuarios.get(i).getPhone(), lUsuarios.get(i).getType_user(), "Despedido"});
+                }
+                
             }
             this.jTableUser.setModel(model);
             this.jTableUser.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -51,7 +64,38 @@ public class Panel_usuarios extends javax.swing.JPanel {
         }
     }
     
+    void cargar_tableNombre(String pNombre){
+        model.setRowCount(0);
+        String[] nombreColum = {"Nombres", "Apellidos", "UserName", "Clave", "Salario", "Dirección", "Teléfono", "tipo usuario", "Estado"};
+        model.setColumnIdentifiers(nombreColum);
+        
+        lUsuarios = usuarioDAO.ListarUsuariosNombre(pNombre);
+        if (lUsuarios.size()>-1) {
+            for (int i = 0; i < lUsuarios.size(); i++) {
+                if (lUsuarios.get(i).getState().equals("a")) {
+                    model.addRow(new Object[]{lUsuarios.get(i).getFirst_name(), lUsuarios.get(i).getLast_name(), lUsuarios.get(i).getUser_name(),
+                                           lUsuarios.get(i).getPassword_user(), lUsuarios.get(i).getSalary_employee(), lUsuarios.get(i).getAddress(),
+                                            lUsuarios.get(i).getPhone(), lUsuarios.get(i).getType_user(), "Trabajando"});
+                }
+                else{
+                    model.addRow(new Object[]{lUsuarios.get(i).getFirst_name(), lUsuarios.get(i).getLast_name(), lUsuarios.get(i).getUser_name(),
+                                           lUsuarios.get(i).getPassword_user(), lUsuarios.get(i).getSalary_employee(), lUsuarios.get(i).getAddress(),
+                                            lUsuarios.get(i).getPhone(), lUsuarios.get(i).getType_user(), "Despedido"});
+                }
+                
+            }
+            this.jTableUser.setModel(model);
+            this.jTableUser.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+            this.jTableUser.setFillsViewportHeight(true);
+        }
+    }
     void limpiar(){
+        this.cargar_table();
+        this.jBActivar.setEnabled(false);
+        this.jButtonEliminar.setEnabled(false);
+        this.jButtonModificar.setEnabled(false);
+        this.jButtonIngresar.setEnabled(true);
+        id = 0;
         this.jTextNombreIN.setText("Ingrese el nombre del empleado");
         this.jTextApellidoIN.setText("Ingrese el apellido del empleado");
         this.jTextNombreUsuarioIN.setText("Ingrese el nombre de usuario");
@@ -59,7 +103,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
         this.jTextSalarioIN.setText("Ingrese el salario");
         this.jTextAreaDireccion.setText("Ingrese la dirección");
         this.jTextTelefono.setText("Ingrese el teléfono");
-        this.jPassClave.setText("12345678");
+        this.jPassClave.setText("                ");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,7 +118,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableUser = new javax.swing.JTable();
         jTextBuscarEmpleado = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jBBuscar = new javax.swing.JButton();
         jTextApellidoIN = new javax.swing.JTextField();
         jTextNombreUsuarioIN = new javax.swing.JTextField();
         jTextCorreoIN = new javax.swing.JTextField();
@@ -86,9 +130,11 @@ public class Panel_usuarios extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaDireccion = new javax.swing.JTextArea();
         jTextTelefono = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jBActivar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 255, 204));
-        setPreferredSize(new java.awt.Dimension(1000, 710));
+        setPreferredSize(new java.awt.Dimension(990, 710));
 
         jTextNombreIN.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jTextNombreIN.setText("Ingrese el nombre del empleado");
@@ -104,6 +150,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
             }
         });
 
+        jTableUser.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTableUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -131,8 +178,13 @@ public class Panel_usuarios extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Franklin Gothic Book", 0, 24)); // NOI18N
-        jButton1.setText("Buscar");
+        jBBuscar.setFont(new java.awt.Font("Franklin Gothic Book", 0, 24)); // NOI18N
+        jBBuscar.setText("Buscar");
+        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarActionPerformed(evt);
+            }
+        });
 
         jTextApellidoIN.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jTextApellidoIN.setText("Ingrese el apellido del empleado");
@@ -177,7 +229,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
         });
 
         jPassClave.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jPassClave.setText("12345678");
+        jPassClave.setText("                ");
         jPassClave.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPassClaveMouseClicked(evt);
@@ -248,14 +300,34 @@ public class Panel_usuarios extends javax.swing.JPanel {
             }
         });
 
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Empleado", "Administrador" }));
+
+        jBActivar.setFont(new java.awt.Font("Franklin Gothic Book", 0, 24)); // NOI18N
+        jBActivar.setText("Activar");
+        jBActivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBActivarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(18, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextNombreIN)
+                            .addComponent(jTextApellidoIN)
+                            .addComponent(jTextNombreUsuarioIN)
+                            .addComponent(jTextCorreoIN)
+                            .addComponent(jTextSalarioIN, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButtonIngresar)
@@ -263,39 +335,41 @@ public class Panel_usuarios extends javax.swing.JPanel {
                                 .addComponent(jButtonModificar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButtonEliminar))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jPassClave, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextTelefono)))
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextNombreIN)
-                            .addComponent(jTextApellidoIN, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
-                            .addComponent(jTextNombreUsuarioIN)
-                            .addComponent(jTextCorreoIN)
-                            .addComponent(jTextSalarioIN))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jPassClave, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextTelefono, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(104, 104, 104)
-                        .addComponent(jButton1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(104, 104, 104)
+                                .addComponent(jBBuscar))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jBActivar)
+                        .addGap(214, 214, 214))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextNombreIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jBBuscar))
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBActivar))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jTextApellidoIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
@@ -306,16 +380,18 @@ public class Panel_usuarios extends javax.swing.JPanel {
                         .addComponent(jTextSalarioIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
+                        .addGap(18, 18, 18)
                         .addComponent(jTextTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jPassClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonModificar)
                             .addComponent(jButtonEliminar)
                             .addComponent(jButtonIngresar))))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -357,7 +433,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextCorreoINMouseClicked
 
     private void jPassClaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPassClaveMouseClicked
-        if (this.jPassClave.getText().equals("12345678")) {
+        if (this.jPassClave.getText().equals("                ")) {
             this.jPassClave.setText("");
         }
     }//GEN-LAST:event_jPassClaveMouseClicked
@@ -375,6 +451,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextBuscarEmpleadoMouseClicked
 
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
+        boolean bandUser = false, bandUserName = false;
         double salario = 0;
         
         
@@ -385,6 +462,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
         String direccion = this.jTextAreaDireccion.getText();
         String telefono = this.jTextTelefono.getText();
         String clave = this.jPassClave.getText();
+        String typeUS = this.jComboBox1.getSelectedItem().toString();
         
         try {
             salario = Double.parseDouble(this.jTextSalarioIN.getText());
@@ -405,23 +483,45 @@ public class Panel_usuarios extends javax.swing.JPanel {
             telefono = "N/A";
         }
         
+        //se evaluan q los campos requeridos no sean nulos
         if (!nombre.equals("Ingrese el nombre del empleado") && nombre.trim().length()> 0 &&
             !apellido.equals("Ingrese el apellido del empleado") && apellido.trim().length()> 0 &&
             !nombreUs.equals("Ingrese el nombre de usuario") && nombreUs.trim().length()> 0 &&
-            !clave.equals("12345678") && clave.trim().length()> 0) {
+            !clave.equals("                ") && clave.trim().length()> 0) {
             
-            String claveEncriptada = encrip.Encriptar(clave);
-            usuario = new User(nombre, apellido, nombreUs, claveEncriptada, correo, salario, direccion, telefono);
+            //evaluar en la lista si el usuairo existe
+            for (int i = 0; i < lUsuarios.size(); i++) {
+                if (nombre.toLowerCase().equals(lUsuarios.get(i).getFirst_name().toLowerCase()) &&
+                    apellido.toLowerCase().equals(lUsuarios.get(i).getLast_name().toLowerCase()) ) {
+                    bandUser = true;
+                }
+                if (nombreUs.toLowerCase().equals(lUsuarios.get(i).getUser_name().toLowerCase())) {
+                    bandUserName = true;
+                }
+            }
             
-            if (usuarioDAO.insert(usuario)) {
-                JOptionPane.showMessageDialog(null, "Se ingresó el usuario");
-                this.cargar_table();
-                this.limpiar();
+            //evaluar si el usuario existe 
+            if (!bandUser) {
+                if (!bandUserName) {
+                    String claveEncriptada = encrip.Encriptar(clave);
+                    usuario = new User(nombre, apellido, nombreUs, claveEncriptada, correo, salario, direccion, telefono,typeUS);
+
+                    if (usuarioDAO.insert(usuario)) {
+                        JOptionPane.showMessageDialog(null, "Se ingresó el usuario");
+                        this.cargar_table();
+                        this.limpiar();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Error al ingresar el usuario");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Error! \n El nombre de usuario debe ser diferente.");
+                }
+                
             }
             else{
-                JOptionPane.showMessageDialog(null, "Error al ingresar el usuario");
+                JOptionPane.showMessageDialog(null, "El usuario existe");
             }
-
         }
         else{
             JOptionPane.showMessageDialog(null, "No puede dejar los campos vacios");
@@ -447,20 +547,28 @@ public class Panel_usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextAreaDireccionMouseClicked
 
     private void jTableUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUserMouseClicked
-        this.jButtonIngresar.setEnabled(false);
-        
         try {
             if(this.jTableUser.getSelectedRow() > -1){
+                //activar botones
+                this.jBActivar.setEnabled(true);
+                this.jButtonEliminar.setEnabled(true);
+                this.jButtonModificar.setEnabled(true);
+                
+                this.jButtonIngresar.setEnabled(false);
+                
                 int index = this.jTableUser.getSelectedRow();
+                String pass = encrip.Desencriptar(((DefaultTableModel)this.jTableUser.getModel()).getValueAt(index, 3).toString());
+              
                 id = this.lUsuarios.get(index).getUser_id();
                 this.jTextNombreIN.setText(((DefaultTableModel)this.jTableUser.getModel()).getValueAt(index, 0).toString());
                 this.jTextApellidoIN.setText(((DefaultTableModel)this.jTableUser.getModel()).getValueAt(index, 1).toString());
                 this.jTextNombreUsuarioIN.setText(((DefaultTableModel)this.jTableUser.getModel()).getValueAt(index, 2).toString());
+                this.jPassClave.setText(pass);
                 this.jTextCorreoIN.setText(lUsuarios.get(index).getEmail());
-                //this.jTextCorreoIN.setText(((DefaultTableModel)this.jTableUser.getModel()).getValueAt(index, 4).toString());
                 this.jTextSalarioIN.setText(((DefaultTableModel)this.jTableUser.getModel()).getValueAt(index, 4).toString());
                 this.jTextAreaDireccion.setText(((DefaultTableModel)this.jTableUser.getModel()).getValueAt(index, 5).toString());
                 this.jTextTelefono.setText(((DefaultTableModel)this.jTableUser.getModel()).getValueAt(index, 6).toString());
+                
             }
             else{
                 JOptionPane.showMessageDialog(null, "No ha seleccionado ningún elemento de la tabla");
@@ -470,7 +578,9 @@ public class Panel_usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jTableUserMouseClicked
 
     private void jTextTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextTelefonoMouseClicked
-        // TODO add your handling code here:
+        if (this.jTextTelefono.getText().equals("Ingrese el teléfono")) {
+            this.jTextTelefono.setText("");
+        }
     }//GEN-LAST:event_jTextTelefonoMouseClicked
 
     private void jTextTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextTelefonoActionPerformed
@@ -488,6 +598,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
         String direccion = this.jTextAreaDireccion.getText();
         String telefono = this.jTextTelefono.getText();
         String clave = this.jPassClave.getText();
+        String typeUS = this.jComboBox1.getSelectedItem().toString();
         
         try {
             salario = Double.parseDouble(this.jTextSalarioIN.getText());
@@ -511,10 +622,10 @@ public class Panel_usuarios extends javax.swing.JPanel {
         if (!nombre.equals("Ingrese el nombre del empleado") && nombre.trim().length()> 0 &&
             !apellido.equals("Ingrese el apellido del empleado") && apellido.trim().length()> 0 &&
             !nombreUs.equals("Ingrese el nombre de usuario") && nombreUs.trim().length()> 0 &&
-            !clave.equals("12345678") && clave.trim().length()> 0) {
+            !clave.equals("                ") && clave.trim().length()> 0) {
             
             String claveEncriptada = encrip.Encriptar(clave);
-            usuario = new User(id, nombre, apellido, nombreUs, claveEncriptada, correo,salario, direccion, telefono);
+            usuario = new User(id, nombre, apellido, nombreUs, claveEncriptada, correo,salario, direccion, telefono, typeUS);
             
             if (usuarioDAO.update(usuario)) {
                 JOptionPane.showMessageDialog(null, "Se actualizó el usuario");
@@ -539,16 +650,41 @@ public class Panel_usuarios extends javax.swing.JPanel {
         }
         else{
             JOptionPane.showMessageDialog(null, "Error al eliminar el usuario");
+            this.limpiar();
         }
         
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
+    private void jBActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActivarActionPerformed
+        if (usuarioDAO.activate(id)) {
+            JOptionPane.showMessageDialog(null, "Se activó correctamente");
+            this.cargar_table();
+            this.limpiar();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Error al activar el usuario");
+            this.limpiar();
+        }
+    }//GEN-LAST:event_jBActivarActionPerformed
+
+    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
+        String nombre = this.jTextBuscarEmpleado.getText();
+        
+        if (!nombre.equals("Bucar empleado por nombre")&& nombre.trim().length() > 0) {
+            this.cargar_tableNombre(nombre);
+        }else{
+            JOptionPane.showMessageDialog(null, "No ha ingresado nombre a buscar");
+        }
+    }//GEN-LAST:event_jBBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBActivar;
+    private javax.swing.JButton jBBuscar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonIngresar;
     private javax.swing.JButton jButtonModificar;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPasswordField jPassClave;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
