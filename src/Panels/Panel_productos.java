@@ -939,9 +939,8 @@ try {
                     JOptionPane.showMessageDialog(null, "Se elimnio pero no esta en bd");
                 }
                 else{
-                    lcombination.remove(idCombination);
-                    
                     if (combinatinoDAO.delete(lcombination.get(idCombination).getUseId())) {
+                        lcombination.remove(idCombination);
                         JOptionPane.showMessageDialog(null, "El material se elimino de la combinación que estaba guarda");
                     }
                     else{
@@ -951,7 +950,6 @@ try {
             }
             this.jBCrearCombination.setEnabled(false);
         }
-        JOptionPane.showMessageDialog(null, "Se ha eliminado el material");
         this.cargarTableCombination();
         this.jBEliminarCombination.setEnabled(false);
         

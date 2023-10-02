@@ -26,21 +26,181 @@ public class Panel_costos extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTNombre = new javax.swing.JTextField();
+        JTPorcentaje = new javax.swing.JTextField();
+        jTDecimal = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jTNombre3 = new javax.swing.JTextField();
+        jBBuscar = new javax.swing.JButton();
+        jBIngresar = new javax.swing.JButton();
+        jBModificar = new javax.swing.JButton();
+        jBEliminar = new javax.swing.JButton();
+        jBActivate = new javax.swing.JButton();
+
         setBackground(new java.awt.Color(51, 51, 255));
+
+        jTNombre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTNombre.setText("Ingrese el nombre del impuesto");
+        jTNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTNombreMouseClicked(evt);
+            }
+        });
+
+        JTPorcentaje.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        JTPorcentaje.setText("Ingrese el porcentaje");
+        JTPorcentaje.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTPorcentajeMouseClicked(evt);
+            }
+        });
+        JTPorcentaje.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                JTPorcentajePropertyChange(evt);
+            }
+        });
+        JTPorcentaje.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                JTPorcentajeKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                JTPorcentajeKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                JTPorcentajeKeyTyped(evt);
+            }
+        });
+
+        jTDecimal.setEditable(false);
+        jTDecimal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTDecimal.setText("Valor en decimal");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable1.setRowHeight(35);
+        jScrollPane1.setViewportView(jTable1);
+
+        jTNombre3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTNombre3.setText("Ingrese el nombre del impuesto a buscar");
+
+        jBBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBBuscar.setText("Buscar");
+
+        jBIngresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBIngresar.setText("Ingresar");
+
+        jBModificar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBModificar.setText("Modificar");
+
+        jBEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBEliminar.setText("Eliminar");
+
+        jBActivate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBActivate.setText("Activar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jBIngresar)
+                            .addGap(29, 29, 29)
+                            .addComponent(jBModificar)
+                            .addGap(18, 18, 18)
+                            .addComponent(jBEliminar))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(141, 141, 141)
+                            .addComponent(jBActivate))
+                        .addComponent(jTNombre)
+                        .addComponent(jTDecimal))
+                    .addComponent(JTPorcentaje, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(86, 86, 86)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTNombre3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(jBBuscar))
+                    .addComponent(jScrollPane1))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTNombre3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBBuscar))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(JTPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTDecimal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBIngresar)
+                            .addComponent(jBModificar)
+                            .addComponent(jBEliminar))
+                        .addGap(18, 18, 18)
+                        .addComponent(jBActivate))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(401, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTNombreMouseClicked
+        if (this.jTNombre.getText().equals("Ingrese el nombre del impuesto")) {
+            this.jTNombre.setText("");
+        }
+    }//GEN-LAST:event_jTNombreMouseClicked
+
+    private void JTPorcentajeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTPorcentajeMouseClicked
+        if (this.JTPorcentaje.getText().equals("Ingrese el porcentaje")) {
+            this.JTPorcentaje.setText("");
+        }
+    }//GEN-LAST:event_JTPorcentajeMouseClicked
+
+    private void JTPorcentajeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTPorcentajeKeyTyped
+        
+    }//GEN-LAST:event_JTPorcentajeKeyTyped
+
+    private void JTPorcentajeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTPorcentajeKeyPressed
+        
+    }//GEN-LAST:event_JTPorcentajeKeyPressed
+
+    private void JTPorcentajePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_JTPorcentajePropertyChange
+        
+    }//GEN-LAST:event_JTPorcentajePropertyChange
+
+    private void JTPorcentajeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTPorcentajeKeyReleased
+        String porcentaje = this.JTPorcentaje.getText();
+        this.jTDecimal.setText(porcentaje);
+    }//GEN-LAST:event_JTPorcentajeKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField JTPorcentaje;
+    private javax.swing.JButton jBActivate;
+    private javax.swing.JButton jBBuscar;
+    private javax.swing.JButton jBEliminar;
+    private javax.swing.JButton jBIngresar;
+    private javax.swing.JButton jBModificar;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTDecimal;
+    private javax.swing.JTextField jTNombre;
+    private javax.swing.JTextField jTNombre3;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

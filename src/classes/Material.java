@@ -56,8 +56,6 @@ public class Material {
         this.useId = useId;
     }
 
-
-    
     public Material() {
     }
 
