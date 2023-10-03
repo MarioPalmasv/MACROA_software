@@ -3,8 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ale12/Desktop/Macroa/MACROA_software/src/classesDAO/LoginLogsDAO.java</file>
-            <file>file:/C:/Users/ale12/Desktop/Macroa/MACROA_software/src/classesDAO/MaterialDAO.java</file>
+            <file>file:/C:/Users/ale12/Desktop/Macroa/MACROA_software/src/Panels/Panel_ordenes_empleados.java</file>
+            <file>file:/C:/Users/ale12/Desktop/Macroa/MACROA_software/src/forms/Dashboard_empleados.java</file>
+            <file>file:/C:/Users/ale12/Desktop/Macroa/MACROA_software/src/Panels/Panel_materiales.java</file>
+            <file>file:/C:/Users/ale12/Desktop/Macroa/MACROA_software/src/forms/Dashboard_main.java</file>
+            <file>file:/C:/Users/ale12/Desktop/Macroa/MACROA_software/src/classesDAO/UserDAO.java</file>
+            <file>file:/C:/Users/ale12/Desktop/Macroa/MACROA_software/src/Panels/Panel_costos.java</file>
+            <file>file:/C:/Users/ale12/Desktop/Macroa/MACROA_software/src/Panels/Panel_historial.java</file>
+            <file>file:/C:/Users/ale12/Desktop/Macroa/MACROA_software/src/Panels/Panel_productos.java</file>
+            <file>file:/C:/Users/ale12/Desktop/Macroa/MACROA_software/src/forms/Login.java</file>
+            <file>file:/C:/Users/ale12/Desktop/Macroa/MACROA_software/src/Panels/Panel_costos_empleados.java</file>
+            <file>file:/C:/Users/ale12/Desktop/Macroa/MACROA_software/src/Panels/Panel_usuarios.java</file>
         </group>
     </open-files>
 </project-private>

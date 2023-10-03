@@ -27,6 +27,40 @@ public class UserDAO implements DML<User>{
         con = new DbConexion().getCon();
     }
     
+    
+    
+    public User IngresarSistema(String usuario, String contrasenia) {
+        User user = null; // Inicializamos user como nulo (indicando que el usuario no existe)
+
+        try {
+            String sql = "SELECT * FROM user WHERE user_name=? AND Password_user=?";
+
+            try (PreparedStatement statement = con.prepareStatement(sql)) {
+                statement.setString(1, usuario); 
+                statement.setString(2, contrasenia); 
+                ResultSet resultSet = statement.executeQuery(); 
+
+                if (resultSet.next()) {
+                    user = new User();
+                    user.setUser_id(resultSet.getInt("user_id"));
+                    user.setFirst_name(resultSet.getString("first_name"));
+                    user.setLast_name(resultSet.getString("last_name"));
+                    user.setUser_name(resultSet.getString("user_name"));
+                    user.setPassword_user(resultSet.getString("password_user"));
+                    user.setEmail(resultSet.getString("email"));
+                    user.setSalary_employee(resultSet.getDouble("salary_employee"));
+                    user.setAddress(resultSet.getString("address"));
+                    user.setPhone(resultSet.getString("phone"));
+                    user.setState(resultSet.getString("state"));
+                    user.setType_user(resultSet.getString("user_type"));
+                }
+            }
+        } catch (SQLException e) {
+
+        }
+
+        return user; 
+    }
     public List<User> ListarUsuarios() {
         List<User> listaUser = new ArrayList<>();
         try {

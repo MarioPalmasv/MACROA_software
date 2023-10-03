@@ -132,11 +132,12 @@ public class Panel_usuarios extends javax.swing.JPanel {
         jTextTelefono = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         jBActivar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(204, 255, 204));
+        setBackground(new java.awt.Color(192, 190, 186));
         setPreferredSize(new java.awt.Dimension(990, 710));
 
-        jTextNombreIN.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jTextNombreIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextNombreIN.setText("Ingrese el nombre del empleado");
         jTextNombreIN.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jTextNombreIN.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -169,7 +170,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTableUser);
 
-        jTextBuscarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jTextBuscarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextBuscarEmpleado.setText("Bucar empleado por nombre");
         jTextBuscarEmpleado.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jTextBuscarEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -178,7 +179,9 @@ public class Panel_usuarios extends javax.swing.JPanel {
             }
         });
 
-        jBBuscar.setFont(new java.awt.Font("Franklin Gothic Book", 0, 24)); // NOI18N
+        jBBuscar.setBackground(new java.awt.Color(143, 5, 30));
+        jBBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBBuscar.setForeground(new java.awt.Color(255, 255, 255));
         jBBuscar.setText("Buscar");
         jBBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,7 +189,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
             }
         });
 
-        jTextApellidoIN.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jTextApellidoIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextApellidoIN.setText("Ingrese el apellido del empleado");
         jTextApellidoIN.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jTextApellidoIN.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -200,7 +203,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
             }
         });
 
-        jTextNombreUsuarioIN.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jTextNombreUsuarioIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextNombreUsuarioIN.setText("Ingrese el nombre de usuario");
         jTextNombreUsuarioIN.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jTextNombreUsuarioIN.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -214,7 +217,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
             }
         });
 
-        jTextCorreoIN.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jTextCorreoIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextCorreoIN.setText("Ingrese el correo");
         jTextCorreoIN.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jTextCorreoIN.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -228,7 +231,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
             }
         });
 
-        jPassClave.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jPassClave.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPassClave.setText("                ");
         jPassClave.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -236,7 +239,9 @@ public class Panel_usuarios extends javax.swing.JPanel {
             }
         });
 
-        jButtonIngresar.setFont(new java.awt.Font("Franklin Gothic Book", 0, 24)); // NOI18N
+        jButtonIngresar.setBackground(new java.awt.Color(143, 5, 30));
+        jButtonIngresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButtonIngresar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonIngresar.setText("Ingresar");
         jButtonIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,7 +249,9 @@ public class Panel_usuarios extends javax.swing.JPanel {
             }
         });
 
-        jButtonModificar.setFont(new java.awt.Font("Franklin Gothic Book", 0, 24)); // NOI18N
+        jButtonModificar.setBackground(new java.awt.Color(143, 5, 30));
+        jButtonModificar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButtonModificar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonModificar.setText("Modificar");
         jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,7 +259,9 @@ public class Panel_usuarios extends javax.swing.JPanel {
             }
         });
 
-        jButtonEliminar.setFont(new java.awt.Font("Franklin Gothic Book", 0, 24)); // NOI18N
+        jButtonEliminar.setBackground(new java.awt.Color(143, 5, 30));
+        jButtonEliminar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButtonEliminar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,7 +269,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
             }
         });
 
-        jTextSalarioIN.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jTextSalarioIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextSalarioIN.setText("Ingrese el salario");
         jTextSalarioIN.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jTextSalarioIN.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -275,7 +284,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
         });
 
         jTextAreaDireccion.setColumns(20);
-        jTextAreaDireccion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jTextAreaDireccion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextAreaDireccion.setRows(5);
         jTextAreaDireccion.setText("Ingrese la dirección");
         jTextAreaDireccion.setToolTipText("");
@@ -286,7 +295,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jTextAreaDireccion);
 
-        jTextTelefono.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jTextTelefono.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextTelefono.setText("Ingrese el teléfono");
         jTextTelefono.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jTextTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -303,7 +312,9 @@ public class Panel_usuarios extends javax.swing.JPanel {
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Empleado", "Administrador" }));
 
-        jBActivar.setFont(new java.awt.Font("Franklin Gothic Book", 0, 24)); // NOI18N
+        jBActivar.setBackground(new java.awt.Color(143, 5, 30));
+        jBActivar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBActivar.setForeground(new java.awt.Color(255, 255, 255));
         jBActivar.setText("Activar");
         jBActivar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -311,87 +322,106 @@ public class Panel_usuarios extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(143, 5, 30));
+        jLabel1.setText("Usuarios");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(420, 420, 420))
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextNombreIN)
-                            .addComponent(jTextApellidoIN)
-                            .addComponent(jTextNombreUsuarioIN)
-                            .addComponent(jTextCorreoIN)
-                            .addComponent(jTextSalarioIN, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonIngresar)
-                                .addGap(25, 25, 25)
-                                .addComponent(jButtonModificar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonEliminar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jPassClave, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextTelefono, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextCorreoIN, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextNombreUsuarioIN, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextApellidoIN, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextNombreIN, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextSalarioIN)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                            .addComponent(jTextTelefono, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(70, 70, 70)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jButtonEliminar)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jBActivar))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jButtonIngresar)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                                            .addComponent(jButtonModificar)))
+                                    .addGap(58, 58, 58))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(66, 66, 66)
+                            .addComponent(jPassClave, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(104, 104, 104)
-                                .addComponent(jBBuscar))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jBActivar)
-                        .addGap(214, 214, 214))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBBuscar)
+                        .addGap(53, 53, 53))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextNombreIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBBuscar))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBActivar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextNombreIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jTextApellidoIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
+                        .addGap(18, 18, 18)
                         .addComponent(jTextNombreUsuarioIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
+                        .addGap(18, 18, 18)
                         .addComponent(jTextCorreoIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
+                        .addGap(18, 18, 18)
                         .addComponent(jTextSalarioIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jTextTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(18, 24, Short.MAX_VALUE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPassClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonModificar)
-                            .addComponent(jButtonEliminar)
-                            .addComponent(jButtonIngresar))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonIngresar)
+                            .addComponent(jButtonModificar))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(jButtonEliminar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jBActivar)))
+                        .addGap(86, 86, 86))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBBuscar)
+                            .addComponent(jTextBuscarEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -627,15 +657,20 @@ public class Panel_usuarios extends javax.swing.JPanel {
             String claveEncriptada = encrip.Encriptar(clave);
             usuario = new User(id, nombre, apellido, nombreUs, claveEncriptada, correo,salario, direccion, telefono, typeUS);
             
-            if (usuarioDAO.update(usuario)) {
-                JOptionPane.showMessageDialog(null, "Se actualizó el usuario");
-                this.cargar_table();
-                this.limpiar();
+            int response = JOptionPane.showConfirmDialog(null, "¿Desea actualizar el usuario?", "Confirmar", JOptionPane.YES_NO_OPTION);
+                
+            if (response == JOptionPane.YES_OPTION) {
+                if (usuarioDAO.update(usuario)) {
+                    JOptionPane.showMessageDialog(null, "Se actualizó el usuario");
+                    this.cargar_table();
+                    this.limpiar();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Error al actulizar el usuario");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Se canceló la accción modificar el usuario");
             }
-            else{
-                JOptionPane.showMessageDialog(null, "Error al actulizar el usuario");
-            }
-
         }
         else{
             JOptionPane.showMessageDialog(null, "No puede dejar los campos vacios");
@@ -643,19 +678,28 @@ public class Panel_usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        if (usuarioDAO.delete(id)) {
-            JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
-            this.cargar_table();
-            this.limpiar();
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Error al eliminar el usuario");
-            this.limpiar();
-        }
-        
+
+        int response = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el usuario?", "Confirmar", JOptionPane.YES_NO_OPTION);
+                
+        if (response == JOptionPane.YES_OPTION) {
+            if (usuarioDAO.delete(id)) {
+                JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
+                this.cargar_table();
+                this.limpiar();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Error al eliminar el usuario");
+                this.limpiar();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Se canceló la accción eliminar el usuario");
+        }        
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jBActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActivarActionPerformed
+    int response = JOptionPane.showConfirmDialog(null, "¿Desea activar el usuario?", "Confirmar", JOptionPane.YES_NO_OPTION);
+                
+    if (response == JOptionPane.YES_OPTION) {
         if (usuarioDAO.activate(id)) {
             JOptionPane.showMessageDialog(null, "Se activó correctamente");
             this.cargar_table();
@@ -665,6 +709,9 @@ public class Panel_usuarios extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Error al activar el usuario");
             this.limpiar();
         }
+    } else {
+        JOptionPane.showMessageDialog(null, "Se canceló la accción activar el usuario");
+    }    
     }//GEN-LAST:event_jBActivarActionPerformed
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
@@ -685,6 +732,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
     private javax.swing.JButton jButtonIngresar;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField jPassClave;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

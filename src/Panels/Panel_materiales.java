@@ -109,41 +109,44 @@ public class Panel_materiales extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTNombreIN = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
         jTPulgadaIN = new javax.swing.JTextField();
+        jBActivar = new javax.swing.JButton();
         jTCmsIN = new javax.swing.JTextField();
         jTPrecioIN = new javax.swing.JTextField();
         jTPinEmpaqueIN = new javax.swing.JTextField();
+        jBIngresar = new javax.swing.JButton();
+        jBModificar = new javax.swing.JButton();
+        jTNombreIN = new javax.swing.JTextField();
+        jBEliminar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jTBuscarNombre = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMaterial = new javax.swing.JTable();
         jBBuscar = new javax.swing.JButton();
-        jBIngresar = new javax.swing.JButton();
-        jBModificar = new javax.swing.JButton();
-        jBEliminar = new javax.swing.JButton();
-        jBActivar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 51, 51));
+        setBackground(new java.awt.Color(192, 190, 186));
         setPreferredSize(new java.awt.Dimension(1000, 710));
 
-        jTNombreIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTNombreIN.setText("Ingrese el nombre del material");
-        jTNombreIN.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTNombreINMouseClicked(evt);
-            }
-        });
-        jTNombreIN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTNombreINActionPerformed(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(192, 190, 186));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(143, 5, 30), 2));
 
         jTPulgadaIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTPulgadaIN.setText("Ingrese el valor en pulgada");
         jTPulgadaIN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTPulgadaINMouseClicked(evt);
+            }
+        });
+
+        jBActivar.setBackground(new java.awt.Color(143, 5, 30));
+        jBActivar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBActivar.setForeground(new java.awt.Color(255, 255, 255));
+        jBActivar.setText("Activar");
+        jBActivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBActivarActionPerformed(evt);
             }
         });
 
@@ -170,6 +173,98 @@ public class Panel_materiales extends javax.swing.JPanel {
                 jTPinEmpaqueINMouseClicked(evt);
             }
         });
+
+        jBIngresar.setBackground(new java.awt.Color(143, 5, 30));
+        jBIngresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBIngresar.setForeground(new java.awt.Color(255, 255, 255));
+        jBIngresar.setText("Ingresar");
+        jBIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBIngresarActionPerformed(evt);
+            }
+        });
+
+        jBModificar.setBackground(new java.awt.Color(143, 5, 30));
+        jBModificar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBModificar.setForeground(new java.awt.Color(255, 255, 255));
+        jBModificar.setText("Modificar");
+        jBModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBModificarActionPerformed(evt);
+            }
+        });
+
+        jTNombreIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTNombreIN.setText("Ingrese el nombre del material");
+        jTNombreIN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTNombreINMouseClicked(evt);
+            }
+        });
+        jTNombreIN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTNombreINActionPerformed(evt);
+            }
+        });
+
+        jBEliminar.setBackground(new java.awt.Color(143, 5, 30));
+        jBEliminar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        jBEliminar.setText("Eliminar");
+        jBEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEliminarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jBIngresar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBActivar)
+                            .addComponent(jBModificar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBEliminar))
+                    .addComponent(jTNombreIN)
+                    .addComponent(jTPulgadaIN)
+                    .addComponent(jTCmsIN)
+                    .addComponent(jTPrecioIN)
+                    .addComponent(jTPinEmpaqueIN))
+                .addGap(24, 24, 24))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jTNombreIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTPulgadaIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTCmsIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTPrecioIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTPinEmpaqueIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBIngresar)
+                    .addComponent(jBModificar)
+                    .addComponent(jBEliminar))
+                .addGap(18, 18, 18)
+                .addComponent(jBActivar)
+                .addGap(24, 24, 24))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(192, 190, 186));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(143, 5, 30), 2));
+        jPanel2.setForeground(new java.awt.Color(143, 5, 30));
 
         jTBuscarNombre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTBuscarNombre.setText("Ingrese el nombre del material a buscar");
@@ -199,7 +294,9 @@ public class Panel_materiales extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTableMaterial);
 
-        jBBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBBuscar.setBackground(new java.awt.Color(143, 5, 30));
+        jBBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBBuscar.setForeground(new java.awt.Color(255, 255, 255));
         jBBuscar.setText("Buscar");
         jBBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,94 +304,63 @@ public class Panel_materiales extends javax.swing.JPanel {
             }
         });
 
-        jBIngresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBIngresar.setText("Ingresar");
-        jBIngresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBIngresarActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jTBuscarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jBBuscar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTBuscarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBBuscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
+        );
 
-        jBModificar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBModificar.setText("Modificar");
-        jBModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBModificarActionPerformed(evt);
-            }
-        });
-
-        jBEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBEliminar.setText("Eliminar");
-        jBEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBEliminarActionPerformed(evt);
-            }
-        });
-
-        jBActivar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBActivar.setText("Activar");
-        jBActivar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBActivarActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(143, 5, 30));
+        jLabel1.setText("Materiales");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTNombreIN)
-                    .addComponent(jTPulgadaIN)
-                    .addComponent(jTCmsIN)
-                    .addComponent(jTPrecioIN)
-                    .addComponent(jTPinEmpaqueIN)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBIngresar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jBActivar)
-                            .addComponent(jBModificar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBEliminar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTBuscarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(73, 73, 73)
-                        .addComponent(jBBuscar)))
-                .addGap(41, 41, 41))
+                        .addGap(24, 24, 24)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(372, 372, 372)
+                        .addComponent(jLabel1)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTNombreIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTBuscarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBBuscar))
-                .addGap(18, 18, 18)
+                .addGap(56, 56, 56)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTPulgadaIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTCmsIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTPrecioIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTPinEmpaqueIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBIngresar)
-                            .addComponent(jBModificar)
-                            .addComponent(jBEliminar))
-                        .addGap(27, 27, 27)
-                        .addComponent(jBActivar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(286, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(94, 94, 94))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -521,14 +587,21 @@ public class Panel_materiales extends javax.swing.JPanel {
                 //cargar el objeto material para ser mandado al DAO
                 material = new Material(id, nombre, pulgada, cms, precio, pinturaEmpaque);
                 //El mertodo devuelve un boolean que sirve para saber si fue un exito o fracaso
-                if (materialDAO.update(material)) {
-                    JOptionPane.showMessageDialog(null, "Se actualizó el material exitosamente");
-                    this.cargar_table();
-                    this.limpiar();
+                int response = JOptionPane.showConfirmDialog(null, "¿Desea modificar el material?", "Confirmar", JOptionPane.YES_NO_OPTION);
+                
+                if (response == JOptionPane.YES_OPTION) {
+                    if (materialDAO.update(material)) {
+                        JOptionPane.showMessageDialog(null, "Se actualizó el material exitosamente");
+                        this.cargar_table();
+                        this.limpiar();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Error en al actualizar el material");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se cancelo la acción de modificar del material");
                 }
-                else{
-                    JOptionPane.showMessageDialog(null, "Error en al actualizar el material");
-                }
+                
             }
         }
         else{
@@ -537,28 +610,41 @@ public class Panel_materiales extends javax.swing.JPanel {
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
-        if (materialDAO.delete(id)) {
-            JOptionPane.showMessageDialog(null, "Se eliminó correctamente");
-            this.cargar_table();
-            this.limpiar();
+        int response = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el material?", "Confirmar", JOptionPane.YES_NO_OPTION);
+                
+        if (response == JOptionPane.YES_OPTION) {
+            if (materialDAO.delete(id)) {
+                JOptionPane.showMessageDialog(null, "Se eliminó correctamente");
+                this.cargar_table();
+                this.limpiar();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Error al eliminar");
+                this.limpiar();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Se canceló la accción eliminación del material");
         }
-        else{
-            JOptionPane.showMessageDialog(null, "Error al eliminar");
-            this.limpiar();
-        }
-        
     }//GEN-LAST:event_jBEliminarActionPerformed
 
     private void jBActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActivarActionPerformed
-        if (materialDAO.activate(id)) {
-            JOptionPane.showMessageDialog(null, "Se reactivó correctamente");
-            this.cargar_table();
-            this.limpiar();
+        int response = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el material?", "Confirmar", JOptionPane.YES_NO_OPTION);
+                
+        if (response == JOptionPane.YES_OPTION) {
+            if (materialDAO.activate(id)) {
+                JOptionPane.showMessageDialog(null, "Se reactivó correctamente");
+                this.cargar_table();
+                this.limpiar();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Error al activar el material");
+                this.limpiar();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Se canceló la acción de activar del material");
         }
-        else{
-            JOptionPane.showMessageDialog(null, "Error al activar el material");
-            this.limpiar();
-        }
+
+        
     }//GEN-LAST:event_jBActivarActionPerformed
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
@@ -582,6 +668,9 @@ public class Panel_materiales extends javax.swing.JPanel {
     private javax.swing.JButton jBEliminar;
     private javax.swing.JButton jBIngresar;
     private javax.swing.JButton jBModificar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTBuscarNombre;
     private javax.swing.JTextField jTCmsIN;
