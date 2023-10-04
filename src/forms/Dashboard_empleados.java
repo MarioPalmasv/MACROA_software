@@ -4,15 +4,6 @@
  */
 package forms;
 
-import Panels.Panel_costos;
-import Panels.Panel_costos_empleados;
-import Panels.Panel_historial;
-import Panels.Panel_materiales;
-import Panels.Panel_ordenes;
-import Panels.Panel_ordenes_empleados;
-import Panels.Panel_productos;
-import Panels.Panel_reportes;
-import Panels.Panel_usuarios;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -24,6 +15,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import PanelsEmpleado.*;
 /**
  *
  * @author mario

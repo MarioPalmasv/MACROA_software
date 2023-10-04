@@ -22,7 +22,6 @@ public class Taxe {
         this.percentage = percentage;
         this.VALUE = VALUE;
     }
-
     
     
     // Constructor

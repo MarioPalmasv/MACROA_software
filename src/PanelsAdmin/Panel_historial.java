@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package Panels;
+package PanelsAdmin;
 
 /**
  *
  * @author mario
  */
-public class Panel_ordenes extends javax.swing.JPanel {
+public class Panel_historial extends javax.swing.JPanel {
 
     /**
-     * Creates new form Panel_ordenes
+     * Creates new form Panel_historial
      */
-    public Panel_ordenes() {
+    public Panel_historial() {
         initComponents();
     }
 
@@ -26,7 +26,7 @@ public class Panel_ordenes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(255, 102, 102));
+        setBackground(new java.awt.Color(0, 255, 51));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

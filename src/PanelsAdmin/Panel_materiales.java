@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package Panels;
+package PanelsAdmin;
 
 import classes.Material;
 import classesDAO.MaterialDAO;
@@ -35,7 +35,7 @@ public class Panel_materiales extends javax.swing.JPanel {
     }
 
     
-     void cargar_table(){
+    void cargar_table(){
         model.setRowCount(0);
         String[] nombreColum = {"Nombre", "Pulgada", "cms", "precio", "Pintura empaque", "Estado"};
         model.setColumnIdentifiers(nombreColum);
@@ -349,7 +349,7 @@ public class Panel_materiales extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(372, 372, 372)
                         .addComponent(jLabel1)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

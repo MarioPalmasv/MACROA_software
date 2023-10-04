@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,6 +47,34 @@ public class TaxeDAO implements DML<Taxe>{
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return lista_tax;
+    }
+    
+    public List<Taxe> listarTaxeNombre(String pNombre) {
+        List<Taxe> lista_tax = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM taxe WHERE NAME LIKE ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, "%"+pNombre+"%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Taxe taxe = new Taxe();
+                taxe.setTaxe_id(resultSet.getInt("taxe_id"));
+                taxe.setNAME(resultSet.getString("NAME"));
+                taxe.setPercentage(resultSet.getString("percentage"));
+                taxe.setVALUE(resultSet.getDouble("VALUE"));
+                
+                lista_tax.add(taxe);
+
+            }
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            System.out.println(e);
         }
 
         return lista_tax;

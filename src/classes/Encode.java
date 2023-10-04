@@ -17,7 +17,7 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class Encode {
     
-     String LLAVE = "contrasena123";
+    String LLAVE = "contrasena123";
         // Clave de encriptación / desencriptación
     public SecretKeySpec CrearCalve(String llave) {
         try {

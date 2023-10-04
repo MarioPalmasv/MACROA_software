@@ -4,13 +4,13 @@
  */
 package forms;
 
-import Panels.Panel_costos;
-import Panels.Panel_historial;
-import Panels.Panel_materiales;
-import Panels.Panel_ordenes;
-import Panels.Panel_productos;
-import Panels.Panel_reportes;
-import Panels.Panel_usuarios;
+import PanelsAdmin.Panel_costos;
+import PanelsAdmin.Panel_historial;
+import PanelsAdmin.Panel_materiales;
+import PanelsAdmin.Panel_ordenes;
+import PanelsAdmin.Panel_productos;
+import PanelsAdmin.Panel_reportes;
+import PanelsAdmin.Panel_usuarios;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;

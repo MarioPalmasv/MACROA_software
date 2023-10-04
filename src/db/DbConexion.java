@@ -2,6 +2,7 @@ package db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author gergo
@@ -18,7 +19,7 @@ public class DbConexion {
             con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/macroa", "root", "");
         }catch(ClassNotFoundException | SQLException e){
-            System.out.println("Error"+e.toString());
+            JOptionPane.showMessageDialog(null, "Error al establecer la conexión con el server");
         }
     }
 
