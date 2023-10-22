@@ -5,23 +5,29 @@
  */
 package forms;
 
-import classes.ObtenerIP;
+//import classes.ObtenerIP;
 import classes.User;
-import classesDAO.LoginLogsDAO;
+//import classesDAO.LoginLogsDAO;
 import classesDAO.UserDAO;
-import java.awt.Dimension;
+//import java.awt.Dimension;
 import java.awt.MouseInfo;
 import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.geom.RoundRectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import javax.imageio.ImageIO;
+//import java.awt.Toolkit;
+//import java.awt.geom.RoundRectangle2D;
+//import java.awt.image.BufferedImage;
+//import java.io.File;
+//import java.io.IOException;
+//import java.net.URL;
+//import javax.imageio.ImageIO;
+//import javax.swing.JOptionPane;
+//import javax.swing.Icon;
+//import javax.swing.ImageIcon;
+import classes.Encode;
+import classes.ObtenerIP;
+import classesDAO.LoginLogsDAO;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -32,16 +38,23 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    
     int ancho, alto;
     int posX, posY;
-    
+    //User usuario;
+
+    Encode encrip;
+
+    User user = new User();
+    UserDAO userdao = new UserDAO();
+    // Obtener la dirección IP
+    ObtenerIP obtenerIP = new ObtenerIP();
+    String ipAddress = obtenerIP.obtenerIP();
+
     public Login() {
         initComponents();
-       
-        
+        encrip = new Encode();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -183,39 +196,56 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBIngresarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIngresarSistemaActionPerformed
+
         String usuario = this.jTUserIN.getText();
         String password = this.jTPasswordIN.getText();
-        
-        User user = new User();
-        UserDAO userdao = new UserDAO();
-        
-        user = userdao.IngresarSistema(usuario, password);
-        
-        if(user != null){
-           String rol = user.getType_user();
-           if(rol.equals("Administrador")){
-               //mostrar dashborad de usuario normal
-               Dashboard_main DashAdmin = new  Dashboard_main();
-               this.dispose();
+        String claveEncriptada = encrip.Encriptar(password);
+        user = userdao.IngresarSistema(usuario, claveEncriptada);
+
+        boolean ExisteUserName = false;
+      
+        for (int i = 0; i < userdao.ListarUsuarios().size(); i++) {
+            if (usuario.equals(userdao.ListarUsuarios().get(i).getUser_name())
+                    && claveEncriptada.equals(userdao.ListarUsuarios().get(i).getPassword_user())) {
+                ExisteUserName = true;
+                break; // Salir del bucle una vez que se encuentra una coincidencia
+            }
+
+        }
+
+        if (ExisteUserName) {
+            String rol = user.getType_user();
+            if (rol.equals("Administrador")) {
+                // Mostrar dashboard de administrador
+                Dashboard_main DashAdmin = new Dashboard_main();
+                this.dispose();
                 DashAdmin.setVisible(true);
-               System.out.println("Si se pudo "+ user.getType_user());
-           } else{
-                
-                // Crea una instancia del SecondFrame
-                Dashboard_empleados DashEmpleado = new  Dashboard_empleados();
+                JOptionPane.showMessageDialog(null, "Bienvenido Administrador: " + user.getFirst_name());
+
+                // Insertar la dirección IP en la base de datos
+                LoginLogsDAO loginLogsDAO = new LoginLogsDAO();
+                loginLogsDAO.InsertarLoginLog(ipAddress, user.getUser_id());
+            } else  {
+                // Mostrar dashboard de usuario empleado
+                Dashboard_empleados DashEmpleado = new Dashboard_empleados();
                 this.dispose();
                 DashEmpleado.setVisible(true);
-               //mostrar dashboard de admin
-               System.out.println("Si se pudo "+ user.getType_user());
-           }
-        } else{
-            System.out.println("Error je");
+                JOptionPane.showMessageDialog(null, "Bienvenido Empleado: " + user.getFirst_name());
+
+                // Insertar la dirección IP en la base de datos
+                LoginLogsDAO loginLogsDAO = new LoginLogsDAO();
+                loginLogsDAO.InsertarLoginLog(ipAddress, user.getUser_id());
+            }
         }
+      else {
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
+        }
+
     }//GEN-LAST:event_jBIngresarSistemaActionPerformed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
         Point p = MouseInfo.getPointerInfo().getLocation();
-        this.setLocation(p.x-posX, p.y-posY);  
+        this.setLocation(p.x - posX, p.y - posY);
     }//GEN-LAST:event_formMouseDragged
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed

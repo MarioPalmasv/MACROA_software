@@ -28,6 +28,7 @@ public class PruebaLoginLogsDAO {
 
         // Listar todos los registros de inicio de sesión
         List<LoginLogs> registrosDeLogin = loginLogsDAO.ListarLogins();
+        System.out.println(" ");
         System.out.println("Lista de registros de inicio de sesión:");
         for (LoginLogs login : registrosDeLogin) {
             System.out.println("ID de inicio de sesión: " + login.getLogin_id());

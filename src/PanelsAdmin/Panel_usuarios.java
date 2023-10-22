@@ -552,6 +552,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
             else{
                 JOptionPane.showMessageDialog(null, "El usuario existe");
             }
+            
         }
         else{
             JOptionPane.showMessageDialog(null, "No puede dejar los campos vacios");

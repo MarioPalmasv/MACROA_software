@@ -92,6 +92,25 @@ public class UserDAO implements DML<User>{
 
         return listaUser;
     }
+    public List<User> ListarUserName() {
+        List<User> listaUserName = new ArrayList<>();
+        try {
+            String sql = "SELECT user_name,password_user FROM USER";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                User user = new User();                
+                user.setUser_name(resultSet.getString("user_name"));
+                user.setPassword_user(resultSet.getString("password_user"));
+                listaUserName.add(user);
+            }            
+            resultSet.close();
+            preparedStatement.close();           
+        } catch (SQLException e) {
+        }
+        return listaUserName;
+    }
     
       public List<User> ListarUsuariosNombre(String pNombre) {
         List<User> listaUser = new ArrayList<>();
