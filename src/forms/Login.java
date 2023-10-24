@@ -33,10 +33,18 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    
     int ancho, alto;
     int posX, posY;
+    //User usuario;
+
     Encode encrip;
+
+    User user = new User();
+    UserDAO userdao = new UserDAO();
+    // Obtener la dirección IP
+    ObtenerIP obtenerIP = new ObtenerIP();
+    String ipAddress = obtenerIP.obtenerIP();
+
     int id_user;
     String nombre_user, pass_user;
     
@@ -186,45 +194,58 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBIngresarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIngresarSistemaActionPerformed
-        
         String usuario = this.jTUserIN.getText();
         String password = this.jTPasswordIN.getText();
-        
         String claveEncriptada = encrip.Encriptar(password);
-        
-        User user = new User();
-        UserDAO userdao = new UserDAO();
-        
         user = userdao.IngresarSistema(usuario, claveEncriptada);
-        
-        if(user != null){
-           String rol = user.getType_user();
-           if(rol.equals("Administrador")){
-               //mostrar dashborad de usuario normal
-               //cargar el user para mandarlo
-               id_user = user.getUser_id();
-               nombre_user = user.getFirst_name();
-               pass_user = encrip.Desencriptar(user.getPassword_user());
-               
-               Dashboard_main DashAdmin = new  Dashboard_main(id_user, nombre_user, pass_user);
-               this.dispose();
+
+        boolean ExisteUserName = false;
+      
+        for (int i = 0; i < userdao.ListarUsuarios().size(); i++) {
+            if (usuario.equals(userdao.ListarUsuarios().get(i).getUser_name())
+                    && claveEncriptada.equals(userdao.ListarUsuarios().get(i).getPassword_user())) {
+                
+                
+                ExisteUserName = true;
+                break; // Salir del bucle una vez que se encuentra una coincidencia
+            }
+
+        }
+
+        if (ExisteUserName) {
+            String rol = user.getType_user();
+            if (rol.equals("Administrador")) {
+                // Mostrar dashboard de administrador
+                id_user = user.getUser_id();
+                nombre_user = user.getFirst_name();
+                pass_user = user.getPassword_user();
+                Dashboard_main DashAdmin = new Dashboard_main(id_user, nombre_user, pass_user);
+                this.dispose();
                 DashAdmin.setVisible(true);
-               System.out.println("Si se pudo "+ user.getType_user());
-           } else{
-               //cargar el user para mandarlo
-               id_user = user.getUser_id();
-               nombre_user = user.getFirst_name();
-               pass_user = user.getPassword_user();
-                // Crea una instancia del SecondFrame
-                Dashboard_empleados DashEmpleado = new  Dashboard_empleados(id_user, nombre_user, pass_user);
+                JOptionPane.showMessageDialog(null, "Bienvenido Administrador: " + user.getFirst_name());
+
+                // Insertar la dirección IP en la base de datos
+                LoginLogsDAO loginLogsDAO = new LoginLogsDAO();
+                loginLogsDAO.InsertarLoginLog(ipAddress, user.getUser_id());
+            } else  {
+                // Mostrar dashboard de usuario empleado
+                id_user = user.getUser_id();
+                nombre_user = user.getFirst_name();
+                pass_user = user.getPassword_user();
+                Dashboard_empleados DashEmpleado = new Dashboard_empleados(id_user, nombre_user, pass_user);
                 this.dispose();
                 DashEmpleado.setVisible(true);
-               //mostrar dashboard de admin
-               System.out.println("Si se pudo "+ user.getType_user());
-           }
-        } else{
-            System.out.println("Error je");
+                JOptionPane.showMessageDialog(null, "Bienvenido Empleado: " + user.getFirst_name());
+
+                // Insertar la dirección IP en la base de datos
+                LoginLogsDAO loginLogsDAO = new LoginLogsDAO();
+                loginLogsDAO.InsertarLoginLog(ipAddress, user.getUser_id());
+            }
         }
+      else {
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
+      }
+        
     }//GEN-LAST:event_jBIngresarSistemaActionPerformed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
