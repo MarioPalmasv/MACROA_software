@@ -10,11 +10,16 @@ package PanelsAdmin;
  */
 public class Panel_reportes extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Panel_reportes
-     */
-    public Panel_reportes() {
+    int id_user;
+    String nombre_user, pass_user;
+    public Panel_reportes(int id, String nombre, String pass) {
         initComponents();
+        
+        id_user = id;
+        nombre_user = nombre;
+        pass_user = pass;
+            
+        this.jLUser.setText(nombre_user);
     }
 
     /**
@@ -26,23 +31,35 @@ public class Panel_reportes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLUser = new javax.swing.JLabel();
+
         setBackground(new java.awt.Color(102, 255, 255));
         setPreferredSize(new java.awt.Dimension(1000, 710));
         setRequestFocusEnabled(false);
+
+        jLUser.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLUser.setText("Bienvenido: User");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLUser)
+                .addContainerGap(788, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLUser)
+                .addContainerGap(657, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLUser;
     // End of variables declaration//GEN-END:variables
 }

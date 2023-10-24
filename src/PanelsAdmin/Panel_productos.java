@@ -42,7 +42,10 @@ public class Panel_productos extends javax.swing.JPanel {
     
     int idProducto, idMaterial, idCombination;
     
-    public Panel_productos() {
+    int id_user;
+    String nombre_user, pass_user;
+    
+    public Panel_productos(int id, String nombre, String pass) {
         initComponents();
         productDAO = new ProductDAO();
         materialDAO = new MaterialDAO();
@@ -63,6 +66,12 @@ public class Panel_productos extends javax.swing.JPanel {
         
         //inicializacion de la lista de combinacion
         lcombination = new ArrayList<>();
+        
+        id_user = id;
+        nombre_user = nombre;
+        pass_user = pass;
+        
+        this.jLUser.setText(nombre_user);
         
         this.cargar_table();
     }
@@ -277,6 +286,7 @@ public class Panel_productos extends javax.swing.JPanel {
         jTNombreIN = new javax.swing.JTextField();
         jTModeloIN = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jLUser = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(192, 190, 186));
         setPreferredSize(new java.awt.Dimension(1005, 701));
@@ -649,6 +659,9 @@ public class Panel_productos extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(143, 5, 30));
         jLabel2.setText("Productos");
 
+        jLUser.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLUser.setText("Bienvenido: User");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -656,10 +669,12 @@ public class Panel_productos extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLUser)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(570, 570, 570)
@@ -681,8 +696,13 @@ public class Panel_productos extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jLUser)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -694,7 +714,7 @@ public class Panel_productos extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1103,6 +1123,7 @@ try {
     private javax.swing.JButton jBEliminarCombination;
     private javax.swing.JButton jBIngresar;
     private javax.swing.JButton jBModificar;
+    private javax.swing.JLabel jLUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

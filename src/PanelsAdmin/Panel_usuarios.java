@@ -20,8 +20,10 @@ public class Panel_usuarios extends javax.swing.JPanel {
     int id;
     List<User> lUsuarios;
    
+    int id_user;
+    String nombre_user, pass_user;
     
-    public Panel_usuarios() {
+    public Panel_usuarios(int id, String nombre, String pass) {
         initComponents();
         encrip = new Encode();
         usuarioDAO = new UserDAO();
@@ -29,6 +31,11 @@ public class Panel_usuarios extends javax.swing.JPanel {
         this.cargar_table();
         id = 0;
         
+        id_user = id;
+        nombre_user = nombre;
+        pass_user = pass;
+        
+        this.jLUser.setText(nombre_user);
         //desactivar botones
         this.jBActivar.setEnabled(false);
         this.jButtonEliminar.setEnabled(false);
@@ -133,6 +140,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<>();
         jBActivar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLUser = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(192, 190, 186));
         setPreferredSize(new java.awt.Dimension(990, 710));
@@ -326,6 +334,9 @@ public class Panel_usuarios extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(143, 5, 30));
         jLabel1.setText("Usuarios");
 
+        jLUser.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLUser.setText("Bienvenido: User");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -336,53 +347,60 @@ public class Panel_usuarios extends javax.swing.JPanel {
                 .addGap(420, 420, 420))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButtonEliminar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jBActivar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButtonIngresar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                                        .addComponent(jButtonModificar)))
+                                .addGap(58, 58, 58))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextCorreoIN, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextNombreUsuarioIN, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextApellidoIN, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextNombreIN, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextSalarioIN)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
-                            .addComponent(jTextTelefono, javax.swing.GroupLayout.Alignment.LEADING)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(70, 70, 70)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jButtonEliminar)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jBActivar))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jButtonIngresar)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-                                            .addComponent(jButtonModificar)))
-                                    .addGap(58, 58, 58))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(66, 66, 66)
-                            .addComponent(jPassClave, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(66, 66, 66)
+                                .addComponent(jPassClave, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLUser)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jTextCorreoIN, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTextNombreUsuarioIN, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTextApellidoIN, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTextNombreIN, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTextSalarioIN)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                                        .addComponent(jTextTelefono, javax.swing.GroupLayout.Alignment.LEADING)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jBBuscar)
                         .addGap(53, 53, 53))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(13, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLUser)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -399,7 +417,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jTextTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 24, Short.MAX_VALUE)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPassClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -732,6 +750,7 @@ public class Panel_usuarios extends javax.swing.JPanel {
     private javax.swing.JButton jButtonIngresar;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField jPassClave;
     private javax.swing.JScrollPane jScrollPane1;

@@ -12,11 +12,14 @@ import PanelsAdmin.*;
  */
 public class Panel_costos_empleados extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Panel_costos
-     */
-    public Panel_costos_empleados() {
+    int id_user;
+    String nombre_user, pass_user;
+    public Panel_costos_empleados(int id, String nombre, String pass) {
         initComponents();
+        id_user = id;
+        nombre_user = nombre;
+        pass_user = pass;
+        this.jLabel1.setText(nombre_user);
     }
 
     /**

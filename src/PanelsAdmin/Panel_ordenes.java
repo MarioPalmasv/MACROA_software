@@ -10,11 +10,18 @@ package PanelsAdmin;
  */
 public class Panel_ordenes extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Panel_ordenes
-     */
-    public Panel_ordenes() {
+    
+    int id_user;
+    String nombre_user, pass_user;
+    
+    public Panel_ordenes(int id, String nombre, String pass) {
         initComponents();
+        
+        id_user = id;
+        nombre_user = nombre;
+        pass_user = pass;
+        
+        this.jLUser.setText(nombre_user);
     }
 
     /**
@@ -26,21 +33,37 @@ public class Panel_ordenes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLUser = new javax.swing.JLabel();
+
         setBackground(new java.awt.Color(255, 102, 102));
+
+        jLUser.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLUser.setText("Bienvenido: User");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(110, 110, 110)
+                    .addComponent(jLUser)
+                    .addContainerGap(111, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(134, 134, 134)
+                    .addComponent(jLUser)
+                    .addContainerGap(134, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLUser;
     // End of variables declaration//GEN-END:variables
 }

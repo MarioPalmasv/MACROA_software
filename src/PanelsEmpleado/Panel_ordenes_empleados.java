@@ -12,11 +12,15 @@ import PanelsAdmin.*;
  */
 public class Panel_ordenes_empleados extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Panel_ordenes
-     */
-    public Panel_ordenes_empleados() {
+    int id_user;
+    String nombre_user, pass_user;
+    public Panel_ordenes_empleados(int id, String nombre, String pass) {
         initComponents();
+        
+        id_user = id;
+        nombre_user = nombre;
+        pass_user = pass;
+        this.jLabel2.setText(nombre_user);
     }
 
     /**

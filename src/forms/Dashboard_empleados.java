@@ -25,13 +25,16 @@ public class Dashboard_empleados extends javax.swing.JFrame {
     int ancho, alto;
     int posX, posY;
     
-    /**
-     * Creates new form Dashboard_main
-     */
-    public Dashboard_empleados() {
+    int id_user;
+    String nombre_user, pass_user;
+    
+    public Dashboard_empleados(int id, String nombre, String pass) {
         this.setUndecorated(true);
         initComponents();
         
+        id_user = id;
+        nombre_user = nombre;
+        pass_user = pass;
         //ASIGNANDO EL VALOR DE ANCHO Y ALTO DEL JPANEL_CONTENT
         this.ancho = this.jPanel_content.getWidth();
         this.alto = this.jPanel_content.getHeight();
@@ -413,7 +416,7 @@ public class Dashboard_empleados extends javax.swing.JFrame {
         //LOGICA PARA ABRIR EL form pendiente
         Panel_ordenes_empleados frm_ordenes_empleados = null;
         
-        frm_ordenes_empleados = new Panel_ordenes_empleados();
+        frm_ordenes_empleados = new Panel_ordenes_empleados(id_user, nombre_user, pass_user);
         
         frm_ordenes_empleados.setSize(this.ancho, this.alto);
         
@@ -461,7 +464,7 @@ public class Dashboard_empleados extends javax.swing.JFrame {
         //LOGICA PARA ABRIR EL form pendiente
         Panel_costos_empleados frm_costos_empleados = null;
         
-        frm_costos_empleados = new Panel_costos_empleados();
+        frm_costos_empleados = new Panel_costos_empleados(id_user, nombre_user, pass_user);
         
         frm_costos_empleados.setSize(this.ancho, this.alto);
         
@@ -515,7 +518,7 @@ public class Dashboard_empleados extends javax.swing.JFrame {
         }
 
         java.awt.EventQueue.invokeLater(() -> {
-            new Dashboard_empleados().setVisible(true);
+            new Dashboard_empleados(0, "", "").setVisible(true);
         });
     }
 

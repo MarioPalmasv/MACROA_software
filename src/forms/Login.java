@@ -5,6 +5,7 @@
  */
 package forms;
 
+import classes.Encode;
 import classes.ObtenerIP;
 import classes.User;
 import classesDAO.LoginLogsDAO;
@@ -35,11 +36,13 @@ public class Login extends javax.swing.JFrame {
     
     int ancho, alto;
     int posX, posY;
+    Encode encrip;
+    int id_user;
+    String nombre_user, pass_user;
     
     public Login() {
         initComponents();
-       
-        
+       encrip = new Encode();
     }
     
     /**
@@ -183,26 +186,37 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBIngresarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIngresarSistemaActionPerformed
+        
         String usuario = this.jTUserIN.getText();
         String password = this.jTPasswordIN.getText();
+        
+        String claveEncriptada = encrip.Encriptar(password);
         
         User user = new User();
         UserDAO userdao = new UserDAO();
         
-        user = userdao.IngresarSistema(usuario, password);
+        user = userdao.IngresarSistema(usuario, claveEncriptada);
         
         if(user != null){
            String rol = user.getType_user();
            if(rol.equals("Administrador")){
                //mostrar dashborad de usuario normal
-               Dashboard_main DashAdmin = new  Dashboard_main();
+               //cargar el user para mandarlo
+               id_user = user.getUser_id();
+               nombre_user = user.getFirst_name();
+               pass_user = encrip.Desencriptar(user.getPassword_user());
+               
+               Dashboard_main DashAdmin = new  Dashboard_main(id_user, nombre_user, pass_user);
                this.dispose();
                 DashAdmin.setVisible(true);
                System.out.println("Si se pudo "+ user.getType_user());
            } else{
-                
+               //cargar el user para mandarlo
+               id_user = user.getUser_id();
+               nombre_user = user.getFirst_name();
+               pass_user = user.getPassword_user();
                 // Crea una instancia del SecondFrame
-                Dashboard_empleados DashEmpleado = new  Dashboard_empleados();
+                Dashboard_empleados DashEmpleado = new  Dashboard_empleados(id_user, nombre_user, pass_user);
                 this.dispose();
                 DashEmpleado.setVisible(true);
                //mostrar dashboard de admin

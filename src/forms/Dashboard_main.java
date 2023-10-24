@@ -30,13 +30,19 @@ public class Dashboard_main extends javax.swing.JFrame {
     
     int ancho, alto;
     int posX, posY;
+    int id_user;
+    String nombre_user, pass_user;
     
     /**
      * Creates new form Dashboard_main
      */
-    public Dashboard_main() {
+    public Dashboard_main(int id, String nombre, String pass) {
         this.setUndecorated(true);
         initComponents();
+        
+        id_user = id;
+        nombre_user = nombre;
+        pass_user = pass;
         
         //ASIGNANDO EL VALOR DE ANCHO Y ALTO DEL JPANEL_CONTENT
         this.ancho = this.jPanel_content.getWidth();
@@ -521,7 +527,7 @@ public class Dashboard_main extends javax.swing.JFrame {
         //LOGICA PARA ABRIR EL form pendiente
         Panel_usuarios frm_usuarios = null;
         
-        frm_usuarios = new Panel_usuarios();
+        frm_usuarios = new Panel_usuarios(id_user, nombre_user, pass_user);
         
         frm_usuarios.setSize(this.ancho, this.alto);
         
@@ -574,7 +580,7 @@ public class Dashboard_main extends javax.swing.JFrame {
         //LOGICA PARA ABRIR EL form pendiente
         Panel_productos frm_productos = null;
         
-        frm_productos = new Panel_productos();
+        frm_productos = new Panel_productos(id_user, nombre_user, pass_user);
         
         frm_productos.setSize(this.ancho, this.alto);
         
@@ -622,7 +628,7 @@ public class Dashboard_main extends javax.swing.JFrame {
         //LOGICA PARA ABRIR EL form pendiente
         Panel_materiales frm_materiales = null;
         
-        frm_materiales = new Panel_materiales();
+        frm_materiales = new Panel_materiales(id_user, nombre_user, pass_user);
         
         frm_materiales.setSize(this.ancho, this.alto);
         
@@ -670,7 +676,7 @@ public class Dashboard_main extends javax.swing.JFrame {
         //LOGICA PARA ABRIR EL form pendiente
         Panel_ordenes frm_ordenes = null;
         
-        frm_ordenes = new Panel_ordenes();
+        frm_ordenes = new Panel_ordenes(id_user, nombre_user, pass_user);
         
         frm_ordenes.setSize(this.ancho, this.alto);
         
@@ -718,7 +724,7 @@ public class Dashboard_main extends javax.swing.JFrame {
         //LOGICA PARA ABRIR EL form pendiente
         Panel_costos frm_costos = null;
         
-        frm_costos = new Panel_costos();
+        frm_costos = new Panel_costos(id_user, nombre_user, pass_user);
         
         frm_costos.setSize(this.ancho, this.alto);
         
@@ -766,7 +772,7 @@ public class Dashboard_main extends javax.swing.JFrame {
         //LOGICA PARA ABRIR EL form pendiente
         Panel_historial frm_historial = null;
         
-        frm_historial = new Panel_historial();
+        frm_historial = new Panel_historial(id_user, nombre_user, pass_user);
         
         frm_historial.setSize(this.ancho, this.alto);
         
@@ -814,7 +820,7 @@ public class Dashboard_main extends javax.swing.JFrame {
         //LOGICA PARA ABRIR EL form pendiente
         Panel_reportes frm_reportes = null;
         
-        frm_reportes = new Panel_reportes();
+        frm_reportes = new Panel_reportes(id_user, nombre_user, pass_user);
         
         frm_reportes.setSize(this.ancho, this.alto);
         
@@ -868,7 +874,7 @@ public class Dashboard_main extends javax.swing.JFrame {
         }
 
         java.awt.EventQueue.invokeLater(() -> {
-            new Dashboard_main().setVisible(true);
+            new Dashboard_main(0, "", "").setVisible(true);
         });
     }
 

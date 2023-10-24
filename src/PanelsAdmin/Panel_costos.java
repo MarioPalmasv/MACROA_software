@@ -29,7 +29,11 @@ public class Panel_costos extends javax.swing.JPanel {
     
     int id;
     
-    public Panel_costos() {
+    
+    int id_user;
+    String nombre_user, pass_user;
+    
+    public Panel_costos(int id, String nombre, String pass) {
         initComponents();
         bandporcentaje = false;
         porcentaje = 0;
@@ -40,6 +44,12 @@ public class Panel_costos extends javax.swing.JPanel {
         
         //variable para el update o delete
         id = 0;
+        
+        id_user = id;
+        nombre_user = nombre;
+        pass_user = pass;
+        
+        this.jLUser.setText(nombre_user);
     }
     
     void cargar_table(){
@@ -120,6 +130,7 @@ public class Panel_costos extends javax.swing.JPanel {
         jTableCostos = new javax.swing.JTable();
         jTNombreBuscar = new javax.swing.JTextField();
         jBBuscar = new javax.swing.JButton();
+        jLUser = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(192, 190, 186));
 
@@ -287,31 +298,41 @@ public class Panel_costos extends javax.swing.JPanel {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
+        jLUser.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLUser.setText("Bienvenido: User");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(426, 426, 426))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(jLUser)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(68, 68, 68)
+                .addGap(16, 16, 16)
+                .addComponent(jLUser)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel1)
                 .addGap(68, 68, 68)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -490,6 +511,7 @@ public class Panel_costos extends javax.swing.JPanel {
     private javax.swing.JButton jBBuscar;
     private javax.swing.JButton jBIngresar;
     private javax.swing.JButton jBModificar;
+    private javax.swing.JLabel jLUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -23,7 +23,10 @@ public class Panel_materiales extends javax.swing.JPanel {
     List<Material> lMateriales;
     int id;
     
-    public Panel_materiales() {
+    int id_user;
+    String nombre_user, pass_user;
+    
+    public Panel_materiales(int id, String nombre, String pass) {
         initComponents();
         materialDAO = new MaterialDAO();
         model = new DefaultTableModel();
@@ -31,6 +34,12 @@ public class Panel_materiales extends javax.swing.JPanel {
         this.jBModificar.setEnabled(false);
         this.jBEliminar.setEnabled(false);
         this.jBActivar.setEnabled(false);
+        
+        id_user = id;
+        nombre_user = nombre;
+        pass_user = pass;
+        
+        this.jLUser.setText(nombre_user);
         this.cargar_table();
     }
 
@@ -125,6 +134,7 @@ public class Panel_materiales extends javax.swing.JPanel {
         jTableMaterial = new javax.swing.JTable();
         jBBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLUser = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(192, 190, 186));
         setPreferredSize(new java.awt.Dimension(1000, 710));
@@ -335,6 +345,9 @@ public class Panel_materiales extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(143, 5, 30));
         jLabel1.setText("Materiales");
 
+        jLUser.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLUser.setText("Bienvenido: User");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -342,19 +355,24 @@ public class Panel_materiales extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(372, 372, 372)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLUser)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(19, 19, 19)
+                .addComponent(jLUser)
+                .addGap(5, 5, 5)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -668,6 +686,7 @@ public class Panel_materiales extends javax.swing.JPanel {
     private javax.swing.JButton jBEliminar;
     private javax.swing.JButton jBIngresar;
     private javax.swing.JButton jBModificar;
+    private javax.swing.JLabel jLUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
