@@ -85,4 +85,25 @@ public class OrderCostDAO implements DML<OrderCost>{
         return false;
     }
 
+    public int getLastOrderId() {
+        int lastOrderId = -1; 
+
+        try {
+            String sql = "SELECT MAX(order_id) AS last_order_id FROM order_cost"; 
+
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                lastOrderId = resultSet.getInt("last_order_id");
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            // Maneja la excepción de alguna manera apropiada.
+        }
+
+        return lastOrderId;
+    }
 }

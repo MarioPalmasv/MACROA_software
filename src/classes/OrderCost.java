@@ -23,6 +23,14 @@ public class OrderCost {
         this.costo_primo = costo_primo;
         this.precio_venta = precio_venta;
     }
+    
+    //este constructor es nuevo je
+    public OrderCost( int production_order_detail_id, double costo_total_modelo, double costo_primo, double precio_venta) {
+        this.production_order_detail_id = production_order_detail_id;
+        this.costo_total_modelo = costo_total_modelo;
+        this.costo_primo = costo_primo;
+        this.precio_venta = precio_venta;
+    }
 
     public int getOrder_id() {
         return order_id;

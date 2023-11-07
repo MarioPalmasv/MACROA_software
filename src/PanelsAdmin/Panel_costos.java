@@ -4,8 +4,18 @@
  */
 package PanelsAdmin;
 
+import classes.OrderCost;
+import classes.ProductOrder;
+import classes.ProductionOrderDetail;
 import classes.Taxe;
+import classes.TaxeUse;
+import classesDAO.OrderCostDAO;
+import classesDAO.ProductOrderDAO;
 import classesDAO.TaxeDAO;
+import classesDAO.TaxeUseDAO;
+import classesDAO.production_order_detailDAO;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -27,6 +37,20 @@ public class Panel_costos extends javax.swing.JPanel {
     double porcentaje;
     DefaultTableModel model;
     
+    DefaultTableModel modelImp;
+    List<Taxe> lImpAg;
+    
+    DefaultTableModel modelOrder;
+    List<ProductOrder> lOrdenes;
+    ProductOrderDAO orderDAO;
+    
+    DefaultTableModel modelDetalle;
+    List<ProductionOrderDetail> lDetalle;
+    production_order_detailDAO detalleDAO;
+    
+    List<TaxeUse> lTaxeUse;
+    TaxeUseDAO taxUseDao;
+    
     int id;
     
     
@@ -39,8 +63,26 @@ public class Panel_costos extends javax.swing.JPanel {
         porcentaje = 0;
         model = new DefaultTableModel();
         taxeDAO = new TaxeDAO();
+        modelImp = new DefaultTableModel();
+        modelOrder = new DefaultTableModel();
+        orderDAO = new ProductOrderDAO();
+        
+        modelDetalle = new DefaultTableModel();
+        lDetalle = new ArrayList<>();
+        detalleDAO = new production_order_detailDAO();
+        
+        lImpAg = new ArrayList<>();
+        lOrdenes = new ArrayList<>();
+        
+        lTaxeUse = new ArrayList<>();
+        taxUseDao = new TaxeUseDAO();
+        
         
         this.cargar_table();
+        this.cargarTablaImpAgg();
+        this.cargarTablaOrdenes();
+        this.cargarTablaDetalles();
+        
         
         //variable para el update o delete
         id = 0;
@@ -49,7 +91,6 @@ public class Panel_costos extends javax.swing.JPanel {
         nombre_user = nombre;
         pass_user = pass;
         
-        this.jLUser.setText(nombre_user);
     }
     
     void cargar_table(){
@@ -64,9 +105,9 @@ public class Panel_costos extends javax.swing.JPanel {
                 for (int i = 0; i < lTaxe.size(); i++) {
                     model.addRow(new Object[]{lTaxe.get(i).getNAME(), lTaxe.get(i).getPercentage(), lTaxe.get(i).getVALUE()});
                 }
-                this.jTableCostos.setModel(model);
-                this.jTableCostos.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-                this.jTableCostos.setFillsViewportHeight(true);
+                this.jTableImpuestos.setModel(model);
+                this.jTableImpuestos.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+                this.jTableImpuestos.setFillsViewportHeight(true);
             }
         } catch (Exception e) {
             this.jBIngresar.setEnabled(false);
@@ -87,9 +128,102 @@ public class Panel_costos extends javax.swing.JPanel {
                 for (int i = 0; i < lTaxe.size(); i++) {
                     model.addRow(new Object[]{lTaxe.get(i).getNAME(), lTaxe.get(i).getPercentage(), lTaxe.get(i).getVALUE()});
                 }
-                this.jTableCostos.setModel(model);
-                this.jTableCostos.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-                this.jTableCostos.setFillsViewportHeight(true);
+                this.jTableImpuestos.setModel(model);
+                this.jTableImpuestos.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+                this.jTableImpuestos.setFillsViewportHeight(true);
+            }
+        } catch (Exception e) {
+            this.jBIngresar.setEnabled(false);
+            this.jBBuscar.setEnabled(false);
+            JOptionPane.showMessageDialog(null, "Error al cargar el panel de costos");
+        }
+    }
+    
+    void cargarTablaImpAgg(){
+        modelImp.setRowCount(0);
+        String[] nombreColum = {"Impuesto", "Valor en decimal"};
+        modelImp.setColumnIdentifiers(nombreColum);
+        
+        try {
+            
+            if (lImpAg.size()>-1) {
+                for (int i = 0; i < lImpAg.size(); i++) {
+                    modelImp.addRow(new Object[]{lImpAg.get(i).getNAME(), lTaxe.get(i).getVALUE()});
+                }
+                this.jTableImpuiestosAgg.setModel(modelImp);
+                this.jTableImpuiestosAgg.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+                this.jTableImpuiestosAgg.setFillsViewportHeight(true);
+            }
+        } catch (Exception e) {
+            this.jBIngresar.setEnabled(false);
+            this.jBBuscar.setEnabled(false);
+            JOptionPane.showMessageDialog(null, "Error al cargar el panel de costos");
+        }
+    }
+    
+    void cargarTablaOrdenes(){
+        modelOrder.setRowCount(0);
+        String[] nombreColum = {"Nombre", "Fecha"};
+        modelOrder.setColumnIdentifiers(nombreColum);
+        
+        try {
+            lOrdenes = orderDAO.ListarOrdenes();
+            
+            if (lOrdenes.size()>-1) {
+                for (int i = 0; i < lOrdenes.size(); i++) {
+                    modelOrder.addRow(new Object[]{ lOrdenes.get(i).getNombre(), lOrdenes.get(i).getOrder_date()});
+                }
+                this.jTableOrden.setModel(modelOrder);
+                this.jTableOrden.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+                this.jTableOrden.setFillsViewportHeight(true);
+            }
+        } catch (Exception e) {
+            this.jBIngresar.setEnabled(false);
+            this.jBBuscar.setEnabled(false);
+            JOptionPane.showMessageDialog(null, "Error al cargar el panel de costos");
+        }
+    }
+    
+    void cargarTablaDetalles(){
+        modelDetalle.setRowCount(0);
+        String[] nombreColum = {"Producto", "Cantidad", "Costos de materia", "Costo de cola cromada"};
+        modelDetalle.setColumnIdentifiers(nombreColum);
+        
+        try {
+            
+            if (lDetalle.size()>-1) {
+                for (int i = 0; i < lDetalle.size(); i++) {
+                    if(lDetalle.get(i).getState().equals("a")){
+                        modelDetalle.addRow(new Object[]{ lDetalle.get(i).getNombre_prod(), lDetalle.get(i).getQuantity(),
+                        lDetalle.get(i).getSub_total(), lDetalle.get(i).getCosto_cola_cromada()});
+                    }
+                }
+                this.jTableDetalle.setModel(modelDetalle);
+                this.jTableDetalle.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+                this.jTableDetalle.setFillsViewportHeight(true);
+            }
+        } catch (Exception e) {
+            this.jBIngresar.setEnabled(false);
+            this.jBBuscar.setEnabled(false);
+            JOptionPane.showMessageDialog(null, "Error al cargar el panel de costos");
+        }
+    }
+    
+    void cargarTableOrdenesNombre(String nombreBuscar) {
+        modelOrder.setRowCount(0);
+        String[] nombreColum = {"Nombre", "Fecha"};
+        modelOrder.setColumnIdentifiers(nombreColum);
+        
+        try {
+            lOrdenes = orderDAO.ListarOrdenesPorNombre(nombreBuscar);
+            
+            if (lOrdenes.size()>-1) {
+                for (int i = 0; i < lOrdenes.size(); i++) {
+                    modelOrder.addRow(new Object[]{ lOrdenes.get(i).getNombre(), lOrdenes.get(i).getOrder_date()});
+                }
+                this.jTableOrden.setModel(modelOrder);
+                this.jTableOrden.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+                this.jTableOrden.setFillsViewportHeight(true);
             }
         } catch (Exception e) {
             this.jBIngresar.setEnabled(false);
@@ -103,9 +237,9 @@ public class Panel_costos extends javax.swing.JPanel {
         //desactivar botones
         this.jBModificar.setEnabled(false);
 
-        this.jTNombreIN.setText("");
-        this.JTPorcentajeIN.setText("");
-        this.jTDecimalIN.setText("");
+        this.jTNombreIN.setText("Ingrese el nombre del impuesto");
+        this.JTPorcentajeIN.setText("Ingrese el porcentaje");
+        this.jTDecimalIN.setText("Valor en decimal");
     }
     
 
@@ -119,27 +253,78 @@ public class Panel_costos extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jTNombreBuscar = new javax.swing.JTextField();
+        jBBuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableImpuestos = new javax.swing.JTable();
+        jBAggImpuesto = new javax.swing.JButton();
         jTNombreIN = new javax.swing.JTextField();
         JTPorcentajeIN = new javax.swing.JTextField();
         jTDecimalIN = new javax.swing.JTextField();
         jBIngresar = new javax.swing.JButton();
         jBModificar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableCostos = new javax.swing.JTable();
-        jTNombreBuscar = new javax.swing.JTextField();
-        jBBuscar = new javax.swing.JButton();
-        jLUser = new javax.swing.JLabel();
+        jTNombreBuscarOrden = new javax.swing.JTextField();
+        jBBuscarOrden = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableOrden = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableDetalle = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTableImpuiestosAgg = new javax.swing.JTable();
+        jBCalcularCostoProd = new javax.swing.JButton();
+        jBCalcularCostoProdAll = new javax.swing.JButton();
+        jBEliminarImpuesto = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(192, 190, 186));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(143, 5, 30));
+        jLabel1.setFont(new java.awt.Font("Impact", 0, 36)); // NOI18N
         jLabel1.setText("Costos");
 
-        jPanel1.setBackground(new java.awt.Color(192, 190, 186));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(143, 5, 30), 2));
+        jTNombreBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTNombreBuscar.setText("Ingrese el nombre del impuesto a buscar");
+        jTNombreBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTNombreBuscarMouseClicked(evt);
+            }
+        });
+
+        jBBuscar.setBackground(new java.awt.Color(255, 255, 106));
+        jBBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBBuscar.setText("Buscar");
+        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarActionPerformed(evt);
+            }
+        });
+
+        jTableImpuestos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTableImpuestos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTableImpuestos.setRowHeight(35);
+        jTableImpuestos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableImpuestosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableImpuestos);
+
+        jBAggImpuesto.setBackground(new java.awt.Color(255, 117, 117));
+        jBAggImpuesto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBAggImpuesto.setText("Agregar impuesto a detalle");
+        jBAggImpuesto.setEnabled(false);
+        jBAggImpuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAggImpuestoActionPerformed(evt);
+            }
+        });
 
         jTNombreIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTNombreIN.setText("Ingrese el nombre del impuesto");
@@ -182,9 +367,8 @@ public class Panel_costos extends javax.swing.JPanel {
         jTDecimalIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTDecimalIN.setText("Valor en decimal");
 
-        jBIngresar.setBackground(new java.awt.Color(143, 5, 30));
+        jBIngresar.setBackground(new java.awt.Color(95, 207, 95));
         jBIngresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jBIngresar.setForeground(new java.awt.Color(255, 255, 255));
         jBIngresar.setText("Ingresar");
         jBIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,9 +376,8 @@ public class Panel_costos extends javax.swing.JPanel {
             }
         });
 
-        jBModificar.setBackground(new java.awt.Color(143, 5, 30));
+        jBModificar.setBackground(new java.awt.Color(101, 150, 247));
         jBModificar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jBModificar.setForeground(new java.awt.Color(255, 255, 255));
         jBModificar.setText("Modificar");
         jBModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,43 +385,25 @@ public class Panel_costos extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jBIngresar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBModificar))
-                    .addComponent(jTNombreIN, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
-                    .addComponent(JTPorcentajeIN)
-                    .addComponent(jTDecimalIN))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jTNombreIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(JTPorcentajeIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jTDecimalIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBIngresar)
-                    .addComponent(jBModificar))
-                .addContainerGap(75, Short.MAX_VALUE))
-        );
+        jTNombreBuscarOrden.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTNombreBuscarOrden.setText("Buscar orden");
+        jTNombreBuscarOrden.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTNombreBuscarOrdenMouseClicked(evt);
+            }
+        });
 
-        jPanel2.setBackground(new java.awt.Color(192, 190, 186));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(143, 5, 30), 2));
+        jBBuscarOrden.setBackground(new java.awt.Color(255, 255, 106));
+        jBBuscarOrden.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBBuscarOrden.setText("Buscar");
+        jBBuscarOrden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarOrdenActionPerformed(evt);
+            }
+        });
 
-        jTableCostos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTableCostos.setModel(new javax.swing.table.DefaultTableModel(
+        jTableOrden.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTableOrden.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -246,93 +411,196 @@ public class Panel_costos extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableCostos.setRowHeight(35);
-        jTableCostos.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableOrden.setRowHeight(35);
+        jTableOrden.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableCostosMouseClicked(evt);
+                jTableOrdenMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableCostos);
+        jScrollPane2.setViewportView(jTableOrden);
 
-        jTNombreBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTNombreBuscar.setText("Ingrese el nombre del impuesto a buscar");
-        jTNombreBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableDetalle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTableDetalle.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTableDetalle.setRowHeight(35);
+        jTableDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTNombreBuscarMouseClicked(evt);
+                jTableDetalleMouseClicked(evt);
             }
         });
+        jScrollPane3.setViewportView(jTableDetalle);
 
-        jBBuscar.setBackground(new java.awt.Color(143, 5, 30));
-        jBBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jBBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        jBBuscar.setText("Buscar");
-        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
+        jTableImpuiestosAgg.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTableImpuiestosAgg.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTableImpuiestosAgg.setRowHeight(35);
+        jTableImpuiestosAgg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableImpuiestosAggMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jTableImpuiestosAgg);
+
+        jBCalcularCostoProd.setBackground(new java.awt.Color(255, 117, 117));
+        jBCalcularCostoProd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBCalcularCostoProd.setText("Calcular costo por prodcuto");
+        jBCalcularCostoProd.setEnabled(false);
+        jBCalcularCostoProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBBuscarActionPerformed(evt);
+                jBCalcularCostoProdActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTNombreBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBBuscar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTNombreBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBBuscar))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
+        jBCalcularCostoProdAll.setBackground(new java.awt.Color(255, 117, 117));
+        jBCalcularCostoProdAll.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBCalcularCostoProdAll.setText("Calcular costo por todos los productos");
+        jBCalcularCostoProdAll.setEnabled(false);
+        jBCalcularCostoProdAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCalcularCostoProdAllActionPerformed(evt);
+            }
+        });
 
-        jLUser.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLUser.setText("Bienvenido: User");
+        jBEliminarImpuesto.setBackground(new java.awt.Color(228, 4, 52));
+        jBEliminarImpuesto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBEliminarImpuesto.setText("Eliminar Impuesto");
+        jBEliminarImpuesto.setEnabled(false);
+        jBEliminarImpuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEliminarImpuestoActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Impact", 0, 34)); // NOI18N
+        jLabel2.setText("Detalle de ordenes");
+
+        jButton1.setBackground(new java.awt.Color(239, 151, 85));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton1.setText("Limpiar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(426, 426, 426))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jBIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jBModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTNombreIN)
+                                        .addComponent(JTPorcentajeIN)
+                                        .addComponent(jTDecimalIN, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jTNombreBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jBBuscar))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jBAggImpuesto, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(8, 8, 8))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jBCalcularCostoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBCalcularCostoProdAll)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBEliminarImpuesto)
+                                .addGap(9, 9, 9))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(14, 14, 14))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jTNombreBuscarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBBuscarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel2)
+                        .addGap(371, 371, 371))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addComponent(jLUser)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addGap(469, 469, 469)
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLUser)
-                .addGap(31, 31, 31)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(68, 68, 68)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(181, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTNombreBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBBuscar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBAggImpuesto))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTNombreIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(JTPorcentajeIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTDecimalIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBModificar)
+                            .addComponent(jButton1))))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTNombreBuscarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBBuscarOrden)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBEliminarImpuesto)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBCalcularCostoProd)
+                            .addComponent(jBCalcularCostoProdAll))
+                        .addGap(123, 123, 123))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -419,21 +687,22 @@ public class Panel_costos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jBIngresarActionPerformed
 
-    private void jTableCostosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCostosMouseClicked
+    private void jTableImpuestosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableImpuestosMouseClicked
     try {
-        if(this.jTableCostos.getSelectedRow() > -1){
+        if(this.jTableImpuestos.getSelectedRow() > -1){
             //activar los botones de actualizar y eliminar
             this.jBIngresar.setEnabled(false);
             this.jBModificar.setEnabled(true);
+            this.jBAggImpuesto.setEnabled(true);
 
-            int index = this.jTableCostos.getSelectedRow();
-            String porc = ((DefaultTableModel)this.jTableCostos.getModel()).getValueAt(index, 1).toString().replace("%", "");
+            int index = this.jTableImpuestos.getSelectedRow();
+            String porc = ((DefaultTableModel)this.jTableImpuestos.getModel()).getValueAt(index, 1).toString().replace("%", "");
             
             id = this.lTaxe.get(index).getTaxe_id();
-            this.jTNombreIN.setText(((DefaultTableModel)this.jTableCostos.getModel()).getValueAt(index, 0).toString());
+            this.jTNombreIN.setText(((DefaultTableModel)this.jTableImpuestos.getModel()).getValueAt(index, 0).toString());
             
             this.JTPorcentajeIN.setText(porc);
-            this.jTDecimalIN.setText(((DefaultTableModel)this.jTableCostos.getModel()).getValueAt(index, 2).toString());                
+            this.jTDecimalIN.setText(((DefaultTableModel)this.jTableImpuestos.getModel()).getValueAt(index, 2).toString());                
             
             porcentaje  = Double.parseDouble(porc.trim());
             bandporcentaje = true;
@@ -444,7 +713,7 @@ public class Panel_costos extends javax.swing.JPanel {
     } 
     catch (Exception e) {
     }        
-    }//GEN-LAST:event_jTableCostosMouseClicked
+    }//GEN-LAST:event_jTableImpuestosMouseClicked
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
         String nombreImpuesto = this.jTNombreIN.getText();
@@ -505,20 +774,255 @@ public class Panel_costos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTNombreBuscarMouseClicked
 
+    private void jTNombreBuscarOrdenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTNombreBuscarOrdenMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTNombreBuscarOrdenMouseClicked
+
+    private void jBBuscarOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarOrdenActionPerformed
+        String nombreBuscar = this.jTNombreBuscarOrden.getText();
+        
+        if (!nombreBuscar.equals("Ingrese el nombre") && nombreBuscar.trim().length() > 0) {
+            this.cargarTableOrdenesNombre(nombreBuscar);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No ha ingresado nombre en el campo");
+        }        
+    }//GEN-LAST:event_jBBuscarOrdenActionPerformed
+
+    private void jTableOrdenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableOrdenMouseClicked
+        if(this.jTableOrden.getSelectedRow() > -1){
+            int index = this.jTableOrden.getSelectedRow();
+            int idOrder = lOrdenes.get(index).getProduction_order_id();
+            lDetalle = detalleDAO.ListarOrderDetailsById(idOrder);
+            this.cargarTablaDetalles();
+        }
+    }//GEN-LAST:event_jTableOrdenMouseClicked
+
+    private void jTableDetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDetalleMouseClicked
+        if(this.jTableDetalle.getSelectedRow()>-1){
+            this.jBCalcularCostoProd.setEnabled(true);
+             this.jBCalcularCostoProdAll.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTableDetalleMouseClicked
+
+    private void jTableImpuiestosAggMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableImpuiestosAggMouseClicked
+        if(this.jTableImpuiestosAgg.getSelectedRow()>-1){
+            this.jBEliminarImpuesto.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTableImpuiestosAggMouseClicked
+
+    private void jBAggImpuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAggImpuestoActionPerformed
+        if(this.jTableImpuestos.getSelectedRow() > -1){
+            int index = this.jTableImpuestos.getSelectedRow();
+            Taxe impuestoAGG = new Taxe();
+            impuestoAGG.setTaxe_id(this.lTaxe.get(index).getTaxe_id());
+            impuestoAGG.setNAME(this.lTaxe.get(index).getNAME());
+            impuestoAGG.setPercentage(this.lTaxe.get(index).getPercentage());
+            impuestoAGG.setVALUE(this.lTaxe.get(index).getVALUE());
+            
+            lImpAg.add(impuestoAGG);
+            this.cargarTablaImpAgg();
+            this.jBIngresar.setEnabled(true);
+            this.jBModificar.setEnabled(false);
+            this.jBAggImpuesto.setEnabled(true);
+        }
+    }//GEN-LAST:event_jBAggImpuestoActionPerformed
+
+    private void jBEliminarImpuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarImpuestoActionPerformed
+        if(this.jTableImpuiestosAgg.getSelectedRow()>-1){
+            int index = this.jTableImpuiestosAgg.getSelectedRow();
+            
+            lImpAg.remove(index);
+            this.cargarTablaImpAgg();
+        }
+    }//GEN-LAST:event_jBEliminarImpuestoActionPerformed
+
+    private void jBCalcularCostoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularCostoProdActionPerformed
+       boolean continuar = true;
+       
+        if(this.jTableDetalle.getSelectedRow()>-1){
+           double suma_impuestos = 0.0;
+           double costoacumluado = 0.0;
+           int index = this.jTableDetalle.getSelectedRow();
+           
+           int idprod= this.lDetalle.get(index).getProduct_id();
+            int idorden = this.lDetalle.get(index).getProduction_order_id();
+            int iddetalle = this.lDetalle.get(index).getProduction_order_detail_id();
+            
+            int response = JOptionPane.showConfirmDialog(null, "¿Desea el costo del producto "+this.lDetalle.get(index).getNombre_prod()+"? Se utilizaran los impuestos a;adidos al detella.", 
+                   "Confirmar", JOptionPane.YES_NO_OPTION);
+
+            if(response == JOptionPane.YES_OPTION){
+                double costomodelo = detalleDAO.getCostoModelo(idprod, idorden);
+                double costoprimo = detalleDAO.getCostoPrimo(costomodelo, idprod, idorden);
+                costoacumluado = costoprimo;
+                TaxeUse taxeUsados;
+
+                for (int j = 0; j < this.lImpAg.size(); j++) {
+                    suma_impuestos = (costoacumluado*this.lImpAg.get(j).getVALUE())+costoacumluado;
+                    costoacumluado = suma_impuestos;
+                }
+
+                if(continuar){
+                    OrderCostDAO costDao = new OrderCostDAO();
+                    OrderCost costo = new OrderCost( iddetalle, costomodelo, costoprimo, suma_impuestos);
+                    if(costDao.insert(costo)){
+                        continuar = true;
+                        int idcostos = costDao.getLastOrderId();
+                            for (int j = 0; j < this.lImpAg.size(); j++) {
+                                taxeUsados = new TaxeUse(idcostos, this.lImpAg.get(j).getTaxe_id());
+                                taxUseDao.insert(taxeUsados);
+
+                                if(taxUseDao.insert(taxeUsados)){
+                                    continue;
+                                } else{
+                                    JOptionPane.showMessageDialog(null, "Error en impuestos");
+                                    continuar = false;
+                                    break;
+                                }
+                            }
+                    } else{
+                        JOptionPane.showMessageDialog(null, "Ha surgido un error."); 
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Error en impuestos");
+                }
+                
+                if(continuar){
+                    JOptionPane.showMessageDialog(null, "Se han calculado los costos para los productos."); 
+                }
+                
+                this.lImpAg.clear();
+                this.lDetalle.clear();
+                this.cargarTablaOrdenes();
+                this.cargarTablaImpAgg();
+                this.cargarTablaDetalles();
+                this.jBCalcularCostoProd.setEnabled(false);
+                this.jBCalcularCostoProdAll.setEnabled(false);
+                this.jBEliminarImpuesto.setEnabled(false);
+                this.jBIngresar.setEnabled(true);
+                this.jBModificar.setEnabled(false);
+                this.jBAggImpuesto.setEnabled(false);
+            }else{
+                JOptionPane.showConfirmDialog(null, "Se ha cancelado la operacion.");
+            }
+
+           
+       }
+    }//GEN-LAST:event_jBCalcularCostoProdActionPerformed
+
+    private void jBCalcularCostoProdAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularCostoProdAllActionPerformed
+        double suma_impuestos = 0.0;
+        double costoacumluado = 0.0;
+        boolean continuar = true;
+        
+        int response = JOptionPane.showConfirmDialog(null, "¿Desea el costo de todos los productos del detalle? Se utilizaran los impuestos a;adidos al detalle.", 
+                   "Confirmar", JOptionPane.YES_NO_OPTION);
+
+        if(response == JOptionPane.YES_OPTION){
+            try{
+                for (int i = 0; i < lDetalle.size(); i++) {
+                    int idprod= this.lDetalle.get(i).getProduct_id();
+                    int idorden = this.lDetalle.get(i).getProduction_order_id();
+                    int iddetalle = this.lDetalle.get(i).getProduction_order_detail_id();
+
+                    double costomodelo = detalleDAO.getCostoModelo(idprod, idorden);
+                    double costoprimo = detalleDAO.getCostoPrimo(costomodelo, idprod, idorden);
+                    costoacumluado = costoprimo;
+                    TaxeUse taxeUsados;
+
+                    for (int j = 0; j < this.lImpAg.size(); j++) {
+                        suma_impuestos = (costoacumluado*this.lImpAg.get(j).getVALUE())+costoacumluado;
+                        costoacumluado = suma_impuestos;
+                    }
+
+                    if(continuar){
+                        OrderCostDAO costDao = new OrderCostDAO();
+                        OrderCost costo = new OrderCost( iddetalle, costomodelo, costoprimo, suma_impuestos);
+                        if(costDao.insert(costo)){
+                            continuar = true;
+                            int idcostos = costDao.getLastOrderId();
+                            for (int j = 0; j < this.lImpAg.size(); j++) {
+                                taxeUsados = new TaxeUse(idcostos, this.lImpAg.get(j).getTaxe_id());
+                                taxUseDao.insert(taxeUsados);
+
+                                if(taxUseDao.insert(taxeUsados)){
+                                    continue;
+                                } else{
+                                    JOptionPane.showMessageDialog(null, "Error en impuestos");
+                                    continuar = false;
+                                    break;
+                                }
+                            }
+                        } else{
+                            JOptionPane.showMessageDialog(null, "Ha surgido un error."); 
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Error en impuestos");
+                    }
+                }
+                
+                if(continuar){
+                    JOptionPane.showMessageDialog(null, "Se han calculado los costos para los productos."); 
+                }
+                
+                this.lImpAg.clear();
+                this.lDetalle.clear();
+                this.cargarTablaOrdenes();
+                this.cargarTablaImpAgg();
+                this.cargarTablaDetalles();
+                this.jBCalcularCostoProd.setEnabled(false);
+                this.jBCalcularCostoProdAll.setEnabled(false);
+                this.jBEliminarImpuesto.setEnabled(false);
+                this.jBIngresar.setEnabled(true);
+                this.jBModificar.setEnabled(false);
+                this.jBAggImpuesto.setEnabled(false);
+                
+                
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Ha surgido un error.");
+            }
+        }else{
+
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_jBCalcularCostoProdAllActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.limpiar();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField JTPorcentajeIN;
+    private javax.swing.JButton jBAggImpuesto;
     private javax.swing.JButton jBBuscar;
+    private javax.swing.JButton jBBuscarOrden;
+    private javax.swing.JButton jBCalcularCostoProd;
+    private javax.swing.JButton jBCalcularCostoProdAll;
+    private javax.swing.JButton jBEliminarImpuesto;
     private javax.swing.JButton jBIngresar;
     private javax.swing.JButton jBModificar;
-    private javax.swing.JLabel jLUser;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jTDecimalIN;
     private javax.swing.JTextField jTNombreBuscar;
+    private javax.swing.JTextField jTNombreBuscarOrden;
     private javax.swing.JTextField jTNombreIN;
-    private javax.swing.JTable jTableCostos;
+    private javax.swing.JTable jTableDetalle;
+    private javax.swing.JTable jTableImpuestos;
+    private javax.swing.JTable jTableImpuiestosAgg;
+    private javax.swing.JTable jTableOrden;
     // End of variables declaration//GEN-END:variables
+
+    
 }
