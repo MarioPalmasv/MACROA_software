@@ -26,7 +26,7 @@ public class ProductionOrderDetail {
     private String nombre_user;//g nuevo //nombre de quine hizo la orden
     //private String producto;
     private Date fecha;
-    private double costo_primo, costo_total_modelo, precio_venta, precio_ganancia;
+    private double costo_primo, costo_total_modelo, precio_venta, precio_ganancia,tot_detalle;
     private int order_cost_id;
 
     public ProductionOrderDetail() {
@@ -58,7 +58,7 @@ public class ProductionOrderDetail {
 
 //    //g recibe lo de ambas tablas
       public ProductionOrderDetail(String nombre_user, String nombre, Date fecha,int production_order_detail_id, int product_id, int production_order_id, 
-            int quantity, double sub_total, double costo_cola_cromada, String state, String nombre_prod, double costo_primo, double costo_total_modelo, double precio_venta, double  precio_ganancia,
+            int quantity, double sub_total, double costo_cola_cromada, String state, String nombre_prod, double costo_primo, double costo_total_modelo, double precio_venta,double tot_detalle,double  precio_ganancia,
             int order_cost_id) {        
         this.nombre_user = nombre_user;
         this.nombre = nombre;
@@ -75,7 +75,16 @@ public class ProductionOrderDetail {
         this.costo_primo = costo_primo;
         this.costo_total_modelo = costo_total_modelo;
         this.precio_venta = precio_venta;
+        this.tot_detalle = tot_detalle;
         this.precio_ganancia = precio_ganancia;
+    }
+
+    public double getTot_detalle() {
+        return tot_detalle;
+    }
+
+    public void setTot_detalle(double tot_detalle) {
+        this.tot_detalle = tot_detalle;
     }
 
     public String getNombre() {

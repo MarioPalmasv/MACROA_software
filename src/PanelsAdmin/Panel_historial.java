@@ -29,10 +29,10 @@ public class Panel_historial extends javax.swing.JPanel {
     //variables ordenes 
     int id_orden, id_user, cantidad, order_cost_id, production_order_detail_Id;
 
-    String nombre_user, pass_user, nombre, comentario, producto, hecho_por;
+    String nombre_user, pass_user, nombre, comentario, producto, hecho_por,total_reporte;
     Date fecha;
 
-    double sub_total, cola_cromada, total_modelo, costo_primo, precio_venta, costo_venta_agregado, ganancia;
+    double sub_total, cola_cromada, total_modelo, costo_primo, precio_venta, costo_venta_agregado, ganancia,tot_detalle,tot_pagar;
 
     //clases
     ProductOrder ordenes;
@@ -56,7 +56,7 @@ public class Panel_historial extends javax.swing.JPanel {
         nombre_user = nombre;
         pass_user = pass;
 
-        this.jLUser.setText("Bienevenido: " + nombre_user);
+        //this.jLUser.setText("Bienevenido: " + nombre_user);
         //iniciar objetos y DAO
         ordenes = new ProductOrder();
         ordenesDetail = new ProductionOrderDetail();
@@ -135,7 +135,7 @@ public class Panel_historial extends javax.swing.JPanel {
 
     void cargarTablaDetalleOrder() {
         Model_Det_Ordenes.setRowCount(0);
-        String[] nombreColum = {"Producto ", "Cantidad", "Costo cola comada", "Costo Primo", "Sub Total", "Total modelo", "Precio Venta", "Ganancia"};
+        String[] nombreColum = {"Producto ", "Cantidad","Cola Cromada", "Sub Total", "Total modelo","Costo Primo",  "Precio Venta","Tot detalle", "Ganancia"};
         Model_Det_Ordenes.setColumnIdentifiers(nombreColum);
 
         List_DetOrden = Det_ordenDAO.ListarOrderDetailsCombinado(id_orden);
@@ -147,15 +147,17 @@ public class Panel_historial extends javax.swing.JPanel {
                             List_DetOrden.get(i).getNombre_prod(),
                             List_DetOrden.get(i).getQuantity(),
                             List_DetOrden.get(i).getCosto_cola_cromada(),
-                            List_DetOrden.get(i).getCosto_primo(),
-                            List_DetOrden.get(i).getSub_total(),
+                            List_DetOrden.get(i).getSub_total(),                            
                             List_DetOrden.get(i).getCosto_total_modelo(),
-                            List_DetOrden.get(i).getPrecio_venta(),                            
-                            List_DetOrden.get(i).getPrecio_ganancia(),});
+                            List_DetOrden.get(i).getCosto_primo(),                           
+                            List_DetOrden.get(i).getPrecio_venta(),      
+                            List_DetOrden.get(i).getTot_detalle(),
+                            List_DetOrden.get(i).getPrecio_ganancia(),
+                        });                        
                     }
                 }
                 this.JBReportes.setEnabled(true);
-            }
+            }            
             if (Model_Det_Ordenes.getRowCount() < 1) {
                 JOptionPane.showMessageDialog(null, "Orden incompleta, No se puede mostrar.");
                 this.JBReportes.setEnabled(false);
@@ -163,7 +165,25 @@ public class Panel_historial extends javax.swing.JPanel {
 
             //this.jTableOrdenes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
             this.jTableOrdenes.setFillsViewportHeight(true);
-            this.jTableDetalleOrden.setModel(Model_Det_Ordenes);
+            this.jTableDetalleOrden.setModel(Model_Det_Ordenes);        
+            
+            //OBTENER EL TOTAL A PAGAR
+            int columnToSum1 = 7; // Índice de la columna 6
+            int rowCount = jTableDetalleOrden.getRowCount();
+            tot_pagar = 0;
+            for (int row = 0; row < rowCount; row++) {
+                Object cellValue1 = jTableDetalleOrden.getValueAt(row, columnToSum1);
+                if (cellValue1 instanceof Number) {
+                    // Verifica que los valores de celdas sean números antes de sumar
+                    double valorColumn7 = ((Number) cellValue1).doubleValue();
+                    // Suma los valores de la columna
+                    tot_pagar += valorColumn7;
+                }
+            }
+            total_reporte = String.format("%.2f", tot_pagar);
+            this.JT_totalPagar.setText(total_reporte);
+            ///
+
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Hay un error al cargar el detalle.");
         }
@@ -173,7 +193,6 @@ public class Panel_historial extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLUser = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableOrdenes = new javax.swing.JTable();
         JTBuscarOrden = new javax.swing.JTextField();
@@ -194,13 +213,11 @@ public class Panel_historial extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         JTDetalle_seleccionado = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        JT_totalPagar = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(192, 190, 186));
         setPreferredSize(new java.awt.Dimension(1005, 699));
-
-        jLUser.setBackground(new java.awt.Color(0, 0, 0));
-        jLUser.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLUser.setText("Bienvenido: User");
 
         jTableOrdenes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jTableOrdenes.setModel(new javax.swing.table.DefaultTableModel(
@@ -232,7 +249,7 @@ public class Panel_historial extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Buscar por nombre:");
 
         jLabel2.setFont(new java.awt.Font("Impact", 0, 30)); // NOI18N
@@ -285,7 +302,7 @@ public class Panel_historial extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Orden seleccionada:");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -302,17 +319,20 @@ public class Panel_historial extends javax.swing.JPanel {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel9.setText("Asignar nuevo %");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setText("Producto seleccionado");
 
         JTDetalle_seleccionado.setEditable(false);
         JTDetalle_seleccionado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Impact", 0, 36)); // NOI18N
-        jLabel6.setText("Historial");
+        jLabel6.setText("Historial & Reportes");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setText("Total a pagar:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -323,6 +343,7 @@ public class Panel_historial extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
@@ -332,50 +353,55 @@ public class Panel_historial extends javax.swing.JPanel {
                                 .addGap(12, 12, 12)
                                 .addComponent(JBVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(JBReportes)))
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel8)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(JTAsignaPorsentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(JBaddPorcentaje))
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JTOrdenSelect, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                            .addComponent(JTDetalle_seleccionado))
-                        .addGap(29, 29, 29))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(JBReportes)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel7)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(JTDetalle_seleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(JT_totalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(JTAsignaPorsentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(JBaddPorcentaje)))))
+                                .addGap(29, 29, 29))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(JTOrdenSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLUser, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(168, 168, 168)
-                        .addComponent(jLabel6)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1018, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1018, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(111, 111, 111)
+                                .addComponent(jLabel6)))
+                        .addGap(0, 13, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLUser)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel6)))
-                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(jLabel2)
+                                .addGap(6, 6, 6))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(JTBuscarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -384,6 +410,8 @@ public class Panel_historial extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(JBReportes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
@@ -399,16 +427,14 @@ public class Panel_historial extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(JTAsignaPorsentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(JBaddPorcentaje))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JBReportes))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel4)))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(JT_totalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -472,8 +498,9 @@ public class Panel_historial extends javax.swing.JPanel {
             if (this.jTableDetalleOrden.getSelectedRow() > -1) {
                 int index = this.jTableDetalleOrden.getSelectedRow();
                 this.JTDetalle_seleccionado.setText(List_DetOrden.get(index).getNombre_prod());
-
-                total_modelo = this.List_DetOrden.get(index).getCosto_total_modelo();
+                
+                tot_detalle = this.List_DetOrden.get(index).getTot_detalle();
+//                total_modelo = this.List_DetOrden.get(index).getCosto_total_modelo(); //eliminar aqui el valor
                 order_cost_id = this.List_DetOrden.get(index).getOrder_cost_id();
                 costo_venta_agregado = this.List_DetOrden.get(index).getPrecio_ganancia();
             }
@@ -534,13 +561,12 @@ public class Panel_historial extends javax.swing.JPanel {
 
             if (Porcentaje >= 0) {
                 ganancia = 0;
-
                 if (!JTOrdenSelect.getText().trim().isEmpty() && JTDetalle_seleccionado.getText().trim().isEmpty()) {
                     for (int i = 0; i < List_DetOrden.size(); i++) {
                         order_cost_id = this.List_DetOrden.get(i).getOrder_cost_id();
-                        total_modelo = this.List_DetOrden.get(i).getCosto_total_modelo();
+                        tot_detalle = this.List_DetOrden.get(i).getCosto_total_modelo();
 
-                        ganancia = ((total_modelo - costo_venta_agregado)) * (Porcentaje / 100);
+                        ganancia = ((tot_detalle - costo_venta_agregado)) * (Porcentaje / 100);                        
                         // Redondear ganancia al entero siguiente
                         ganancia = Math.ceil(ganancia);
                         this.ordenesDetail.setPrecio_ganancia(ganancia);
@@ -548,8 +574,9 @@ public class Panel_historial extends javax.swing.JPanel {
                         Det_ordenDAO.insert_valor_agregado(ordenesDetail);
                     }
                 } else {
-                    ganancia = ((total_modelo - costo_venta_agregado)) * (Porcentaje / 100);
+                    ganancia = ((tot_detalle - costo_venta_agregado)) * (Porcentaje / 100);
                     // Redondear ganancia al entero siguiente
+                      System.out.println("ganaciaa: "+ ganancia);
                     ganancia = Math.ceil(ganancia);
                     this.ordenesDetail.setPrecio_ganancia(ganancia);
                     this.ordenesDetail.setOrder_cost_id(order_cost_id);//El ID al que pertenece la orden                         
@@ -580,7 +607,7 @@ public class Panel_historial extends javax.swing.JPanel {
     private javax.swing.JTextField JTBuscarOrden;
     private javax.swing.JTextField JTDetalle_seleccionado;
     private javax.swing.JTextField JTOrdenSelect;
-    private javax.swing.JLabel jLUser;
+    private javax.swing.JTextField JT_totalPagar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -588,6 +615,7 @@ public class Panel_historial extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

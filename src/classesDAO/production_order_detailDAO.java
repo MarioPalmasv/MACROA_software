@@ -156,16 +156,23 @@ public class production_order_detailDAO implements DML<ProductionOrderDetail> {
         List<ProductionOrderDetail> OrderD_lista = new ArrayList<>();
         //sumar el precio venta + ganancia y cambiar el modelo tamb
         try {
-            String sql = "SELECT u.user_name AS creada_por, po.nombre AS nombre_orden, po.order_date AS fecha, p.nombre AS producto, "
-                    + "pod.quantity AS cantidad, pod.costo_cola_cromada AS cola_cromada, oc.costo_primo, pod.sub_total, "
-                    + "(oc.costo_total_modelo  +oc.precio_ganancia) AS costo_total_modelo , oc.precio_venta, "
-                    + "po.state, oc.order_id, oc.precio_ganancia, pod.production_order_detail_Id "
-                    + "FROM product_order po "
-                    + "JOIN production_order_detail pod ON po.production_order_Id = pod.production_order_Id "
-                    + "JOIN order_cost oc ON pod.production_order_detail_Id = oc.production_order_detail_Id "
-                    + "JOIN product p ON pod.product_id = p.product_id "
-                    + "JOIN user u ON po.user_id = u.user_id "
-                    + "WHERE po.production_order_Id = ?;";
+            String sql = "SELECT u.user_name AS creada_por, po.nombre AS nombre_orden, po.order_date AS fecha, " +
+                    "p.nombre AS producto, " +
+                    "pod.quantity AS cantidad, " +
+                    "pod.sub_total, " +
+                    "pod.costo_cola_cromada AS cola_cromada, " +
+                    "oc.costo_total_modelo, " +
+                    "oc.costo_primo, " +
+                    "oc.precio_venta, " +
+                    "((oc.precio_venta * pod.quantity)+ oc.precio_ganancia) AS tot_detalle, " +
+                    "oc.precio_ganancia, " +
+                    "po.state, oc.order_id,  pod.production_order_detail_Id " +
+                    "FROM product_order po " +
+                    "JOIN production_order_detail pod ON po.production_order_Id = pod.production_order_Id " +
+                    "JOIN order_cost oc ON pod.production_order_detail_Id = oc.production_order_detail_Id " +
+                    "JOIN product p ON pod.product_id = p.product_id " +
+                    "JOIN user u ON po.user_id = u.user_id " +
+                    "WHERE po.production_order_Id = ?;";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setInt(1, idOrdenn);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -182,7 +189,9 @@ public class production_order_detailDAO implements DML<ProductionOrderDetail> {
                 orderDetail.setSub_total(resultSet.getDouble("sub_total"));
                 orderDetail.setCosto_total_modelo(resultSet.getDouble("costo_total_modelo"));
                 orderDetail.setPrecio_venta(resultSet.getDouble("precio_venta"));
+                orderDetail.setTot_detalle(resultSet.getDouble("tot_detalle"));
                 orderDetail.setPrecio_ganancia(resultSet.getDouble("precio_ganancia"));
+                
                 orderDetail.setState(resultSet.getString("state"));
                 orderDetail.setOrder_cost_id(resultSet.getInt("order_id"));//id individual de cada detalle
                 orderDetail.setProduction_order_detail_id(resultSet.getInt("production_order_detail_Id"));//id general de cada orden 
