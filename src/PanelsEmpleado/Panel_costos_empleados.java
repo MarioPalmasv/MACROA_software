@@ -606,11 +606,11 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBEliminarImpuesto)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jBCalcularCostoProd)
-                        .addComponent(jBCalcularCostoProdAll)))
+                        .addComponent(jBCalcularCostoProdAll))
+                    .addComponent(jBEliminarImpuesto))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
@@ -756,6 +756,7 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
                     if (taxeDAO.insert(taxe)) {
                         JOptionPane.showMessageDialog(null, "Se ingresó el impuesto");
                         this.cargar_table();
+                        this.limpiar();
                     }
                     else{
                         JOptionPane.showMessageDialog(null, "Error al ingresar el impuesto");

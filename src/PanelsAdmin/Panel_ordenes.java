@@ -483,8 +483,10 @@ public class Panel_ordenes extends javax.swing.JPanel {
                         lProdAgg.clear();
                         lProdDetalle.clear();
                         this.CargarListProdAgg();
+                        this.JTComentIn.setText("Ingrese comentario");
+                        this.jTNombreOrdenIN.setText("Ingrese nombre de orden");
                     } else{
-                        //no se pudo, borrar lo del textfield y colocar de nuevo el ingrese nombre y eso
+                     
                         JOptionPane.showMessageDialog(null, "No se ha logrado ingresar la orden.");
                     }
                 }else{
@@ -650,6 +652,8 @@ public class Panel_ordenes extends javax.swing.JPanel {
                         this.lProd.get(index).getConstante_mod());
                 lProdAgg.add(prod);
                 this.CargarListProdAgg();
+                this.jTCantidad.setText("Cantidad");
+                this.jTColaCromada.setText("Costo de cola cromada");
             } else{
                 JOptionPane.showMessageDialog(null, "Error al ingresar la informacion de datos.");
             }

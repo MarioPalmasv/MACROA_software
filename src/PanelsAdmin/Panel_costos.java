@@ -668,6 +668,7 @@ public class Panel_costos extends javax.swing.JPanel {
                     if (taxeDAO.insert(taxe)) {
                         JOptionPane.showMessageDialog(null, "Se ingresó el impuesto");
                         this.cargar_table();
+                        this.limpiar();
                     }
                     else{
                         JOptionPane.showMessageDialog(null, "Error al ingresar el impuesto");
