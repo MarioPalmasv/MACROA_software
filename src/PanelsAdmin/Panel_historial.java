@@ -28,11 +28,10 @@ public class Panel_historial extends javax.swing.JPanel {
 
     //variables ordenes 
     int id_orden, id_user, cantidad, order_cost_id, production_order_detail_Id;
-
-    String nombre_user, pass_user, nombre, comentario, producto, hecho_por,total_reporte;
+    String nombre_user, pass_user, nombre, comentario, producto, hecho_por, total_reporte;
     Date fecha;
-
-    double sub_total, cola_cromada, total_modelo, costo_primo, precio_venta, costo_venta_agregado, ganancia,tot_detalle,tot_pagar;
+    double sub_total, cola_cromada, total_modelo, costo_primo, precio_venta, 
+                costo_venta_agregado, ganancia, tot_detalle, tot_pagar;
 
     //clases
     ProductOrder ordenes;
@@ -77,13 +76,16 @@ public class Panel_historial extends javax.swing.JPanel {
 
     void limpiar() {
         this.JTBuscarOrden.setText("");
-
+        this.JTAsignaPorsentaje.setText("");
+        this.JBVolver.setEnabled(true);
+        this.JTAsignaPorsentaje.setText("");
+        this.JBaddPorcentaje.setEnabled(false);
         id_orden = 0;
     }
 
     void cargarTablaOrdenes() {
         Model_Ordenes.setRowCount(0);
-        String[] nombreColum = {"Creada Por", "Nombre ", "Fecha", "Comentario"};
+        String[] nombreColum = {"Creada Por", "Nombre de orden ", "Fecha", "Comentario"};
         Model_Ordenes.setColumnIdentifiers(nombreColum);
         try {
             List_ordenes = ordenesDAO.ListarOrdenesCombinadoUser();
@@ -99,25 +101,23 @@ public class Panel_historial extends javax.swing.JPanel {
                 }
             }
         } catch (Exception e) {
-            System.out.println("error en tabla 1" + e);
+            JOptionPane.showMessageDialog(null, "No se puede cargar la tabla, revise la conexion del servidor.");
         }
         this.jTableOrdenes.setModel(Model_Ordenes);
         this.jTableOrdenes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         this.jTableOrdenes.setFillsViewportHeight(true);
         this.JBVolver.setEnabled(false);
     }
-
+    
     //Cragar tabla de busqueda
     void cargarTablaOrdenEspecifica(String nombreOrden) {
         Model_Ordenes.setRowCount(0);
-        String[] nombreColum = {"Creada Por", "Nombre ", "Fecha", "Comentario"};
+        String[] nombreColum = {"Creada Por", "Nombre de orden", "Fecha", "Comentario"};
         Model_Ordenes.setColumnIdentifiers(nombreColum);
-
-        List_ordenes = ordenesDAO.ListarOrdenesNombre(nombreOrden);
-
+        try {
+             List_ordenes = ordenesDAO.ListarOrdenesNombre(nombreOrden);
         if (List_ordenes.size() > -1) {
-            for (int i = 0; i < List_ordenes.size(); i++) {
-                //si es A lo mostrara ?
+            for (int i = 0; i < List_ordenes.size(); i++) {                
                 if (List_ordenes.get(i).getState().equals("a")) {
                     Model_Ordenes.addRow(new Object[]{
                         List_ordenes.get(i).getNombre_user(),
@@ -127,6 +127,14 @@ public class Panel_historial extends javax.swing.JPanel {
                 }
             }
         }
+        if (Model_Ordenes.getRowCount() == 0  ) {
+            JOptionPane.showMessageDialog(null, "No se encontró ninguna orden con ese nombre.");
+             }
+        
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(null, "Error al Conectar con la Base de datos. \nRevise la conexion");
+        }
+       
         this.jTableOrdenes.setModel(Model_Ordenes);
         this.jTableOrdenes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         this.jTableOrdenes.setFillsViewportHeight(true);
@@ -135,7 +143,7 @@ public class Panel_historial extends javax.swing.JPanel {
 
     void cargarTablaDetalleOrder() {
         Model_Det_Ordenes.setRowCount(0);
-        String[] nombreColum = {"Producto ", "Cantidad","Cola Cromada", "Sub Total", "Total modelo","Costo Primo",  "Precio Venta","Tot detalle", "Ganancia"};
+        String[] nombreColum = {"Producto ", "Cantidad", "Cola Cromada", "Sub Total", "Total modelo", "Costo Primo", "Precio Venta", "Tot detalle", "Ganancia"};
         Model_Det_Ordenes.setColumnIdentifiers(nombreColum);
 
         List_DetOrden = Det_ordenDAO.ListarOrderDetailsCombinado(id_orden);
@@ -147,17 +155,16 @@ public class Panel_historial extends javax.swing.JPanel {
                             List_DetOrden.get(i).getNombre_prod(),
                             List_DetOrden.get(i).getQuantity(),
                             List_DetOrden.get(i).getCosto_cola_cromada(),
-                            List_DetOrden.get(i).getSub_total(),                            
+                            List_DetOrden.get(i).getSub_total(),
                             List_DetOrden.get(i).getCosto_total_modelo(),
-                            List_DetOrden.get(i).getCosto_primo(),                           
-                            List_DetOrden.get(i).getPrecio_venta(),      
+                            List_DetOrden.get(i).getCosto_primo(),
+                            List_DetOrden.get(i).getPrecio_venta(),
                             List_DetOrden.get(i).getTot_detalle(),
-                            List_DetOrden.get(i).getPrecio_ganancia(),
-                        });                        
+                            List_DetOrden.get(i).getPrecio_ganancia(),});
                     }
                 }
                 this.JBReportes.setEnabled(true);
-            }            
+            }
             if (Model_Det_Ordenes.getRowCount() < 1) {
                 JOptionPane.showMessageDialog(null, "Orden incompleta, No se puede mostrar.");
                 this.JBReportes.setEnabled(false);
@@ -165,8 +172,8 @@ public class Panel_historial extends javax.swing.JPanel {
 
             //this.jTableOrdenes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
             this.jTableOrdenes.setFillsViewportHeight(true);
-            this.jTableDetalleOrden.setModel(Model_Det_Ordenes);        
-            
+            this.jTableDetalleOrden.setModel(Model_Det_Ordenes);
+
             //OBTENER EL TOTAL A PAGAR
             int columnToSum1 = 7; // Índice de la columna 6
             int rowCount = jTableDetalleOrden.getRowCount();
@@ -222,13 +229,10 @@ public class Panel_historial extends javax.swing.JPanel {
         jTableOrdenes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jTableOrdenes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jTableOrdenes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -255,17 +259,8 @@ public class Panel_historial extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Impact", 0, 30)); // NOI18N
         jLabel2.setText("Historial de Ordenes");
 
-        jTableDetalleOrden.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTableDetalleOrden.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTableDetalleOrden.setName(""); // NOI18N
         jTableDetalleOrden.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableDetalleOrdenMouseClicked(evt);
@@ -334,6 +329,8 @@ public class Panel_historial extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("Total a pagar:");
 
+        JT_totalPagar.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -386,7 +383,7 @@ public class Panel_historial extends javax.swing.JPanel {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(111, 111, 111)
                                 .addComponent(jLabel6)))
-                        .addGap(0, 13, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,10 +425,11 @@ public class Panel_historial extends javax.swing.JPanel {
                             .addComponent(JTAsignaPorsentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(JBaddPorcentaje))))
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(JT_totalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JT_totalPagar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel8)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
@@ -440,7 +438,8 @@ public class Panel_historial extends javax.swing.JPanel {
 
     private void JBBuscarOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarOrdenActionPerformed
         //BTN BUSCAR La orden
-        String NombreOrden = this.JTBuscarOrden.getText();
+        try {
+             String NombreOrden = this.JTBuscarOrden.getText();
         if (!NombreOrden.isEmpty()) {
             this.cargarTablaOrdenEspecifica(NombreOrden);
             Model_Det_Ordenes.setRowCount(0);
@@ -450,12 +449,12 @@ public class Panel_historial extends javax.swing.JPanel {
             this.JBaddPorcentaje.setEnabled(false);
             //
         } else {
-            JOptionPane.showMessageDialog(null, "Ingrese el nombre de una orden");
+            JOptionPane.showMessageDialog(null, "Ingrese el nombre de una orden");            
         }
         limpiar();
-        this.JBVolver.setEnabled(true);
-        this.JTAsignaPorsentaje.setText("");
-        this.JBaddPorcentaje.setEnabled(false);
+        } catch (HeadlessException e) {
+        }
+       
     }//GEN-LAST:event_JBBuscarOrdenActionPerformed
 
     private void JBVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBVolverActionPerformed
@@ -489,7 +488,7 @@ public class Panel_historial extends javax.swing.JPanel {
                 JTDetalle_seleccionado.setText("");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ningún elemento de la tabla" + e);
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningún elemento de la tabla.");
         }
     }//GEN-LAST:event_jTableOrdenesMouseClicked
 
@@ -498,7 +497,7 @@ public class Panel_historial extends javax.swing.JPanel {
             if (this.jTableDetalleOrden.getSelectedRow() > -1) {
                 int index = this.jTableDetalleOrden.getSelectedRow();
                 this.JTDetalle_seleccionado.setText(List_DetOrden.get(index).getNombre_prod());
-                
+
                 tot_detalle = this.List_DetOrden.get(index).getTot_detalle();
 //                total_modelo = this.List_DetOrden.get(index).getCosto_total_modelo(); //eliminar aqui el valor
                 order_cost_id = this.List_DetOrden.get(index).getOrder_cost_id();
@@ -516,11 +515,12 @@ public class Panel_historial extends javax.swing.JPanel {
                         jTableDetalleOrden.getValueAt(i, 0).toString(), //nombre
                         jTableDetalleOrden.getValueAt(i, 1).toString(), //cantidad
                         jTableDetalleOrden.getValueAt(i, 2).toString(),//cola cromada
-                        jTableDetalleOrden.getValueAt(i, 3).toString(),//costo primo
-                        jTableDetalleOrden.getValueAt(i, 4).toString(), //sub total
-                        jTableDetalleOrden.getValueAt(i, 5).toString(),//precio venta
-                        jTableDetalleOrden.getValueAt(i, 6).toString(),//tot modelo
-                        jTableDetalleOrden.getValueAt(i, 7).toString() // ganancia
+                        jTableDetalleOrden.getValueAt(i, 3).toString(),//sub total
+                        jTableDetalleOrden.getValueAt(i, 4).toString(),//tot modelo
+                        jTableDetalleOrden.getValueAt(i, 5).toString(),//costo primo
+                        jTableDetalleOrden.getValueAt(i, 6).toString(),//precio venta
+                        jTableDetalleOrden.getValueAt(i, 7).toString(),//tot detalle
+                        jTableDetalleOrden.getValueAt(i, 8).toString() // ganancia
                 );
                 lista.add(listaOrden);
             }
@@ -532,6 +532,7 @@ public class Panel_historial extends javax.swing.JPanel {
             parametros.put("user_name", hecho_por);
             parametros.put("fecha", String.valueOf(fecha));
             parametros.put("comentario", comentario);
+            parametros.put("tot_pagar", total_reporte);
 
             JasperPrint jPrint = JasperFillManager.fillReport(reporte, parametros, new JRBeanCollectionDataSource(lista));
             // Obtener la ruta del escritorio del usuario
@@ -550,15 +551,14 @@ public class Panel_historial extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Se guardó el archivo en la carpeta: Reportes Macroa. En su escritorio.");
         } catch (JRException ex) {
             System.out.println("error: " + ex);
-            JOptionPane.showMessageDialog(null, "Ocurrió un error al general el reporte.");
-            JOptionPane.showMessageDialog(null, "La orden existe, pero no contiene ningún detalle.");
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al general el reporte.");            
         }
     }//GEN-LAST:event_JBReportesActionPerformed
 
     private void JBaddPorcentajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBaddPorcentajeActionPerformed
         try {
             double Porcentaje = Double.parseDouble(this.JTAsignaPorsentaje.getText());
-
+            System.out.println("porcentaje: "+ Porcentaje);
             if (Porcentaje >= 0) {
                 ganancia = 0;
                 if (!JTOrdenSelect.getText().trim().isEmpty() && JTDetalle_seleccionado.getText().trim().isEmpty()) {
@@ -566,30 +566,36 @@ public class Panel_historial extends javax.swing.JPanel {
                         order_cost_id = this.List_DetOrden.get(i).getOrder_cost_id();
                         tot_detalle = this.List_DetOrden.get(i).getCosto_total_modelo();
 
-                        ganancia = ((tot_detalle - costo_venta_agregado)) * (Porcentaje / 100);                        
+                        ganancia = ((tot_detalle - costo_venta_agregado)) * (Porcentaje / 100);
                         // Redondear ganancia al entero siguiente
                         ganancia = Math.ceil(ganancia);
                         this.ordenesDetail.setPrecio_ganancia(ganancia);
                         this.ordenesDetail.setOrder_cost_id(order_cost_id);//El ID al que pertenece la orden 
                         Det_ordenDAO.insert_valor_agregado(ordenesDetail);
+                        
                     }
-                } else {
+                    JOptionPane.showMessageDialog(null, "Se actualizo el porcentaje.");
+                } 
+                else {
                     ganancia = ((tot_detalle - costo_venta_agregado)) * (Porcentaje / 100);
                     // Redondear ganancia al entero siguiente
-                      System.out.println("ganaciaa: "+ ganancia);
+                    //System.out.println("ganaciaa: " + ganancia);
                     ganancia = Math.ceil(ganancia);
                     this.ordenesDetail.setPrecio_ganancia(ganancia);
                     this.ordenesDetail.setOrder_cost_id(order_cost_id);//El ID al que pertenece la orden                         
                     Det_ordenDAO.insert_valor_agregado(ordenesDetail);
+                    JOptionPane.showMessageDialog(null, "Se actualizo el porcentaje.");
                 }
                 cargarTablaDetalleOrder();
                 cargarTablaOrdenes();
                 this.JTAsignaPorsentaje.setText("");
                 JTDetalle_seleccionado.setText("");
-            }
-            JOptionPane.showMessageDialog(null, "Se actualizo el porcentaje.");
+            }            
+            else if (Porcentaje <= -1) {
+                    JOptionPane.showMessageDialog(null, "Solo se acepta números positivos");
+                }
         } catch (HeadlessException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El porcentaje solo admite números.");
+            JOptionPane.showMessageDialog(null, "Por favor ingrese números válidos");
         }
     }//GEN-LAST:event_JBaddPorcentajeActionPerformed
 

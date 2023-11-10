@@ -14,19 +14,29 @@ public class JasperClase {
     private String precio_venta;
     private String total_modelo;
     private String ganancia;
+    private String tot_detalle;
 
-    public JasperClase(String producto, String cantidad, String cola_cromada, String costo_primo, String sub_total, String precio_venta, String total_modelo, String ganancia) {
+    public JasperClase(String producto, String cantidad, String cola_cromada,String sub_total,String total_modelo,   String costo_primo,  String precio_venta,  String tot_detalle,String ganancia) {
         this.producto = producto;
         this.cantidad = cantidad;
-        this.cola_cromada = cola_cromada;
-        this.costo_primo = costo_primo;
+        this.cola_cromada = cola_cromada;      
         this.sub_total = sub_total;
-        this.precio_venta = precio_venta;
         this.total_modelo = total_modelo;
+          this.costo_primo = costo_primo;
+        this.precio_venta = precio_venta;
+        this.tot_detalle = tot_detalle;
         this.ganancia = ganancia;
         
     }
 
+    public String getTot_detalle() {
+        return tot_detalle;
+    }
+
+    public void setTot_detalle(String tot_detalle) {
+        this.tot_detalle = tot_detalle;
+    }
+ 
     public String getProducto() {
         return producto;
     }

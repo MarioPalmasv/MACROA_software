@@ -205,14 +205,15 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBIngresarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIngresarSistemaActionPerformed
+       try {
         String usuario = this.jTUserIN.getText();
         String password = this.jTPasswordIN.getText();
         String claveEncriptada = encrip.Encriptar(password);
         user = userdao.IngresarSistema(usuario, claveEncriptada);
 
         boolean ExisteUserName = false;
-      
-        for (int i = 0; i < userdao.ListarUsuarios().size(); i++) {
+       
+             for (int i = 0; i < userdao.ListarUsuarios().size(); i++) {
             if (usuario.equals(userdao.ListarUsuarios().get(i).getUser_name())
                     && claveEncriptada.equals(userdao.ListarUsuarios().get(i).getPassword_user())) {
                 
@@ -252,10 +253,15 @@ public class Login extends javax.swing.JFrame {
                 LoginLogsDAO loginLogsDAO = new LoginLogsDAO();
                 loginLogsDAO.InsertarLoginLog(ipAddress, user.getUser_id());
             }
+                   //JOptionPane.showMessageDialog(null, "No se puede cargar la tabla, revise la conexion al servidor.");
         }
       else {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
       }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al Conectar con la Base de datos. \nRevise la conexion");
+        }
+       
         
     }//GEN-LAST:event_jBIngresarSistemaActionPerformed
 

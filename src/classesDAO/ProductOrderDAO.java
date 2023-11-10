@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -88,7 +89,7 @@ public class ProductOrderDAO implements DML<ProductOrder> {
     public List<ProductOrder> ListarOrdenesCombinadoUser() {
         List<ProductOrder> lista_ordenProd = new ArrayList<>();
         try {
-            String sql = "SELECT p.production_order_Id, u.user_name, p.nombre, p.order_date, p.coment, p.state"
+            String sql = "SELECT p.production_order_Id, CONCAT(u.first_name, ' ', u.last_name) AS creada_por, p.nombre, p.order_date, p.coment, p.state"
                     + " FROM product_order p "
                     + "JOIN USER u ON p.user_id = u.user_id;";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
@@ -98,7 +99,7 @@ public class ProductOrderDAO implements DML<ProductOrder> {
                 ProductOrder order = new ProductOrder();
                 
                 order.setProduction_order_id(resultSet.getInt("production_order_Id"));
-                order.setNombre_user(resultSet.getString("user_name"));
+                order.setNombre_user(resultSet.getString("creada_por"));
                 order.setNombre(resultSet.getString("nombre"));
                 order.setOrder_date(resultSet.getDate("order_date"));
                 order.setComent(resultSet.getString("coment"));
@@ -117,7 +118,7 @@ public class ProductOrderDAO implements DML<ProductOrder> {
     public List<ProductOrder> ListarOrdenesNombre(String HNombre) {
         List<ProductOrder> lista_ordenProd = new ArrayList<>();
         try {
-            String sql = "SELECT p.production_order_Id, u.user_name, p.nombre, p.order_date, p.coment, p.state"
+            String sql = "SELECT p.production_order_Id, CONCAT(u.first_name, ' ', u.last_name) AS creada_por, p.nombre, p.order_date, p.coment, p.state"
                     + " FROM product_order p "
                     + "JOIN USER u ON p.user_id = u.user_id "
                     + "WHERE p.nombre like ?;";
@@ -129,7 +130,7 @@ public class ProductOrderDAO implements DML<ProductOrder> {
                 ProductOrder order = new ProductOrder();
                 
                 order.setProduction_order_id(resultSet.getInt("production_order_Id"));
-                order.setNombre_user(resultSet.getString("user_name"));
+                order.setNombre_user(resultSet.getString("creada_por"));
                 order.setNombre(resultSet.getString("nombre"));
                 order.setOrder_date(resultSet.getDate("order_date"));
                 order.setComent(resultSet.getString("coment"));
@@ -141,6 +142,7 @@ public class ProductOrderDAO implements DML<ProductOrder> {
             preparedStatement.close();
             
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al Conectar con la Base de datos. \nRevise la conexion");
         }
 
         return lista_ordenProd;

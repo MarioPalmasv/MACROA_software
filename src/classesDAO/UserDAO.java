@@ -56,7 +56,7 @@ public class UserDAO implements DML<User>{
                 }
             }
         } catch (SQLException e) {
-
+            //JOptionPane.showMessageDialog(null, "Error al Conectar con la Base de datos. \nRevise la conexion");
         }
 
         return user; 

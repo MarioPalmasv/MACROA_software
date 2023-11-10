@@ -156,7 +156,7 @@ public class production_order_detailDAO implements DML<ProductionOrderDetail> {
         List<ProductionOrderDetail> OrderD_lista = new ArrayList<>();
         //sumar el precio venta + ganancia y cambiar el modelo tamb
         try {
-            String sql = "SELECT u.user_name AS creada_por, po.nombre AS nombre_orden, po.order_date AS fecha, " +
+            String sql = "SELECT  CONCAT(u.first_name, ' ', u.last_name) AS creada_por, po.nombre AS nombre_orden, po.order_date AS fecha, " +
                     "p.nombre AS producto, " +
                     "pod.quantity AS cantidad, " +
                     "pod.sub_total, " +
