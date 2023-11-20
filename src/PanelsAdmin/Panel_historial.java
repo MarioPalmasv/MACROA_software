@@ -253,7 +253,7 @@ public class Panel_historial extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Buscar por nombre:");
 
         jLabel2.setFont(new java.awt.Font("Impact", 0, 30)); // NOI18N
@@ -297,7 +297,7 @@ public class Panel_historial extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Orden seleccionada:");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -314,10 +314,10 @@ public class Panel_historial extends javax.swing.JPanel {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("Asignar nuevo %");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setText("Producto seleccionado");
 
         JTDetalle_seleccionado.setEditable(false);
@@ -326,7 +326,7 @@ public class Panel_historial extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Impact", 0, 36)); // NOI18N
         jLabel6.setText("Historial & Reportes");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Total a pagar:");
 
         JT_totalPagar.setEditable(false);

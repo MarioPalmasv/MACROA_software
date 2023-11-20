@@ -344,5 +344,31 @@ public class production_order_detailDAO implements DML<ProductionOrderDetail> {
 
         return costo_primo;
     }
+    
+    public int VerificarCostos(int idproduct, int idproductionDet){
+        int cant = 0;
+        
+        try {
+            String sql = "SELECT COUNT(oc.order_id) as cant FROM order_cost oc JOIN production_order_detail pd "
+                    + "ON oc.production_order_detail_Id = pd.production_order_detail_Id WHERE oc.production_order_detail_Id = ? AND pd.product_id = ?";
+
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1, idproductionDet);
+            preparedStatement.setInt(2, idproduct);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                cant = resultSet.getInt("cant");
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+        }
+        
+        
+        return cant;
+    }
 
 }

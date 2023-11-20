@@ -275,6 +275,11 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jBCalcularCostoProd = new javax.swing.JButton();
         jBCalcularCostoProdAll = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(192, 190, 186));
 
@@ -284,7 +289,6 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
         jLabel1.setText("Costos");
 
         jTNombreBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTNombreBuscar.setText("Ingrese el nombre del impuesto a buscar");
         jTNombreBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTNombreBuscarMouseClicked(evt);
@@ -328,7 +332,6 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
         });
 
         jTNombreIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTNombreIN.setText("Ingrese el nombre del impuesto");
         jTNombreIN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTNombreINMouseClicked(evt);
@@ -341,7 +344,6 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
         });
 
         JTPorcentajeIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        JTPorcentajeIN.setText("Ingrese el porcentaje");
         JTPorcentajeIN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 JTPorcentajeINMouseClicked(evt);
@@ -371,7 +373,6 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
 
         jTDecimalIN.setEditable(false);
         jTDecimalIN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTDecimalIN.setText("Valor en decimal");
 
         jBIngresar.setBackground(new java.awt.Color(95, 207, 95));
         jBIngresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -392,7 +393,6 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
         });
 
         jTNombreBuscarOrden.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTNombreBuscarOrden.setText("Buscar orden");
         jTNombreBuscarOrden.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTNombreBuscarOrdenMouseClicked(evt);
@@ -483,7 +483,7 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
 
         jBCalcularCostoProd.setBackground(new java.awt.Color(255, 117, 117));
         jBCalcularCostoProd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jBCalcularCostoProd.setText("Calcular costo por prodcuto");
+        jBCalcularCostoProd.setText("Calcular costo por producto");
         jBCalcularCostoProd.setEnabled(false);
         jBCalcularCostoProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -501,84 +501,113 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setText("Ingrese el nombre del impuesto:");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setText("Ingrese el nombre del impuesto a buscar:");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setText("Ingrese el porcentaje:");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setText("Valor en decimal:");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setText("Buscar orden:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(423, 423, 423)
-                .addComponent(jLabel1)
-                .addContainerGap(484, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jBAggImpuesto)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTNombreIN)
-                                    .addComponent(JTPorcentajeIN)
-                                    .addComponent(jTDecimalIN, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(59, 59, 59)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jTNombreBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jBBuscar))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(22, 22, 22))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jTNombreBuscarOrden, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jBBuscarOrden))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel7))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(jBIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBModificar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTNombreBuscarOrden, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                                .addGap(103, 103, 103)
+                                .addComponent(jLabel2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBBuscarOrden))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(85, 85, 85)
-                                        .addComponent(jLabel2))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(239, 239, 239))))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jBCalcularCostoProd)
                         .addGap(26, 26, 26)
                         .addComponent(jBCalcularCostoProdAll, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jBEliminarImpuesto)
                 .addGap(65, 65, 65))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBAggImpuesto, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jBIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBModificar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(508, 508, 508))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(343, 343, 343)
+                                            .addComponent(jLabel1))
+                                        .addComponent(jLabel3))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel4))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTNombreIN)
+                                            .addComponent(JTPorcentajeIN)
+                                            .addComponent(jTDecimalIN, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel6))
+                                    .addGap(59, 59, 59)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jTNombreBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jBBuscar))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jTNombreIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addGap(4, 4, 4)
                         .addComponent(JTPorcentajeIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addGap(3, 3, 3)
                         .addComponent(jTDecimalIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -592,19 +621,24 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
                     .addComponent(jBModificar)
                     .addComponent(jBAggImpuesto)
                     .addComponent(jButton1))
-                .addGap(49, 49, 49)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTNombreBuscarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBBuscarOrden))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -622,9 +656,7 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -868,93 +900,26 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
     }//GEN-LAST:event_jTNombreINActionPerformed
 
     private void jBCalcularCostoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularCostoProdActionPerformed
-        boolean continuar = true;
-
+        {                                                    
+       boolean continuar = true;
+       
         if(this.jTableDetalle.getSelectedRow()>-1){
-            double suma_impuestos = 0.0;
-            double costoacumluado = 0.0;
-            int index = this.jTableDetalle.getSelectedRow();
-
-            int idprod= this.lDetalle.get(index).getProduct_id();
+           double suma_impuestos = 0.0;
+           double costoacumluado = 0.0;
+           int index = this.jTableDetalle.getSelectedRow();
+           
+           int idprod= this.lDetalle.get(index).getProduct_id();
             int idorden = this.lDetalle.get(index).getProduction_order_id();
             int iddetalle = this.lDetalle.get(index).getProduction_order_detail_id();
-
-            int response = JOptionPane.showConfirmDialog(null, "¿Desea el costo del producto "+this.lDetalle.get(index).getNombre_prod()+"? Se utilizaran los impuestos a;adidos al detella.",
-                "Confirmar", JOptionPane.YES_NO_OPTION);
+            
+            int response = JOptionPane.showConfirmDialog(null, "¿Desea el costo del producto "+this.lDetalle.get(index).getNombre_prod()+"? Se utilizaran los impuestos a;adidos al detella.", 
+                   "Confirmar", JOptionPane.YES_NO_OPTION);
 
             if(response == JOptionPane.YES_OPTION){
-                double costomodelo = detalleDAO.getCostoModelo(idprod, idorden);
-                double costoprimo = detalleDAO.getCostoPrimo(costomodelo, idprod, idorden);
-                costoacumluado = costoprimo;
-                TaxeUse taxeUsados;
-
-                for (int j = 0; j < this.lImpAg.size(); j++) {
-                    suma_impuestos = (costoacumluado*this.lImpAg.get(j).getVALUE())+costoacumluado;
-                    costoacumluado = suma_impuestos;
-                }
-
-                if(continuar){
-                    OrderCostDAO costDao = new OrderCostDAO();
-                    OrderCost costo = new OrderCost( iddetalle, costomodelo, costoprimo, suma_impuestos);
-                    if(costDao.insert(costo)){
-                        continuar = true;
-                        int idcostos = costDao.getLastOrderId();
-                        for (int j = 0; j < this.lImpAg.size(); j++) {
-                            taxeUsados = new TaxeUse(idcostos, this.lImpAg.get(j).getTaxe_id());
-                            taxUseDao.insert(taxeUsados);
-
-                            if(taxUseDao.insert(taxeUsados)){
-                                continue;
-                            } else{
-                                JOptionPane.showMessageDialog(null, "Error en impuestos");
-                                continuar = false;
-                                break;
-                            }
-                        }
-                    } else{
-                        JOptionPane.showMessageDialog(null, "Ha surgido un error.");
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Error en impuestos");
-                }
-
-                if(continuar){
-                    JOptionPane.showMessageDialog(null, "Se han calculado los costos para los productos.");
-                }
-
-                this.lImpAg.clear();
-                this.lDetalle.clear();
-                this.cargarTablaOrdenes();
-                this.cargarTablaImpAgg();
-                this.cargarTablaDetalles();
-                this.jBCalcularCostoProd.setEnabled(false);
-                this.jBCalcularCostoProdAll.setEnabled(false);
-                this.jBEliminarImpuesto.setEnabled(false);
-                this.jBIngresar.setEnabled(true);
-                this.jBModificar.setEnabled(false);
-                this.jBAggImpuesto.setEnabled(false);
-            }else{
-                JOptionPane.showConfirmDialog(null, "Se ha cancelado la operacion.");
-            }
-
-        }
-    }//GEN-LAST:event_jBCalcularCostoProdActionPerformed
-
-    private void jBCalcularCostoProdAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularCostoProdAllActionPerformed
-        double suma_impuestos = 0.0;
-        double costoacumluado = 0.0;
-        boolean continuar = true;
-
-        int response = JOptionPane.showConfirmDialog(null, "¿Desea el costo de todos los productos del detalle? Se utilizaran los impuestos a;adidos al detalle.",
-            "Confirmar", JOptionPane.YES_NO_OPTION);
-
-        if(response == JOptionPane.YES_OPTION){
-            try{
-                for (int i = 0; i < lDetalle.size(); i++) {
-                    int idprod= this.lDetalle.get(i).getProduct_id();
-                    int idorden = this.lDetalle.get(i).getProduction_order_id();
-                    int iddetalle = this.lDetalle.get(i).getProduction_order_detail_id();
-
+                
+                production_order_detailDAO detalleDAO = new production_order_detailDAO();
+                    
+                if(detalleDAO.VerificarCostos(idprod, iddetalle) == 0){
                     double costomodelo = detalleDAO.getCostoModelo(idprod, idorden);
                     double costoprimo = detalleDAO.getCostoPrimo(costomodelo, idprod, idorden);
                     costoacumluado = costoprimo;
@@ -971,48 +936,139 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
                         if(costDao.insert(costo)){
                             continuar = true;
                             int idcostos = costDao.getLastOrderId();
-                            for (int j = 0; j < this.lImpAg.size(); j++) {
-                                taxeUsados = new TaxeUse(idcostos, this.lImpAg.get(j).getTaxe_id());
-                                taxUseDao.insert(taxeUsados);
+                                for (int j = 0; j < this.lImpAg.size(); j++) {
+                                    taxeUsados = new TaxeUse(idcostos, this.lImpAg.get(j).getTaxe_id());
+                                    taxUseDao.insert(taxeUsados);
 
-                                if(taxUseDao.insert(taxeUsados)){
-                                    continue;
-                                } else{
-                                    JOptionPane.showMessageDialog(null, "Error en impuestos");
-                                    continuar = false;
-                                    break;
+                                    if(taxUseDao.insert(taxeUsados)){
+                                        continue;
+                                    } else{
+                                        JOptionPane.showMessageDialog(null, "Error en impuestos");
+                                        continuar = false;
+                                        break;
+                                    }
                                 }
-                            }
                         } else{
-                            JOptionPane.showMessageDialog(null, "Ha surgido un error.");
+                            JOptionPane.showMessageDialog(null, "Ha surgido un error."); 
                         }
                     }else{
                         JOptionPane.showMessageDialog(null, "Error en impuestos");
                     }
+                } else{
+                    JOptionPane.showMessageDialog(null, "Ya se ha calculado el costo de este producto.");
                 }
-
+                
+                
                 if(continuar){
-                    JOptionPane.showMessageDialog(null, "Se han calculado los costos para los productos.");
+                    JOptionPane.showMessageDialog(null, "Se han calculado los costos para los productos."); 
+                    this.lImpAg.clear();
+                    this.lDetalle.clear();
+                    this.cargarTablaOrdenes();
+                    this.cargarTablaImpAgg();
+                    this.cargarTablaDetalles();
+                    this.jBCalcularCostoProd.setEnabled(false);
+                    this.jBCalcularCostoProdAll.setEnabled(false);
+                    this.jBEliminarImpuesto.setEnabled(false);
+                    this.jBIngresar.setEnabled(true);
+                    this.jBModificar.setEnabled(false);
+                    this.jBAggImpuesto.setEnabled(false);
                 }
+                
+                
+            }else{
+                JOptionPane.showConfirmDialog(null, "Se ha cancelado la operacion.");
+            }
 
-                this.lImpAg.clear();
-                this.lDetalle.clear();
-                this.cargarTablaOrdenes();
-                this.cargarTablaImpAgg();
-                this.cargarTablaDetalles();
-                this.jBCalcularCostoProd.setEnabled(false);
-                this.jBCalcularCostoProdAll.setEnabled(false);
-                this.jBEliminarImpuesto.setEnabled(false);
-                this.jBIngresar.setEnabled(true);
-                this.jBModificar.setEnabled(false);
-                this.jBAggImpuesto.setEnabled(false);
+           
+       }
+    } 
+    }//GEN-LAST:event_jBCalcularCostoProdActionPerformed
 
+    private void jBCalcularCostoProdAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularCostoProdAllActionPerformed
+        double suma_impuestos = 0.0;
+        double costoacumluado = 0.0;
+        boolean continuar = true;
+        
+        int response = JOptionPane.showConfirmDialog(null, "¿Desea el costo de todos los productos del detalle? Se utilizaran los impuestos a;adidos al detalle.", 
+                   "Confirmar", JOptionPane.YES_NO_OPTION);
+
+        if(response == JOptionPane.YES_OPTION){
+            try{
+                for (int i = 0; i < lDetalle.size(); i++) {
+                    int idprod= this.lDetalle.get(i).getProduct_id();
+                    int idorden = this.lDetalle.get(i).getProduction_order_id();
+                    int iddetalle = this.lDetalle.get(i).getProduction_order_detail_id();
+                    
+                    production_order_detailDAO detalleDAO = new production_order_detailDAO();
+                    
+                    if(detalleDAO.VerificarCostos(idprod, iddetalle) == 0){
+                        double costomodelo = detalleDAO.getCostoModelo(idprod, idorden);
+                        double costoprimo = detalleDAO.getCostoPrimo(costomodelo, idprod, idorden);
+                        costoacumluado = costoprimo;
+                        TaxeUse taxeUsados;
+
+                        for (int j = 0; j < this.lImpAg.size(); j++) {
+                            suma_impuestos = (costoacumluado*this.lImpAg.get(j).getVALUE())+costoacumluado;
+                            costoacumluado = suma_impuestos;
+                        }
+
+                        if(continuar){
+                            OrderCostDAO costDao = new OrderCostDAO();
+                            OrderCost costo = new OrderCost( iddetalle, costomodelo, costoprimo, suma_impuestos);
+                            if(costDao.insert(costo)){
+                                continuar = true;
+                                int idcostos = costDao.getLastOrderId();
+                                for (int j = 0; j < this.lImpAg.size(); j++) {
+                                    taxeUsados = new TaxeUse(idcostos, this.lImpAg.get(j).getTaxe_id());
+                                    taxUseDao.insert(taxeUsados);
+
+                                    if(taxUseDao.insert(taxeUsados)){
+                                        continue;
+                                    } else{
+                                        JOptionPane.showMessageDialog(null, "Error en impuestos");
+                                        continuar = false;
+                                        break;
+                                    }
+                                }
+                            } else{
+                                JOptionPane.showMessageDialog(null, "Ha surgido un error."); 
+                            }
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Error al generar costos.");
+                        }
+                        
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Los costos ya han sido calculados."); 
+                    }
+
+                    
+                }
+                
+                if(continuar){
+                    JOptionPane.showMessageDialog(null, "Se han calculado los costos para los productos."); 
+                    this.lImpAg.clear();
+                    this.lDetalle.clear();
+                    this.cargarTablaOrdenes();
+                    this.cargarTablaImpAgg();
+                    this.cargarTablaDetalles();
+                    this.jBCalcularCostoProd.setEnabled(false);
+                    this.jBCalcularCostoProdAll.setEnabled(false);
+                    this.jBEliminarImpuesto.setEnabled(false);
+                    this.jBIngresar.setEnabled(true);
+                    this.jBModificar.setEnabled(false);
+                    this.jBAggImpuesto.setEnabled(false);
+                }
+                
+                
+                
+                
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Ha surgido un error.");
             }
         }else{
-
+            JOptionPane.showMessageDialog(null, "Se ha cancelado la acción.");
         }
+        
 
     }//GEN-LAST:event_jBCalcularCostoProdAllActionPerformed
 
@@ -1030,6 +1086,11 @@ public class Panel_costos_empleados extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

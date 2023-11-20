@@ -18,8 +18,6 @@ public class Panel_reportes extends javax.swing.JPanel {
         id_user = id;
         nombre_user = nombre;
         pass_user = pass;
-            
-        this.jLUser.setText(nombre_user);
     }
 
     /**
@@ -31,35 +29,60 @@ public class Panel_reportes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLUser = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jBIngresarSistema = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(102, 255, 255));
+        setBackground(new java.awt.Color(192, 190, 186));
         setPreferredSize(new java.awt.Dimension(1000, 710));
         setRequestFocusEnabled(false);
 
-        jLUser.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLUser.setText("Bienvenido: User");
+        jLabel1.setFont(new java.awt.Font("Impact", 0, 36)); // NOI18N
+        jLabel1.setText("Recuperación.");
+
+        jBIngresarSistema.setBackground(new java.awt.Color(0, 0, 0));
+        jBIngresarSistema.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jBIngresarSistema.setForeground(new java.awt.Color(255, 255, 255));
+        jBIngresarSistema.setText("Recuperar Información");
+        jBIngresarSistema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBIngresarSistemaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLUser)
-                .addContainerGap(788, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBIngresarSistema)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(700, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLUser)
-                .addContainerGap(657, Short.MAX_VALUE))
+                .addGap(80, 80, 80)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jBIngresarSistema)
+                .addContainerGap(530, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBIngresarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIngresarSistemaActionPerformed
+        try {
+          
+        } catch (Exception e) {
+            
+        }
+
+    }//GEN-LAST:event_jBIngresarSistemaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLUser;
+    private javax.swing.JButton jBIngresarSistema;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
